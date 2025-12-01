@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>مستر أبل لتجارة الهواتف النقالة وإكسسواراتها</title>
+    <style>
+        /* أنيميشن ظهور راقي */
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            animation: fadeUp 1.2s ease forwards;
+        }
+
+        .hero-subtitle {
+            animation: fadeUp 1.6s ease forwards;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #ffffff; /* الأبيض */
+        }
+
+        header {
+            background:#111;
+            color:#fff;
+            padding:15px;
+            text-align:center;
+            font-size:26px;
+        }
+
+        .products {
+            display:grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap:20px;
+            padding:20px;
+        }
+
+        .card {
+            background:#fff;
+            border-radius:12px;
+            padding:15px;
+            box-shadow:0 3px 8px rgba(0,0,0,0.1);
+            transition:0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width:100%;
+            border-radius:10px;
+            margin-bottom:8px;
+        }
+
+        /* عنوان المنتج - في المنتصف + خلفية شفافة + أنيميشن */
+        .card h3 {
+            margin:10px 0;
+            font-size:20px;
+            color:#111; /* نص واضح */
+            text-align:center;
+            background: rgba(0,0,0,0.03); /* خلفية شفافة خفيفة */
+            padding:8px 10px;
+            border-radius:10px;
+            transition: 0.3s ease;
+        }
+
+        .card h3:hover {
+            color:#ff7a00;               /* تغيير اللون عند الـ hover */
+            animation: titleBounce 0.4s ease; /* تأثير بونس ناعم */
+        }
+
+        @keyframes titleBounce {
+            0%   { transform: scale(1) translateY(0); }
+            30%  { transform: scale(1.06) translateY(-4px); }
+            60%  { transform: scale(1.02) translateY(2px); }
+            100% { transform: scale(1) translateY(0); }
+        }
+
+        .card p {
+            color:#333; /* رمادي غامق */
+            font-size:15px;
+        }
+
+        .price {
+            color:#e63946;
+            font-size:18px;
+            margin:5px 0;
+            font-weight:bold;
+        }
+
+        footer {
+            text-align:center;
+            padding:15px;
+            background:#111;
+            color:#fff;
+            margin-top:20px;
+        }
+
+        /* سلايدر (لم يعد مستخدماً مع الفيديو لكن نترك الستايل لو احتجته لاحقاً) */
+        .slider {
+            width: 100%;
+            height: 700px;
+            overflow: hidden;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            opacity: 0;
+            transform: scale(1.05);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* أزرار السلايدر (حالياً ليست مستخدمة مع الفيديو) */
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.4);
+            color: #fff;
+            border: none;
+            font-size: 28px;
+            padding: 6px 14px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: 0.3s;
+            z-index: 5;
+        }
+
+        .slider-btn:hover {
+            background: rgba(0,0,0,0.75);
+        }
+
+        .prev {
+            left: 15px;
+        }
+
+        .next {
+            right: 15px;
+        }
+
+        /* زر عرض التفاصيل في منتصف الكارد مع حركة خفيفة */
+        .detail-btn {
+            display: block;
+            margin: 15px auto 0;       /* وسط الكارت أفقياً */
+            padding: 10px 18px;
+            background: #ff7a00;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s ease;
+            animation: floatBtn 1.5s infinite ease-in-out;
+        }
+
+        /* أنيميشن خفيف للأعلى والأسفل */
+        @keyframes floatBtn {
+            0%   { transform: translateY(0); }
+            50%  { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        .detail-btn:hover {
+            background: #ff8f22;
+            transform: scale(1.05);
+        }
+    </style>
+    
+</head>
+
+<body>
+
+    <!-- قسم الغلاف الرئيسي (Hero Section) -->
+    <section style="
+        background:#f5f5f7; 
+        padding:60px 20px; 
+        text-align:center;
+    ">
+
+        <div style="
+            background: rgba(255,255,255,0.7);
+            display:inline-block;
+            padding:20px 40px;
+            border-radius:16px;
+            backdrop-filter: blur(6px);
+            margin-bottom:15px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+        ">
+
+            <h1 style="font-size:40px; margin:0; color:#000;">
+                مرحباً بك في مستر أبل
+            </h1>
+
+            <p style="font-size:20px; margin-top:10px; margin-bottom:0; color:#333;">
+                أفضل متجر لبيع الهواتف النقالة وإكسسواراتها
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- فيديو بدل السلايدر -->
+    <div style="width:100%; overflow:hidden; height:550px;">
+        <video autoplay muted loop playsinline style="
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        ">
+            <source src="images/banner.mp4.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- شريط اختيار الأقسام -->
+    <h2 style="color:#000; text-align:right; padding:0 20px; margin-top:40px;">اختر القسم</h2>
+
+    <div style="text-align:center; margin:10px 0 20px;">
+        <button onclick="showCategory('apple')" style="margin:5px; padding:20px 16px; border-radius:20px; border:none; cursor:pointer; background:#ff7a00; color:#fff;">
+            منتجات Apple
+        </button>
+        <button onclick="showCategory('samsung')" style="margin:5px; padding:20px 16px; border-radius:20px; border:none; cursor:pointer; background:#333; color:#fff;">
+            منتجات Samsung
+        </button>
+        <button onclick="showCategory('accessories')" style="margin:5px; padding:20px 16px; border-radius:20px; border:none; cursor:pointer; background:#333; color:#fff;">
+            قسم الإكسسوارات
+        </button>
+    </div>
+
+   <!-- قسم منتجات Apple -->
+<section id="apple" class="products category" style="display:grid;">
+
+    <div class="card">
+        <img src="images/iphone17promax.png" alt="iPhone 17 Pro Max">
+        <h3 style="min-height: 50px;">iPhone 17 Pro Max</h3>
+        <a href="iphone17promax.html" class="detail-btn">
+            عرض التفاصيل
+        </a>
+    </div>
+
+    <div class="card">
+        <img src="images/iphone17promax.png" alt="iPhone 17 Pro">
+        <h3 style="min-height: 50px;">iPhone 17 Pro</h3>
+        <a href="iphone17pro.html" class="detail-btn">
+            عرض التفاصيل
+        </a>
+    </div>
+
+    <div class="card">
+        <img src="images/iphone17air.png" alt="iPhone 17 Air">
+        <h3 style="min-height: 50px;">iPhone 17 Air</h3>
+        <a href="#" class="detail-btn">
+            عرض التفاصيل
+        </a>
+    </div>
+
+    <div class="card">
+        <img src="images/iphone17.png" alt="iPhone 17">
+        <h3 style="min-height: 50px;">iPhone 17</h3>
+        <a href="#" class="detail-btn">
+            عرض التفاصيل
+        </a>
+    </div>
+
+    <div class="card">
+        <img src="images/iphone13.png" alt="iPhone 13">
+        <h3 style="min-height: 50px;">iPhone 13</h3>
+        <a href="#" class="detail-btn">
+            عرض التفاصيل
+        </a>
+    </div>
+
+    <div class="card">
+        <img src="images/ipadpro13m5.png" alt="iPad Pro 13 M5">
+        <h3 style="min-height: 50px;">iPad Pro 13 M5</h3>
+        <a href="#" class="detail-btn">
+            عرض التفاصيل
+        </a>
+    </div>
+
+    <div class="card">
+        <img src="images/ipadpro11m5.png" alt="iPad Pro 11 M5">
+        <h3 style="min-height: 50px;">iPad Pro 11 M5</h3>
+        <a href="#" class="detail-btn">
+            عرض التفاصيل
+        </a>
+    </div>
+
+    <div class="card">
+        <img src="images/ipada16.png.png" alt="iPad 11 A16 - 256GB">
+        <h3 style="min-height: 50px;">iPad 11 A16 - 256GB</h3>
+        <a href="#" class="detail-btn">
+            عرض التفاصيل
+        </a>
+    </div>
+
+    <div class="card">
+        <img src="images/ipada16.png.png" alt="iPad 11 A16 - 128GB">
+        <h3 style="min-height: 50px;">iPad 11 A16 - 128GB</h3>
+        <a href="#" class="detail-btn">
+            عرض التفاصيل
+        </a>
+    </div>
+
+</section>
+
+    <!-- قسم منتجات Samsung -->
+    <section id="samsung" class="products category" style="display:none;">
+
+        <div class="card">
+            <img src="images/s24ultra.jpg" alt="Samsung S24 Ultra">
+            <h3>Samsung S24 Ultra</h3>
+            <p>كاميرا 200MP – بطارية 5000mAh – شاشة 120Hz</p>
+            <div class="price">السعر: 1100$</div>
+        </div>
+
+        <!-- يمكنك إضافة المزيد من أجهزة سامسونج هنا -->
+
+    </section>
+
+    <!-- قسم الإكسسوارات -->
+    <section id="accessories" class="products category" style="display:none;">
+
+        <div class="card">
+            <img src="images/airpodspro.jpg" alt="AirPods Pro">
+            <h3>AirPods Pro</h3>
+            <p>عزل ضوضاء – صوت نقي – شحن MagSafe</p>
+            <div class="price">السعر: 220$</div>
+        </div>
+
+        <!-- أضف المزيد من الإكسسوارات هنا -->
+
+    </section>
+
+    <!-- قسم تواصل معنا -->
+    <section style="background:#111; color:#fff; padding:30px 20px; margin-top:40px; text-align:right;">
+        <h2 style="margin-top:0; margin-bottom:15px;">تواصل معنا</h2>
+
+        <p style="margin:5px 0;">📞 الهاتف: 9544 234 0781</p>
+        <p style="margin:5px 0;">📞 الهاتف: 6864 148 0771</p>
+        <p style="margin:5px 0;">📍 العنوان: الديوانية - ام الخيل - مقابل جامع ابراهيم الخليل</p>
+
+        <a href="https://wa.link/x77my7" target="_blank"
+           style="display:inline-block; margin-top:10px; padding:10px 18px; background:#25d366; color:#fff; text-decoration:none; border-radius:8px;">
+            تواصل عبر واتساب
+        </a>
+    </section>
+
+    <footer>© 2025 جميع الحقوق محفوظة – مستر أبل لتجارة الهواتف النقالة وإكسسواراتها</footer>
+
+    <script>
+    // إظهار/إخفاء الأقسام
+    function showCategory(id) {
+        // أخفي كل الأقسام
+        document.querySelectorAll('.category').forEach(sec => {
+            sec.style.display = 'none';
+        });
+
+        // أظهر القسم المطلوب
+        const active = document.getElementById(id);
+        if (active) {
+            active.style.display = 'grid';
+        }
+    }
+    </script>
+
+</body>
+</html>

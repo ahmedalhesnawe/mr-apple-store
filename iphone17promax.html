@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>iPhone 17 Pro Max – مستر أبل</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle at top, #222 0, #050505 45%, #000 100%);
+            color: #fff;
+        }
+
+        .top-bar {
+            background:#000;
+            padding:10px 20px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .top-bar .logo { font-weight:bold; font-size:18px; }
+
+        .top-bar a { color:#aaa; text-decoration:none; font-size:14px; }
+
+        .page-wrap {
+            max-width: 1100px;
+            margin: 30px auto 40px;
+            padding: 0 20px;
+        }
+
+        .product-layout { display:flex; flex-wrap:wrap; gap:40px; }
+
+        .product-gallery { flex:1 1 320px; text-align:center; }
+
+        .product-gallery img {
+            max-width:100%;
+            border-radius:24px;
+        }
+
+        .thumbs {
+            display:flex; justify-content:center; gap:10px; margin-top:12px;
+        }
+
+        .thumbs div {
+            width:16px; height:16px; border-radius:50%; border:2px solid #555;
+        }
+
+        .silver { background:#d9d9d9; }
+        .blue   { background:#1c2f4f; }
+        .orange { background:#ff7a1a; }
+
+        .product-info { flex:1 1 320px; }
+
+        .product-info h1 { font-size:32px; margin:0 0 10px; }
+
+        .subtitle { color:#bbb; margin-bottom:15px; }
+
+        .price-line { margin:12px 0 20px; font-size:20px; }
+        .price-line span { color:#ffcc33; font-weight:bold; }
+
+        .section-label {
+            font-size:14px;
+            color:#b0b0b0;
+            margin-bottom:6px;
+            margin-top:12px;
+        }
+
+        .option-row { display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+
+        /* زر السعة */
+        .capacity-chip {
+            border-radius:999px;
+            border:1px solid #555;
+            padding:8px 14px;
+            font-size:14px;
+            cursor:pointer;
+            background:transparent;
+            color:#fff;
+        }
+
+        .capacity-chip.active {
+            border-color:#fff;
+            background:#1a1a1a;
+        }
+
+        /* زر اللون */
+        .color-chip {
+            border-radius:999px;
+            border:1px solid #555;
+            padding:6px 14px;
+            font-size:13px;
+            cursor:pointer;
+            background:transparent;
+            color:#fff;
+        }
+
+        .color-chip.active {
+            border-color:#fff;
+            background:#1a1a1a;
+        }
+
+        .btn-whatsapp {
+            display:inline-block;
+            margin-top:15px;
+            padding:10px 18px;
+            background:#25d366;
+            color:#fff;
+            border-radius:8px;
+            text-decoration:none;
+        }
+
+        .specs {
+            margin-top:40px;
+            padding:20px;
+            background:#111;
+            border-radius:16px;
+        }
+
+        .specs-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+            gap:15px;
+        }
+
+        .spec-card {
+            padding:12px;
+            border:1px solid #333;
+            border-radius:12px;
+            font-size:14px;
+        }
+
+        .back-link { color:#8ab4ff; text-decoration:none; margin-top:20px; display:inline-block; }
+
+        @media (max-width:768px) {
+            .product-layout { flex-direction:column; }
+            .product-info h1 { font-size:26px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="top-bar">
+<a href="index.html" class="logo">
+    <img src="images/logo.png" alt="Mr Apple Logo" style="height:80px;">
+</a>
+    <a href="index.html">العودة إلى المتجر</a>
+</header>
+
+<div class="page-wrap">
+
+    <div class="product-layout">
+
+        <!-- الصورة -->
+        <div class="product-gallery">
+            <!-- الصورة الأساسية (تتغير حسب اللون) -->
+            <img id="mainImage" src="images/iphone17promax.png" alt="iPhone 17 Pro Max">
+
+            <!-- نقاط الألوان (استعراض بصري فقط) -->
+            <div class="thumbs">
+                <div class="silver"></div>
+                <div class="blue"></div>
+                <div class="orange"></div>
+            </div>
+        </div>
+
+        <!-- المعلومات -->
+        <div class="product-info">
+
+            <h1>iPhone 17 Pro Max</h1>
+            <div class="subtitle">أداء احترافي، تصميم فاخر، بطارية تدوم طوال اليوم.</div>
+
+            <!-- السعر المتغير -->
+            <div id="priceBox" class="price-line">
+                السعر: <span id="realPrice">  1.670.000 IQD </span>
+            </div>
+
+           <!-- السعات -->
+<div class="section-label">سعة التخزين</div>
+
+<div class="option-row">
+    <button class="capacity-chip active" onclick="selectCapacity('256', this)">256GB</button>
+    <button class="capacity-chip" onclick="selectCapacity('512', this)">512GB</button>
+    <button class="capacity-chip" onclick="selectCapacity('1TB', this)">1TB</button>
+</div>
+
+
+            <!-- الألوان -->
+<div class="section-label">اللون</div>
+
+<div class="option-row">
+    <button class="color-chip active" onclick="selectColor('silver', this)">فضي</button>
+    <button class="color-chip" onclick="selectColor('blue', this)">أزرق</button>
+    <button class="color-chip" onclick="selectColor('orange', this)">برتقالي</button>
+</div>
+
+
+    <!-- المواصفات -->
+    <section class="specs">
+        <h2>أهم المواصفات</h2>
+
+        <div class="specs-grid">
+
+            <div class="spec-card"><strong>الشاشة</strong><br>Super Retina XDR بدقة عالية ومعدل تحديث سلس.</div>
+            <div class="spec-card"><strong>المعالج</strong><br>A19 Pro لأداء قوي في الألعاب والتطبيقات الثقيلة.</div>
+            <div class="spec-card"><strong>الكاميرات</strong><br>نظام كاميرات احترافي مع تصوير ليلي وفيديو بدقة عالية جداً.</div>
+            <div class="spec-card"><strong>البطارية</strong><br>بطارية تدوم طوال اليوم مع دعم الشحن السريع واللاسلكي.</div>
+            <div class="spec-card"><strong>الاتصال</strong><br>دعم 5G، Wi-Fi سريع، و eSIM.</div>
+            <div class="spec-card"><strong>مزايا إضافية</strong><br>مقاوم للماء والغبار، Face ID، صوت استيريو.</div>
+
+        </div>
+
+        <a href="index.html" class="back-link">🔙 العودة للمتجر</a>
+    </section>
+
+</div>
+
+<!-- سكربت تغيير السعر واللون -->
+<script>
+// حالة مبدئية
+let selectedCapacity = '256';   // 256GB
+let selectedColor    = 'silver'; // فضي
+
+// جدول الأسعار لكل (سعة + لون)
+const priceTable = {
+    '256': {
+        silver: '1.700.000 IQD',
+        blue:   '1.700.000 IQD',
+        orange: '1.670.000 IQD'
+    },
+    '512': {
+        silver: '2.290.000 IQD',
+        blue:   '2.290.000 IQD',
+        orange: '2.290.000 IQD'
+    },
+    '1TB': {
+        silver: '2.690.000 IQD',
+        blue:   '2.690.000 IQD',
+        orange: '2.690.000 IQD'
+    }
+};
+
+// تغيير الصورة حسب اللون
+const imageMap = {
+    silver: 'images/ip17pmsi.png',
+    blue:   'images/ip17pmbl.png',
+    orange: 'images/ip17pmor.png'
+};
+
+// دالة تحديث السعر حسب السعة + اللون الحاليين
+function updatePrice() {
+    const priceSpan = document.getElementById('realPrice');
+    const price = priceTable[selectedCapacity][selectedColor];
+    priceSpan.textContent = price;
+}
+
+// عند اختيار سعة
+function selectCapacity(capacity, btn) {
+    selectedCapacity = capacity;
+
+    // إزالة active من جميع أزرار السعة
+    document.querySelectorAll('.capacity-chip').forEach(b => b.classList.remove('active'));
+    // إضافة active للزر الحالي
+    btn.classList.add('active');
+
+    // تحديث السعر
+    updatePrice();
+}
+
+// عند اختيار لون
+function selectColor(colorKey, btn) {
+    selectedColor = colorKey;
+
+    // تغيير الصورة
+    const img = document.getElementById('mainImage');
+    if (imageMap[colorKey]) {
+        img.src = imageMap[colorKey];
+    }
+
+    // إزالة active من جميع أزرار الألوان
+    document.querySelectorAll('.color-chip').forEach(b => b.classList.remove('active'));
+    // إضافة active للزر الحالي
+    btn.classList.add('active');
+
+    // تحديث السعر
+    updatePrice();
+}
+
+// أول تشغيل للصفحة
+updatePrice();
+</script>
+
+
+
+</body>
+</html>
