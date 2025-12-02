@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>iPhone 13 – مستر أبل</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle at top, #222 0, #050505 45%, #000 100%);
+            color: #fff;
+        }
+
+        .top-bar {
+            background:#000;
+            padding:10px 20px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .top-bar .logo { font-weight:bold; font-size:18px; }
+
+        .top-bar a { color:#aaa; text-decoration:none; font-size:14px; }
+
+        .page-wrap {
+            max-width: 1100px;
+            margin: 30px auto 40px;
+            padding: 0 20px;
+        }
+
+        .product-layout {
+            display:flex;
+            flex-wrap:wrap;
+            gap:40px;
+        }
+
+        .product-gallery { flex:1 1 320px; text-align:center; }
+
+        .product-gallery img {
+            max-width:100%;
+            border-radius:24px;
+        }
+
+        .product-info { flex:1 1 320px; }
+
+        .product-info h1 { font-size:32px; margin:0 0 10px; }
+
+        .subtitle { color:#bbb; margin-bottom:15px; }
+
+        .price-line { margin:12px 0 20px; font-size:20px; }
+        .price-line span { color:#ffcc33; font-weight:bold; }
+
+        .section-label {
+            font-size:14px;
+            color:#b0b0b0;
+            margin-bottom:6px;
+            margin-top:12px;
+        }
+
+        .option-row { display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+
+        .capacity-chip,
+        .color-chip {
+            border-radius:999px;
+            border:1px solid #555;
+            padding:8px 14px;
+            font-size:14px;
+            cursor:pointer;
+            background:#1a1a1a;
+            color:#fff;
+        }
+
+        .capacity-chip.active,
+        .color-chip.active {
+            border-color:#fff;
+        }
+
+        .specs {
+            margin-top:40px;
+            padding:20px;
+            background:#111;
+            border-radius:16px;
+        }
+
+        .specs-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+            gap:15px;
+        }
+
+        .spec-card {
+            padding:12px;
+            border:1px solid #333;
+            border-radius:12px;
+            font-size:14px;
+        }
+
+        .back-link { color:#8ab4ff; text-decoration:none; margin-top:20px; display:inline-block; }
+
+        @media (max-width:768px) {
+            .product-layout { flex-direction:column; }
+            .product-info h1 { font-size:26px; }
+        }
+    </style>
+
+</head>
+<body>
+
+<header class="top-bar">
+    <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Mr Apple Logo" style="height:80px;">
+    </a>
+    <a href="index.html">العودة إلى المتجر</a>
+</header>
+
+<div class="page-wrap">
+
+    <div class="product-layout">
+
+        <!-- الصورة -->
+        <div class="product-gallery">
+            <img id="mainImage" src="images/iphone13.png" alt="iPhone 13">
+        </div>
+
+        <!-- المعلومات -->
+        <div class="product-info">
+
+            <h1>iPhone 13</h1>
+            <div class="subtitle">تصميم قوي، معالج سريع A15 وبطارية تدوم أكثر.</div>
+
+            <!-- السعر -->
+            <div class="price-line">
+                السعر: <span id="realPrice">640.000 IQD</span>
+            </div>
+
+            <!-- السعة -->
+            <div class="section-label">سعة التخزين</div>
+            <div class="option-row">
+                <button class="capacity-chip active">128GB</button>
+            </div>
+
+            <!-- اللون -->
+            <div class="section-label">اللون</div>
+            <div class="option-row">
+                <button class="color-chip active">أبيض</button>
+            </div>
+
+            <!-- المواصفات -->
+            <section class="specs">
+                <h2>أهم المواصفات</h2>
+
+                <div class="specs-grid">
+
+                    <div class="spec-card">
+                        <strong>الشاشة</strong><br>
+                        Super Retina XDR مقاس 6.1 إنش OLED – سطوع عالي وألوان دقيقة.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>المعالج</strong><br>
+                        شريحة A15 Bionic لأداء سريع جداً وتوفير ممتاز للطاقة.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>الكاميرات</strong><br>
+                        كاميرتين 12MP – Wide + Ultra Wide مع تصوير سينمائي وفيديو 4K.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>البطارية</strong><br>
+                        بطارية تدوم لليوم كامل مع شحن سريع + شحن MagSafe.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>الذاكرة</strong><br>
+                        128GB تخزين داخلي بدون ذاكرة خارجية.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>الاتصال</strong><br>
+                        5G – WiFi 6 – Bluetooth 5.0 – NFC – Face ID.
+                    </div>
+
+                </div>
+
+                <a href="index.html" class="back-link">🔙 العودة للمتجر</a>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>iPad Pro 13 (2025) – مستر أبل</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle at top, #222 0, #050505 45%, #000 100%);
+            color: #fff;
+        }
+
+        .top-bar {
+            background:#000;
+            padding:10px 20px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .top-bar .logo { font-weight:bold; font-size:18px; }
+
+        .top-bar a { color:#aaa; text-decoration:none; font-size:14px; }
+
+        .page-wrap {
+            max-width: 1100px;
+            margin: 30px auto 40px;
+            padding: 0 20px;
+        }
+
+        .product-layout {
+            display:flex;
+            flex-wrap:wrap;
+            gap:40px;
+        }
+
+        .product-gallery { flex:1 1 320px; text-align:center; }
+
+        .product-gallery img {
+            max-width:100%;
+            border-radius:24px;
+        }
+
+        .thumbs {
+            display:flex;
+            justify-content:center;
+            gap:10px;
+            margin-top:12px;
+        }
+
+        .thumbs div {
+            width:16px;
+            height:16px;
+            border-radius:50%;
+            border:2px solid #555;
+        }
+
+        .silver-dot { background:#d4d4d4; }
+        .black-dot  { background:#111; }
+
+        .product-info { flex:1 1 320px; }
+
+        .product-info h1 { font-size:32px; margin:0 0 10px; }
+
+        .subtitle { color:#bbb; margin-bottom:15px; }
+
+        .price-line { margin:12px 0 20px; font-size:20px; }
+        .price-line span { color:#ffcc33; font-weight:bold; }
+
+        .section-label {
+            font-size:14px;
+            color:#b0b0b0;
+            margin-bottom:6px;
+            margin-top:12px;
+        }
+
+        .option-row { display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+
+        .capacity-chip,
+        .color-chip,
+        .chip-type {
+            border-radius:999px;
+            border:1px solid #555;
+            padding:8px 14px;
+            font-size:14px;
+            cursor:pointer;
+            background:#1a1a1a;
+            color:#fff;
+        }
+
+        .capacity-chip.active,
+        .color-chip.active,
+        .chip-type.active {
+            border-color:#fff;
+        }
+
+        .specs {
+            margin-top:40px;
+            padding:20px;
+            background:#111;
+            border-radius:16px;
+        }
+
+        .specs-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+            gap:15px;
+        }
+
+        .spec-card {
+            padding:12px;
+            border:1px solid #333;
+            border-radius:12px;
+            font-size:14px;
+        }
+
+        .back-link { color:#8ab4ff; text-decoration:none; margin-top:20px; display:inline-block; }
+
+        @media (max-width:768px) {
+            .product-layout { flex-direction:column; }
+            .product-info h1 { font-size:26px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="top-bar">
+    <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Mr Apple Logo" style="height:80px;">
+    </a>
+    <a href="index.html">العودة إلى المتجر</a>
+</header>
+
+<div class="page-wrap">
+
+    <div class="product-layout">
+
+        <!-- الصورة -->
+        <div class="product-gallery">
+            <img id="mainImage" src="images/ipadpro13m5.png" alt="iPad Pro 13 (2025)">
+
+            <div class="thumbs">
+                <div class="silver-dot"></div>
+                <div class="black-dot"></div>
+            </div>
+        </div>
+
+        <!-- المعلومات -->
+        <div class="product-info">
+
+            <h1>iPad Pro 13 (2025)</h1>
+            <div class="subtitle">
+                آيباد برو بحجم 13 إنش مع خيارات معالج M4 أو M5، مثالي للمونتاج، التصميم، الألعاب والدراسة.
+            </div>
+
+            <!-- السعر -->
+            <div class="price-line">
+                السعر: <span id="realPrice">1.775.000 IQD</span>
+            </div>
+
+            <!-- المعالج -->
+            <div class="section-label">المعالج</div>
+            <div class="option-row">
+                <button class="chip-type"  onclick="selectChip('M4', this)">M4</button>
+                <button class="chip-type active" onclick="selectChip('M5', this)">M5</button>
+            </div>
+
+            <!-- السعة -->
+            <div class="section-label">سعة التخزين</div>
+            <div class="option-row">
+                <button class="capacity-chip active" onclick="selectCapacity('256', this)">256GB</button>
+            </div>
+
+            <!-- الألوان -->
+            <div class="section-label">اللون</div>
+            <div class="option-row">
+                <button class="color-chip active" onclick="selectColor('silver', this)">Silver</button>
+                <button class="color-chip" onclick="selectColor('black', this)">Black</button>
+            </div>
+
+            <!-- المواصفات -->
+            <section class="specs">
+                <h2>أهم المواصفات</h2>
+
+                <div class="specs-grid">
+
+                    <div class="spec-card">
+                        <strong>الشاشة</strong><br>
+                        شاشة 13 إنش Ultra Retina XDR مع ProMotion 120Hz، سطوع عالي وألوان دقيقة مناسبة للمونتاج والعمل الاحترافي.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>المعالج</strong><br>
+                        خيارين للمعالج: Apple M4 أو Apple M5 حسب اختيارك، كلاهما يقدم أداء قوي جداً مع استهلاك طاقة ممتاز.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>الكاميرات</strong><br>
+                        كاميرا خلفية عالية الدقة مع Ultra Wide، وكاميرا أمامية مع Center Stage لمكالمات واجتماعات أونلاين مريحة.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>البطارية</strong><br>
+                        بطارية تكفي لساعات طويلة من العمل، الدراسة أو الترفيه، مع دعم الشحن السريع عبر USB-C.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>سعة التخزين</strong><br>
+                        256GB تخزين داخلي سريع لتطبيقات المونتاج، التصميم، الألعاب والملفات الكبيرة.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>الاتصال</strong><br>
+                        Wi-Fi عالي السرعة، إصدارات تدعم 5G (بحسب الموديل)، Bluetooth حديث، ومنفذ USB-C / Thunderbolt.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>الدعم والإكسسوارات</strong><br>
+                        دعم Apple Pencil الجيل الأحدث وMagic Keyboard لتحويل الآيباد إلى محطة عمل متكاملة.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>مزايا إضافية</strong><br>
+                        تصميم نحيف وخفيف، نظام iPadOS متعدد المهام، صوت ستيريو قوي، وحماية وأمان من أبل.
+                    </div>
+
+                </div>
+
+                <a href="index.html" class="back-link">🔙 العودة للمتجر</a>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+<script>
+// حالة مبدئية
+let selectedCapacity = '256';      // 256GB
+let selectedColor    = 'silver';   // اللون الافتراضي
+let selectedChip     = 'M5';       // المعالج الافتراضي
+
+// جدول الأسعار (حسب السعة + المعالج) – اللون لا يغير السعر
+const priceTable = {
+    '256': {
+        M4: '1.675.000 IQD',
+        M5: '1.775.000 IQD',
+    },
+};
+
+// ربط الألوان بالصور
+const imageMap = {
+    silver: 'images/ipadprom5si.png',
+    black:  'images/ipadprom5bl.png',
+};
+
+function updatePrice() {
+    const priceSpan = document.getElementById('realPrice');
+    const price = priceTable[selectedCapacity][selectedChip];
+    priceSpan.textContent = price;
+}
+
+function selectCapacity(capacity, btn) {
+    selectedCapacity = capacity;
+    document.querySelectorAll('.capacity-chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    updatePrice();
+}
+
+function selectColor(colorKey, btn) {
+    selectedColor = colorKey;
+
+    const img = document.getElementById('mainImage');
+    if (imageMap[colorKey]) {
+        img.src = imageMap[colorKey];
+    }
+
+    document.querySelectorAll('.color-chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+}
+
+function selectChip(chip, btn) {
+    selectedChip = chip;
+    document.querySelectorAll('.chip-type').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    updatePrice();
+}
+
+// أول تشغيل
+updatePrice();
+</script>
+
+</body>
+</html>
