@@ -30,12 +30,49 @@
             background: #ffffff; /* الأبيض */
         }
 
+        /* الهيدر الجديد */
         header {
             background:#111;
             color:#fff;
-            padding:15px;
-            text-align:center;
-            font-size:26px;
+            padding:10px 20px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        header .logo {
+            display:flex;
+            align-items:center;
+            gap:10px;
+            font-size:20px;
+            font-weight:bold;
+        }
+
+        header .logo img {
+            height:50px;
+        }
+
+        /* زر السلة في الهيدر */
+        .cart-link {
+            color:#fff;
+            font-size:16px;
+            text-decoration:none;
+            position:relative;
+            display:flex;
+            align-items:center;
+            gap:6px;
+        }
+
+        #cartCount {
+            display:none;
+            background:#ff4444;
+            color:#fff;
+            padding:2px 6px;
+            border-radius:50%;
+            font-size:12px;
+            position:absolute;
+            top:-6px;
+            right:-10px;
         }
 
         .products {
@@ -131,7 +168,6 @@
             transform: scale(1);
         }
 
-        /* أزرار السلايدر (حالياً ليست مستخدمة مع الفيديو) */
         .slider-btn {
             position: absolute;
             top: 50%;
@@ -151,18 +187,13 @@
             background: rgba(0,0,0,0.75);
         }
 
-        .prev {
-            left: 15px;
-        }
-
-        .next {
-            right: 15px;
-        }
+        .prev { left: 15px; }
+        .next { right: 15px; }
 
         /* زر عرض التفاصيل في منتصف الكارد مع حركة خفيفة */
         .detail-btn {
             display: block;
-            margin: 15px auto 0;       /* وسط الكارت أفقياً */
+            margin: 15px auto 0;
             padding: 10px 18px;
             background: #ff7a00;
             color: #fff;
@@ -175,7 +206,6 @@
             animation: floatBtn 1.5s infinite ease-in-out;
         }
 
-        /* أنيميشن خفيف للأعلى والأسفل */
         @keyframes floatBtn {
             0%   { transform: translateY(0); }
             50%  { transform: translateY(-5px); }
@@ -191,6 +221,19 @@
 </head>
 
 <body>
+
+    <!-- الهيدر الجديد مع زر السلة -->
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Mr Apple Logo">
+            <span>مستر أبل</span>
+        </div>
+
+        <a href="cart.html" class="cart-link">
+            🛒 السلة
+            <span id="cartCount">0</span>
+        </a>
+    </header>
 
     <!-- قسم الغلاف الرئيسي (Hero Section) -->
     <section style="
@@ -220,7 +263,6 @@
         </div>
 
     </section>
-
 
     <!-- فيديو بدل السلايدر -->
     <div style="width:100%; overflow:hidden; height:550px;">
@@ -327,8 +369,6 @@
             <div class="price">السعر: 1100$</div>
         </div>
 
-        <!-- يمكنك إضافة المزيد من أجهزة سامسونج هنا -->
-
     </section>
 
     <!-- قسم الإكسسوارات -->
@@ -340,8 +380,6 @@
             <p>عزل ضوضاء – صوت نقي – شحن MagSafe</p>
             <div class="price">السعر: 220$</div>
         </div>
-
-        <!-- أضف المزيد من الإكسسوارات هنا -->
 
     </section>
 
@@ -364,12 +402,9 @@
     <script>
     // إظهار/إخفاء الأقسام
     function showCategory(id) {
-        // أخفي كل الأقسام
         document.querySelectorAll('.category').forEach(sec => {
             sec.style.display = 'none';
         });
-
-        // أظهر القسم المطلوب
         const active = document.getElementById(id);
         if (active) {
             active.style.display = 'grid';
@@ -377,9 +412,8 @@
     }
     </script>
 
+    <!-- ربط نظام عربة التسوق -->
+    <script src="cart.js"></script>
+
 </body>
 </html>
-
-
-
-
