@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>iPad Pro 11 (2025) – مستر أبل</title>
+
+    <style>
+
+        /* زر السلة في الهيدر */
+        .cart-link {
+            color:#fff !important;
+            font-size:16px;
+            text-decoration:none;
+            position:relative;
+            display:flex;
+            align-items:center;
+            gap:6px;
+        }
+
+        #cartCount {
+            display:none;
+            background:#ff4444;
+            color:#fff;
+            padding:2px 6px;
+            border-radius:50%;
+            font-size:12px;
+            position:absolute;
+            top:-6px;
+            right:-10px;
+        }
+
+        /* زر أضف إلى السلة */
+        .btn-add-cart {
+            margin-top: 10px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            background: #25d366;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        .btn-add-cart:hover {
+            opacity: 0.9;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle at top, #222 0, #050505 45%, #000 100%);
+            color: #fff;
+        }
+
+        .top-bar {
+            background:#000;
+            padding:10px 20px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .top-bar .logo { font-weight:bold; font-size:18px; }
+
+        .top-bar a { color:#aaa; text-decoration:none; font-size:14px; }
+
+        .page-wrap {
+            max-width: 1100px;
+            margin: 30px auto 40px;
+            padding: 0 20px;
+        }
+
+        .product-layout {
+            display:flex;
+            flex-wrap:wrap;
+            gap:40px;
+        }
+
+        .product-gallery { flex:1 1 320px; text-align:center; }
+
+        .product-gallery img {
+            max-width:100%;
+            border-radius:24px;
+        }
+
+        .thumbs {
+            display:flex;
+            justify-content:center;
+            gap:10px;
+            margin-top:12px;
+        }
+
+        .thumbs div {
+            width:16px;
+            height:16px;
+            border-radius:50%;
+            border:2px solid #555;
+        }
+
+        .silver-dot { background:#d4d4d4; }
+        .black-dot  { background:#111; }
+
+        .product-info { flex:1 1 320px; }
+
+        .product-info h1 { font-size:32px; margin:0 0 10px; }
+
+        .subtitle { color:#bbb; margin-bottom:15px; }
+
+        .price-line { margin:12px 0 20px; font-size:20px; }
+        .price-line span { color:#ffcc33; font-weight:bold; }
+
+        .section-label {
+            font-size:14px;
+            color:#b0b0b0;
+            margin-bottom:6px;
+            margin-top:12px;
+        }
+
+        .option-row { display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+
+        .capacity-chip,
+        .color-chip,
+        .chip-type {
+            border-radius:999px;
+            border:1px solid #555;
+            padding:8px 14px;
+            font-size:14px;
+            cursor:pointer;
+            background:#1a1a1a;
+            color:#fff;
+        }
+
+        .capacity-chip.active,
+        .color-chip.active,
+        .chip-type.active {
+            border-color:#fff;
+        }
+
+        .specs {
+            margin-top:40px;
+            padding:20px;
+            background:#111;
+            border-radius:16px;
+        }
+
+        .specs-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+            gap:15px;
+        }
+
+        .spec-card {
+            padding:12px;
+            border:1px solid #333;
+            border-radius:12px;
+            font-size:14px;
+        }
+
+        .back-link { color:#8ab4ff; text-decoration:none; margin-top:20px; display:inline-block; }
+
+        @media (max-width:768px) {
+            .product-layout { flex-direction:column; }
+            .product-info h1 { font-size:26px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="top-bar">
+    <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Mr Apple Logo" style="height:80px;">
+    </a>
+
+    <div style="display:flex; align-items:center; gap:25px;">
+
+        <!-- زر السلة -->
+        <a href="cart.html" class="cart-link">
+            🛒 السلة
+            <span id="cartCount">0</span>
+        </a>
+
+        <!-- رجوع للمتجر -->
+        <a href="index.html">العودة إلى المتجر</a>
+    </div>
+</header>
+
+<div class="page-wrap">
+
+    <div class="product-layout">
+
+        <!-- الصورة -->
+        <div class="product-gallery">
+            <img id="mainImage" src="images/ipadpro13m5.png" alt="iPad Pro 11 (2025)">
+
+            <div class="thumbs">
+                <div class="silver-dot"></div>
+                <div class="black-dot"></div>
+            </div>
+        </div>
+
+        <!-- المعلومات -->
+        <div class="product-info">
+
+            <h1>iPad Pro 11 (2025)</h1>
+            <div class="subtitle">
+                آيباد برو بحجم 11 إنش مع خيارات معالج M4 أو M5، مثالي للمونتاج، التصميم، الألعاب والدراسة.
+            </div>
+
+            <!-- السعر -->
+            <div class="price-line">
+                السعر: <span id="realPrice">1.390.000 IQD</span>
+            </div>
+
+            <!-- زر أضف إلى السلة -->
+            <button class="btn-add-cart" onclick="handleAddToCart()">
+                أضف إلى السلة 🛒
+            </button>
+
+            <!-- المعالج -->
+            <div class="section-label">المعالج</div>
+            <div class="option-row">
+                <button class="chip-type"  onclick="selectChip('M4', this)">M4</button>
+                <button class="chip-type active" onclick="selectChip('M5', this)">M5</button>
+            </div>
+
+            <!-- السعة -->
+            <div class="section-label">سعة التخزين</div>
+            <div class="option-row">
+                <button class="capacity-chip active" onclick="selectCapacity('256', this)">256GB</button>
+            </div>
+
+            <!-- الألوان -->
+            <div class="section-label">اللون</div>
+            <div class="option-row">
+                <button class="color-chip active" onclick="selectColor('silver', this)">Silver</button>
+                <button class="color-chip" onclick="selectColor('black', this)">Black</button>
+            </div>
+
+            <!-- المواصفات -->
+           <section class="specs">
+                <h2>أهم المواصفات – iPad Pro 11 (2025)</h2>
+
+                <div class="specs-grid">
+
+                    <div class="spec-card">
+                        <strong>الشاشة</strong><br>
+                        شاشة 11 إنش Ultra Retina XDR بتقنية OLED، مع ProMotion 120Hz، وسطوع ممتاز للعمل والمونتاج والالعاب.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>المعالج</strong><br>
+                        خيارين للمعالج:  
+                        - Apple M4 القوي في المهام اليومية والتصميم  
+                        - Apple M5 للأداء الاحترافي والمونتاج والألعاب الثقيلة  
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>الكاميرات</strong><br>
+                        كاميرا خلفية عالية الدقة + Ultra-Wide، وكاميرا أمامية بدقة ممتازة مع Center Stage لتتبع الحركة أثناء مكالمات الفيديو.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>البطارية</strong><br>
+                        بطارية تدوم طوال اليوم، مع دعم الشحن السريع عبر USB-C وشحن Thunderbolt.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>سعة التخزين</strong><br>
+                        يتوفر بسعات: 128GB – 256GB – 512GB – 1TB (حسب الموديل).
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>الاتصال</strong><br>
+                        Wi-Fi 6E – بلوتوث حديث – دعم 5G (حسب الموديل) – منفذ USB-C / Thunderbolt 4.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>الصوت</strong><br>
+                        أربع سماعات ستيريو عالية الجودة مع توزيع صوت ذكي يناسب الألعاب والأفلام.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>الدعم والإكسسوارات</strong><br>
+                        يدعم Apple Pencil الجيل الجديد (USB-C) وMagic Keyboard Slim للكتابة والاستخدام الاحترافي.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>المزايا الإضافية</strong><br>
+                        تصميم نحيف جداً وخفيف، Face ID، نظام iPadOS مع أدوات الإنتاجية، ودعم تعدد المهام بشكل متقدم.
+                    </div>
+
+                </div>
+
+                <a href="index.html" class="back-link">🔙 العودة للمتجر</a>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+<script>
+// حالة مبدئية
+let selectedCapacity = '256';      // 256GB
+let selectedColor    = 'silver';   // اللون الافتراضي
+let selectedChip     = 'M5';       // المعالج الافتراضي
+
+// جدول الأسعار النصية
+const displayPriceTable = {
+    '256': {
+        M4: '1.330.000 IQD',
+        M5: '1.390.000 IQD',
+    },
+};
+
+// الأسعار الرقمية الحقيقية
+const numericPriceTable = {
+    '256': {
+        M4: 1330000,
+        M5: 1390000,
+    },
+};
+
+// ربط الألوان بالصور
+const imageMap = {
+    silver: 'images/ipadprom5si.png',
+    black:  'images/ipadprom5bl.png',
+};
+
+function updatePrice() {
+    const priceSpan = document.getElementById('realPrice');
+    const price = displayPriceTable[selectedCapacity][selectedChip];
+    priceSpan.textContent = price;
+}
+
+function selectCapacity(capacity, btn) {
+    selectedCapacity = capacity;
+    document.querySelectorAll('.capacity-chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    updatePrice();
+}
+
+function selectColor(colorKey, btn) {
+    selectedColor = colorKey;
+
+    const img = document.getElementById('mainImage');
+    if (imageMap[colorKey]) {
+        img.src = imageMap[colorKey];
+    }
+
+    document.querySelectorAll('.color-chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+}
+
+function selectChip(chip, btn) {
+    selectedChip = chip;
+    document.querySelectorAll('.chip-type').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    updatePrice();
+}
+
+// زر أضف إلى السلة
+function handleAddToCart() {
+    const numericPrice = numericPriceTable[selectedCapacity][selectedChip];
+
+    const colorLabelMap = {
+        silver: 'Silver',
+        black:  'Black'
+    };
+
+    const product = {
+        id: 'ipadpro11-2025',
+        name: 'iPad Pro 11 (2025)',
+        capacity: selectedCapacity + 'GB',
+        chip: selectedChip,
+        color: colorLabelMap[selectedColor] || selectedColor,
+        price: numericPrice
+    };
+
+    addToCart(product);
+}
+
+// أول تشغيل
+updatePrice();
+</script>
+<script src="cart.js"></script>
+
+</body>
+</html>
