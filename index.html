@@ -356,14 +356,7 @@
 
 
     <!-- قسم منتجات Samsung -->
-    <section id="samsung" class="products category" style="display:none;">
-
-        <div class="card">
-            <img src="images/s24ultra.jpg" alt="Samsung S24 Ultra">
-            <h3>Samsung S24 Ultra</h3>
-            <p>كاميرا 200MP – بطارية 5000mAh – شاشة 120Hz</p>
-            <div class="price">السعر: 1100$</div>
-        </div>
+    <section id="samsung" class="products category" style="display:grid;">
 
     </section>
 
@@ -579,6 +572,74 @@
     // تشغيل عند فتح الصفحة
     loadAppleProducts();
     </script>
+
+<script>
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQy4WWb2dGNoPn7G0mirIaYLF0p80wjsO7X7uEKMiFgubBXvN_QxiPBwl4HrAcotkjBkZ98UDf_GoST/pub?output=csv";
+
+let allSamsungProducts = [];
+
+async function loadSamsungProducts() {
+    try {
+        const res  = await fetch(SHEET_URL);
+        const text = await res.text();
+
+        const lines = text.trim().split("\n");
+        lines.shift();
+
+        allSamsungProducts = [];
+
+        lines.forEach(line => {
+            const cols = line.split(",");
+
+            const category = (cols[1] || "").trim().toLowerCase(); 
+            const name     = (cols[2] || "").trim();
+            const htmlFile = (cols[3] || "").trim();
+            const image    = (cols[4] || "").trim();
+            const price    = (cols[5] || "").trim();
+            const status   = (cols[7] || "").trim();
+
+            if (category !== "samsung") return;
+            if (!name) return;
+
+            allSamsungProducts.push({
+                name,
+                htmlFile: htmlFile || "#",
+                image: image || "images/logo.png",
+                price,
+                status
+            });
+        });
+
+        renderSamsungProducts();
+
+    } catch (err) {
+        console.error("Error loading Samsung products:", err);
+        document.getElementById("samsung").innerHTML =
+            "<p style='color:red; text-align:center;'>خطأ في تحميل أجهزة سامسونك ❌</p>";
+    }
+}
+
+function renderSamsungProducts() {
+    const container = document.getElementById("samsung");
+    container.innerHTML = "";
+
+    allSamsungProducts.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        card.innerHTML = `
+            <img src="${p.image}" alt="${p.name}">
+            <h3 style="min-height: 50px;">${p.name}</h3>
+            <div class="price">السعر: ${p.price}</div>
+            <a href="${p.htmlFile}" class="detail-btn">عرض التفاصيل</a>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+loadSamsungProducts();
+</script>
 
 
 </body>

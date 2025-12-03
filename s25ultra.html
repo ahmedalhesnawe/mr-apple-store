@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Samsung S25 Ultra – مستر أبل</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle at top, #111 0, #000 60%);
+            color: #fff;
+        }
+
+        /* الهيدر */
+        .top-bar {
+            background:#000;
+            padding:10px 20px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .logo img {
+            height:80px;
+        }
+
+        .cart-link {
+            color:#fff;
+            display:flex;
+            align-items:center;
+            gap:6px;
+            text-decoration:none;
+            position:relative;
+        }
+
+        #cartCount {
+            display:none;
+            background:#ff4444;
+            color:#fff;
+            padding:2px 6px;
+            border-radius:50%;
+            font-size:12px;
+            position:absolute;
+            top:-6px;
+            right:-10px;
+        }
+
+        /* المحتوى */
+        .page-wrap {
+            max-width: 1100px;
+            margin: 30px auto 40px;
+            padding: 0 20px;
+        }
+
+        .product-layout {
+            display:flex;
+            flex-wrap:wrap;
+            gap:40px;
+        }
+
+        .product-gallery img {
+            max-width:100%;
+            border-radius:20px;
+        }
+
+        .product-info h1 {
+            font-size:32px;
+            margin-bottom:10px;
+        }
+
+        .subtitle {
+            color:#ccc;
+            margin-bottom:15px;
+        }
+
+        .price-line {
+            margin:12px 0 20px;
+            font-size:22px;
+        }
+
+        .price-line span {
+            color:#ffc107;
+            font-weight:bold;
+        }
+
+        /* أزرار الاختيار */
+        .option-row {
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+        }
+
+        .option-btn {
+            background:#1d1d1d;
+            color:#fff;
+            border:1px solid #555;
+            padding:10px 16px;
+            border-radius:10px;
+            cursor:pointer;
+            font-size:14px;
+        }
+
+        .option-btn.active {
+            border-color:#fff;
+            background:#333;
+        }
+
+        /* زر السلة */
+        .btn-add-cart {
+            margin-top: 15px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: none;
+            background: #25d366;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight:bold;
+        }
+
+        .btn-add-cart:hover {
+            opacity: 0.9;
+        }
+
+        /* التفاصيل */
+        .specs {
+            margin-top:40px;
+            background:#111;
+            padding:20px;
+            border-radius:16px;
+        }
+
+        .specs-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+            gap:15px;
+        }
+
+        .spec-card {
+            padding:12px;
+            background:#151515;
+            border-radius:10px;
+            border:1px solid #333;
+        }
+
+        .back-link {
+            display:inline-block;
+            margin-top:20px;
+            color:#8ab4ff;
+            text-decoration:none;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- الهيدر -->
+<header class="top-bar">
+    <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Mr Apple Logo">
+    </a>
+
+    <a href="cart.html" class="cart-link">
+        🛒 السلة
+        <span id="cartCount">0</span>
+    </a>
+</header>
+
+<div class="page-wrap">
+
+    <div class="product-layout">
+
+        <!-- الصورة -->
+        <div class="product-gallery">
+            <img id="mainImage" src="images/s25ultra.png" alt="Samsung S25 Ultra">
+        </div>
+
+        <!-- المعلومات -->
+        <div class="product-info">
+
+            <h1>Samsung Galaxy S25 Ultra – 256GB</h1>
+            <div class="subtitle">الجيل الجديد من وحش سامسونگ مع كاميرا فلاجشب وأداء رهيب.</div>
+
+            <!-- السعر -->
+            <div class="price-line">
+                السعر: <span id="realPrice">1.275.000 IQD</span>
+            </div>
+
+            <!-- نوع النسخة -->
+            <div class="section-label">نوع النسخة</div>
+            <div class="option-row">
+                <button class="option-btn active" onclick="selectVersion('agency', this)">نسخة وكالة</button>
+                <button class="option-btn" onclick="selectVersion('nonagency', this)">نسخة خارج الوكالة</button>
+            </div>
+
+            <!-- زر السلة -->
+            <button class="btn-add-cart" onclick="handleAddToCart()">
+                أضف إلى السلة 🛒
+            </button>
+
+            <!-- المواصفات -->
+            <section class="specs">
+                <h2>أهم المواصفات</h2>
+
+                <div class="specs-grid">
+                    <div class="spec-card">
+                        <strong>الشاشة</strong><br>
+                        Dynamic AMOLED 2X – 6.8" – 1-120Hz – HDR10+
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>المعالج</strong><br>
+                        Snapdragon 8 Gen 4 – تكنولوجيا 3nm
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>الكاميرات</strong><br>
+                        200MP رئيسية – 50MP زوم – 50MP Ultra Wide – 12MP أمامية
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>البطارية</strong><br>
+                        5000mAh + شحن سريع 45W
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>الذاكرة</strong><br>
+                        256GB – UFS 4.0
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>مزايا إضافية</strong><br>
+                        S-Pen – مقاومة IP68 – شبكة 5G – WiFi 7
+                    </div>
+                </div>
+
+                <a href="index.html" class="back-link">🔙 العودة للمتجر</a>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+<script>
+// الأسعار حسب النسخة
+const versionPrices = {
+    agency: "1.275.000 IQD",
+    nonagency: "1.090.000 IQD"
+};
+
+let selectedVersion = "agency";
+
+// تغيير النسخة + السعر
+function selectVersion(version, btn) {
+    selectedVersion = version;
+
+    document.querySelectorAll(".option-btn")
+        .forEach(b => b.classList.remove("active"));
+
+    btn.classList.add("active");
+
+    document.getElementById("realPrice").textContent = versionPrices[version];
+}
+
+// عند الإضافة للسلة
+function handleAddToCart() {
+    const product = {
+        id: "s25ultra",
+        name: "Samsung Galaxy S25 Ultra",
+        version: selectedVersion === "agency" ? "نسخة وكالة" : "نسخة خارج الوكالة",
+        price: selectedVersion === "agency" ? 1275000 : 1090000
+    };
+
+    addToCart(product);
+}
+
+</script>
+
+<script src="cart.js"></script>
+
+</body>
+</html>
