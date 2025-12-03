@@ -288,8 +288,9 @@
 
     <!-- قسم منتجات Apple (يتم تعبئته من Google Sheet) -->
     <section id="apple" class="products category" style="display:grid;">
-        <!-- سيتم تعبئة الكروت تلقائياً من الشيت -->
-    </section>
+    <!-- سيتم تعبئة الكروت تلقائياً -->
+</section>
+
 
     <!-- قسم منتجات Samsung -->
     <section id="samsung" class="products category" style="display:none;">
@@ -344,67 +345,79 @@
     }
     </script>
 
-    <!-- ربط نظام عربة التسوق -->
+        <!-- ربط نظام عربة التسوق -->
     <script src="cart.js"></script>
 
-    <!-- جلب منتجات Apple من Google Sheet -->
+    <!-- جلب منتجات Apple من Google Sheet (حسب ترتيب الأعمدة في الشيت الحالي) -->
     <script>
-    // 1) رابط Google Sheet بصيغة CSV
+    // رابط Google Sheet بصيغة CSV
     const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQy4WWb2dGNoPn7GOmirlaYLfOp80wjsO7X7uEKMIfgubBXv_N_QxiPBwl4HrAcotkjBkZ98UDF_GoST/pub?output=csv";
 
-    // 2) تحويل CSV إلى مصفوفة كائنات
-    function parseCSV(csv) {
-        const lines = csv.trim().split("\n");
-        const headers = lines[0].split(",").map(h => h.trim());
+    async function loadAppleProducts() {
+        try {
+            const res  = await fetch(SHEET_URL);
+            const text = await res.text();
 
-        return lines.slice(1).map(line => {
-            if (!line.trim()) return null;
-            const cols = line.split(",");
-            const obj = {};
-            headers.forEach((h, i) => {
-                obj[h] = (cols[i] || "").trim();
+            const lines = text.trim().split("\n");
+
+            // أول سطر = عناوين الأعمدة (ID, CATEGORY, NAME, ...)
+            lines.shift();
+
+            const container = document.getElementById("apple");
+            container.innerHTML = "";
+
+            lines.forEach(line => {
+                if (!line.trim()) return;
+
+                const cols = line.split(",");
+
+                // ترتيب الأعمدة عندك في الشيت:
+                // 0: ID
+                // 1: CATEGORY
+                // 2: NAME
+                // 3: html file
+                // 4: image
+                // 5: price
+                // 6: storage
+                const category = (cols[1] || "").trim().toLowerCase();
+                const name     = (cols[2] || "").trim();
+                const htmlFile = (cols[3] || "").trim();
+                const image    = (cols[4] || "").trim();
+                const price    = (cols[5] || "").trim();
+                const storage  = (cols[6] || "").trim();
+
+                // نعرض فقط المنتجات اللي كاتبين category مالها "apple"
+                if (!name || category !== "apple") return;
+
+                // لو htmlFile مو رابط كامل، نعتبره اسم ملف HTML داخل نفس المشروع
+                const link = htmlFile ? htmlFile : "#";
+
+                const card = document.createElement("div");
+                card.className = "card";
+
+                card.innerHTML = `
+                    <img src="${image || 'images/logo.png'}" alt="${name}">
+                    <h3 style="min-height: 50px;">${name}</h3>
+                    ${price ? `<div class="price">${price}</div>` : ""}
+                    ${storage ? `<p style="text-align:center; margin:4px 0;">السعة: ${storage}</p>` : ""}
+                    <a href="${link}" class="detail-btn">عرض التفاصيل</a>
+                `;
+
+                container.appendChild(card);
             });
-            return obj;
-        }).filter(Boolean);
+        } catch (err) {
+            console.error("خطأ في تحميل المنتجات من Google Sheet:", err);
+            const container = document.getElementById("apple");
+            container.innerHTML = `
+                <p style="text-align:center; color:red;">
+                    تعذر تحميل المنتجات من الجدول، تأكد من رابط Google Sheet أو الاتصال بالإنترنت.
+                </p>
+            `;
+        }
     }
 
-    // 3) إنشاء كارت منتج
-    function createProductCard(p) {
-        const card = document.createElement("div");
-        card.className = "card";
-
-        card.innerHTML = `
-            <img src="${p.image}" alt="${p.name}">
-            <h3 style="min-height: 50px;">${p.name}</h3>
-            ${p.price ? `<div class="price">${p.price}</div>` : ""}
-            <a href="${p.link}" class="detail-btn">عرض التفاصيل</a>
-        `;
-
-        return card;
-    }
-
-    // 4) تعبئة قسم Apple
-    function renderApple(products) {
-        const container = document.getElementById("apple");
-        container.innerHTML = "";
-
-        products.forEach(p => {
-            if (!p.name || !p.link) return;
-            container.appendChild(createProductCard(p));
-        });
-    }
-
-    // 5) جلب البيانات من الشيت وتشغيل العرض
-    fetch(SHEET_URL)
-        .then(res => res.text())
-        .then(text => {
-            const products = parseCSV(text);
-            renderApple(products);
-        })
-        .catch(err => {
-            console.error("خطأ في تحميل بيانات المنتجات من Google Sheet:", err);
-        });
+    // تشغيل عند فتح الصفحة
+    loadAppleProducts();
     </script>
-
 </body>
 </html>
