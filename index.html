@@ -201,6 +201,49 @@
             transition: 0.3s ease;
             animation: floatBtn 1.5s infinite ease-in-out;
         }
+                /* شريط البحث والفلاتر */
+        .filters-bar {
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+            padding:0 20px 15px;
+            align-items:center;
+            justify-content:flex-start;
+        }
+
+        .filters-bar label {
+            font-size:14px;
+            color:#333;
+        }
+
+        .filters-bar input,
+        .filters-bar select {
+            padding:8px 10px;
+            border-radius:8px;
+            border:1px solid #ccc;
+            font-size:14px;
+            min-width:140px;
+        }
+
+        /* بادج حالة المنتج */
+        .badge-status {
+            display:inline-block;
+            padding:4px 10px;
+            border-radius:999px;
+            font-size:12px;
+            margin-top:6px;
+        }
+
+        .badge-available {
+            background:#e6ffed;
+            color:#137333;
+        }
+
+        .badge-out {
+            background:#ffe6e6;
+            color:#b00020;
+        }
+
 
         @keyframes floatBtn {
             0%   { transform: translateY(0); }
@@ -288,6 +331,25 @@
 
     <!-- قسم منتجات Apple (يتم تعبئته من Google Sheet) -->
     <section id="apple" class="products category" style="display:grid;">
+            <!-- شريط البحث والفلاتر لمنتجات Apple -->
+    <div class="filters-bar">
+        <label for="searchInput">🔍 بحث:</label>
+        <input id="searchInput" type="text" placeholder="ابحث عن منتج..." oninput="applyFilters()">
+
+        <label for="typeFilter">النوع:</label>
+        <select id="typeFilter" onchange="applyFilters()">
+            <option value="">كل الأنواع</option>
+            <!-- الباقي يتعبّى من الشيت -->
+        </select>
+
+        <label for="statusFilter">الحالة:</label>
+        <select id="statusFilter" onchange="applyFilters()">
+            <option value="">الكل</option>
+            <option value="available">متوفر فقط</option>
+            <option value="out">غير متوفر فقط</option>
+        </select>
+    </div>
+
     <!-- سيتم تعبئة الكروت تلقائياً -->
 </section>
 
@@ -345,74 +407,178 @@
     }
     </script>
 
-        <!-- ربط نظام عربة التسوق -->
+          <!-- ربط نظام عربة التسوق -->
     <script src="cart.js"></script>
 
-    <!-- جلب منتجات Apple من Google Sheet (حسب ترتيب الأعمدة في الشيت الحالي) -->
-   <script>
-// رابط Google Sheet بصيغة CSV
-const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQy4WWb2dGNoPn7G0mirIaYLF0p80wjsO7X7uEKMiFgubBXvN_QxiPBwl4HrAcotkjBkZ98UDf_GoST/pub?output=csv";
+    <!-- جلب منتجات Apple من Google Sheet + بحث وفلاتر -->
+    <script>
+    // رابط Google Sheet بصيغة CSV
+    const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQy4WWb2dGNoPn7G0mirIaYLF0p80wjsO7X7uEKMiFgubBXvN_QxiPBwl4HrAcotkjBkZ98UDf_GoST/pub?output=csv";
 
-async function loadAppleProducts() {
-    try {
-        const res  = await fetch(SHEET_URL);
-        const text = await res.text();
+    // مصفوفة نخزن بيها كل منتجات Apple من الشيت
+    let allAppleProducts = [];
 
-        const lines = text.trim().split("\n");
+    async function loadAppleProducts() {
+        try {
+            const res  = await fetch(SHEET_URL);
+            const text = await res.text();
 
-        // إزالة العنوان
-        lines.shift();
+            const lines = text.trim().split("\n");
 
+            // أول سطر = عناوين الأعمدة
+            lines.shift();
+
+            allAppleProducts = [];
+
+            lines.forEach(line => {
+                if (!line.trim()) return;
+
+                const cols = line.split(",");
+
+                // ترتيب الأعمدة في الشيت:
+                // 0: ID
+                // 1: CATEGORY
+                // 2: NAME
+                // 3: HTML FILE
+                // 4: IMAGE
+                // 5: PRICE (اختياري - مو مستخدم هنا)
+                // 6: STORAGE (اختياري)
+                // 7: STATUS (متوفر / غير متوفر)
+                // 8: TYPE   (iPhone / iPad / ...)
+
+                const category = (cols[1] || "").trim().toLowerCase();
+                const name     = (cols[2] || "").trim();
+                const htmlFile = (cols[3] || "").trim();
+                const image    = (cols[4] || "").trim();
+                const statusRaw= (cols[7] || "").trim(); // نص الحالة من الشيت
+                const type     = (cols[8] || "").trim(); // النوع (مثلاً: iPhone, iPad...)
+
+                if (!name || category !== "apple") return;
+
+                const statusKey =
+                    statusRaw === "متوفر" || statusRaw.toLowerCase() === "available"
+                        ? "available"
+                        : (statusRaw === "غير متوفر" || statusRaw.toLowerCase() === "out"
+                            ? "out"
+                            : "");
+
+                const product = {
+                    name,
+                    htmlFile: htmlFile || "#",
+                    image: image || "images/logo.png",
+                    statusRaw: statusRaw || "", // النص الي راح نعرضه
+                    statusKey,                  // قيمة للتصفية
+                    type: type || ""            // النوع (للفلتر)
+                };
+
+                allAppleProducts.push(product);
+            });
+
+            // تعبئة قائمة الأنواع في الفلتر
+            fillTypeFilterOptions();
+
+            // عرض المنتجات أول مرة
+            applyFilters();
+
+        } catch (err) {
+            console.error("خطأ في تحميل المنتجات من Google Sheet:", err);
+            const container = document.getElementById("apple");
+            container.innerHTML = `
+                <p style="text-align:center; color:red;">
+                    تعذر تحميل المنتجات من الجدول، تأكد من رابط Google Sheet أو الاتصال بالإنترنت.
+                </p>
+            `;
+        }
+    }
+
+    // تعبئة فلتر الأنواع من البيانات الموجودة
+    function fillTypeFilterOptions() {
+        const typeSelect = document.getElementById("typeFilter");
+        const types = new Set();
+
+        allAppleProducts.forEach(p => {
+            if (p.type) types.add(p.type);
+        });
+
+        // مسح القديم (مع الإبقاء على أول خيار)
+        typeSelect.innerHTML = '<option value="">كل الأنواع</option>';
+
+        Array.from(types).forEach(t => {
+            const opt = document.createElement("option");
+            opt.value = t;
+            opt.textContent = t;
+            typeSelect.appendChild(opt);
+        });
+    }
+
+    // تطبيق البحث + الفلاتر ثم عرض المنتجات
+    function applyFilters() {
+        const searchValue = document.getElementById("searchInput").value.trim().toLowerCase();
+        const typeValue   = document.getElementById("typeFilter").value;
+        const statusValue = document.getElementById("statusFilter").value; // "" | "available" | "out"
+
+        const filtered = allAppleProducts.filter(p => {
+            // بحث بالاسم
+            if (searchValue && !p.name.toLowerCase().includes(searchValue)) {
+                return false;
+            }
+
+            // فلتر النوع
+            if (typeValue && p.type !== typeValue) {
+                return false;
+            }
+
+            // فلتر الحالة
+            if (statusValue && p.statusKey !== statusValue) {
+                return false;
+            }
+
+            return true;
+        });
+
+        renderAppleProducts(filtered);
+    }
+
+    // رسم الكروت في الصفحة
+    function renderAppleProducts(list) {
         const container = document.getElementById("apple");
         container.innerHTML = "";
 
-        lines.forEach(line => {
-            if (!line.trim()) return;
+        if (!list.length) {
+            container.innerHTML = `
+                <p style="text-align:center; grid-column:1/-1; color:#555;">
+                    لا توجد منتجات مطابقة لخيارات البحث / الفلترة.
+                </p>
+            `;
+            return;
+        }
 
-            const cols = line.split(",");
-
-            // ترتيب أعمدة الشيت:
-            // 0: ID
-            // 1: CATEGORY
-            // 2: NAME
-            // 3: HTML FILE
-            // 4: IMAGE
-
-            const category = (cols[1] || "").trim().toLowerCase();
-            const name     = (cols[2] || "").trim();
-            const htmlFile = (cols[3] || "").trim();
-            const image    = (cols[4] || "").trim();
-
-            // عرض منتجات Apple فقط
-            if (category !== "apple" || !name) return;
-
-            const link = htmlFile ? htmlFile : "#";
-
+        list.forEach(p => {
             const card = document.createElement("div");
             card.className = "card";
 
+            // اختيار كلاس البادج حسب الحالة
+            let badgeHTML = "";
+            if (p.statusRaw) {
+                const badgeClass = p.statusKey === "available" ? "badge-available" : "badge-out";
+                badgeHTML = `<span class="badge-status ${badgeClass}">${p.statusRaw}</span>`;
+            }
+
             card.innerHTML = `
-                <img src="${image || 'images/logo.png'}" alt="${name}">
-                <h3 style="min-height: 50px;">${name}</h3>
-                <a href="${link}" class="detail-btn">عرض التفاصيل</a>
+                <img src="${p.image}" alt="${p.name}">
+                <h3 style="min-height: 50px;">${p.name}</h3>
+                ${badgeHTML}
+                <a href="${p.htmlFile}" class="detail-btn">عرض التفاصيل</a>
             `;
 
             container.appendChild(card);
         });
-    } catch (err) {
-        console.error("خطأ في تحميل المنتجات:", err);
-        const container = document.getElementById("apple");
-
-        container.innerHTML = `
-            <p style="text-align:center; color:red;">
-                ⚠️ تعذر تحميل المنتجات من Google Sheet
-            </p>
-        `;
     }
-}
 
-loadAppleProducts();
-</script>
+    // تشغيل عند فتح الصفحة
+    loadAppleProducts();
+    </script>
+
 
 </body>
 </html>
