@@ -571,7 +571,7 @@
     </script>
 
 <script>
-const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQy4WWb2dGNoPn7G0mirIaYLF0p80wjsO7X7uEKMiFgubBXvN_QxiPBwl4HrAcotkjBkZ98UDf_GoST/pub?output=csv";
+// 🔵 تحميل منتجات Samsung من نفس Google Sheet
 
 let allSamsungProducts = [];
 
@@ -581,14 +581,23 @@ async function loadSamsungProducts() {
         const text = await res.text();
 
         const lines = text.trim().split("\n");
-        lines.shift();
+        lines.shift(); // إزالة عناوين الأعمدة
 
         allSamsungProducts = [];
 
         lines.forEach(line => {
             const cols = line.split(",");
 
-            const category = (cols[1] || "").trim().toLowerCase(); 
+            // ترتيب الأعمدة في الشيت:
+            // 0: ID
+            // 1: CATEGORY
+            // 2: NAME
+            // 3: HTML FILE
+            // 4: IMAGE
+            // 5: PRICE
+            // 7: STATUS
+
+            const category = (cols[1] || "").trim().toLowerCase();
             const name     = (cols[2] || "").trim();
             const htmlFile = (cols[3] || "").trim();
             const image    = (cols[4] || "").trim();
@@ -602,8 +611,8 @@ async function loadSamsungProducts() {
                 name,
                 htmlFile: htmlFile || "#",
                 image: image || "images/logo.png",
-                price,
-                status
+                price: price || "",
+                status: status || ""
             });
         });
 
@@ -612,13 +621,19 @@ async function loadSamsungProducts() {
     } catch (err) {
         console.error("Error loading Samsung products:", err);
         document.getElementById("samsung").innerHTML =
-            "<p style='color:red; text-align:center;'>خطأ في تحميل أجهزة سامسونك ❌</p>";
+            "<p style='color:red; text-align:center;'>خطأ في تحميل أجهزة سامسونغ ❌</p>";
     }
 }
 
 function renderSamsungProducts() {
     const container = document.getElementById("samsung");
     container.innerHTML = "";
+
+    if (!allSamsungProducts.length) {
+        container.innerHTML =
+            "<p style='text-align:center; color:#555;'>لا توجد أجهزة سامسونج حالياً.</p>";
+        return;
+    }
 
     allSamsungProducts.forEach(p => {
         const card = document.createElement("div");
@@ -627,7 +642,7 @@ function renderSamsungProducts() {
         card.innerHTML = `
             <img src="${p.image}" alt="${p.name}">
             <h3 style="min-height: 50px;">${p.name}</h3>
-            <div class="price">السعر: ${p.price}</div>
+            <div class="price">${p.price}</div>
             <a href="${p.htmlFile}" class="detail-btn">عرض التفاصيل</a>
         `;
 
@@ -635,9 +650,9 @@ function renderSamsungProducts() {
     });
 }
 
+// ▶ تحميل منتجات سامسونغ
 loadSamsungProducts();
 </script>
-
 
 </body>
 </html>
