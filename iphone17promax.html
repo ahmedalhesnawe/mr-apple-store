@@ -110,6 +110,20 @@
             text-decoration:none;
         }
 
+        /* زر أضف إلى السلة */
+        .btn-add-cart {
+            display:inline-block;
+            margin-top:15px;
+            padding:10px 18px;
+            background:#25d366;
+            color:#fff;
+            border-radius:8px;
+            border:none;
+            cursor:pointer;
+            font-size:14px;
+        }
+        .btn-add-cart:hover { opacity:0.9; }
+
         .specs {
             margin-top:40px;
             padding:20px;
@@ -141,9 +155,9 @@
 <body>
 
 <header class="top-bar">
-<a href="index.html" class="logo">
-    <img src="images/logo.png" alt="Mr Apple Logo" style="height:80px;">
-</a>
+    <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Mr Apple Logo" style="height:80px;">
+    </a>
     <a href="index.html">العودة إلى المتجر</a>
 </header>
 
@@ -153,10 +167,8 @@
 
         <!-- الصورة -->
         <div class="product-gallery">
-            <!-- الصورة الأساسية (تتغير حسب اللون) -->
             <img id="mainImage" src="images/iphone17promax.png" alt="iPhone 17 Pro Max">
 
-            <!-- نقاط الألوان (استعراض بصري فقط) -->
             <div class="thumbs">
                 <div class="silver"></div>
                 <div class="blue"></div>
@@ -172,56 +184,60 @@
 
             <!-- السعر المتغير -->
             <div id="priceBox" class="price-line">
-                السعر: <span id="realPrice">  1.670.000 IQD </span>
+                السعر: <span id="realPrice">1.670.000 IQD</span>
             </div>
 
-           <!-- السعات -->
-<div class="section-label">سعة التخزين</div>
+            <!-- زر السلة -->
+            <button class="btn-add-cart" onclick="handleAddToCart()">
+                أضف إلى السلة 🛒
+            </button>
 
-<div class="option-row">
-    <button class="capacity-chip active" onclick="selectCapacity('256', this)">256GB</button>
-    <button class="capacity-chip" onclick="selectCapacity('512', this)">512GB</button>
-    <button class="capacity-chip" onclick="selectCapacity('1TB', this)">1TB</button>
-</div>
-
+            <!-- السعات -->
+            <div class="section-label">سعة التخزين</div>
+            <div class="option-row">
+                <button class="capacity-chip active" onclick="selectCapacity('256', this)">256GB</button>
+                <button class="capacity-chip" onclick="selectCapacity('512', this)">512GB</button>
+                <button class="capacity-chip" onclick="selectCapacity('1TB', this)">1TB</button>
+            </div>
 
             <!-- الألوان -->
-<div class="section-label">اللون</div>
+            <div class="section-label">اللون</div>
+            <div class="option-row">
+                <button class="color-chip active" onclick="selectColor('silver', this)">فضي</button>
+                <button class="color-chip" onclick="selectColor('blue', this)">أزرق</button>
+                <button class="color-chip" onclick="selectColor('orange', this)">برتقالي</button>
+            </div>
 
-<div class="option-row">
-    <button class="color-chip active" onclick="selectColor('silver', this)">فضي</button>
-    <button class="color-chip" onclick="selectColor('blue', this)">أزرق</button>
-    <button class="color-chip" onclick="selectColor('orange', this)">برتقالي</button>
-</div>
+            <!-- المواصفات -->
+            <section class="specs">
+                <h2>أهم المواصفات</h2>
 
+                <div class="specs-grid">
+                    <div class="spec-card"><strong>الشاشة</strong><br>Super Retina XDR بدقة عالية ومعدل تحديث سلس.</div>
+                    <div class="spec-card"><strong>المعالج</strong><br>A19 Pro لأداء قوي في الألعاب والتطبيقات الثقيلة.</div>
+                    <div class="spec-card"><strong>الكاميرات</strong><br>نظام كاميرات احترافي مع تصوير ليلي وفيديو بدقة عالية جداً.</div>
+                    <div class="spec-card"><strong>البطارية</strong><br>بطارية تدوم طوال اليوم مع دعم الشحن السريع واللاسلكي.</div>
+                    <div class="spec-card"><strong>الاتصال</strong><br>دعم 5G، Wi-Fi سريع، و eSIM.</div>
+                    <div class="spec-card"><strong>مزايا إضافية</strong><br>مقاوم للماء والغبار، Face ID، صوت استيريو.</div>
+                </div>
 
-    <!-- المواصفات -->
-    <section class="specs">
-        <h2>أهم المواصفات</h2>
-
-        <div class="specs-grid">
-
-            <div class="spec-card"><strong>الشاشة</strong><br>Super Retina XDR بدقة عالية ومعدل تحديث سلس.</div>
-            <div class="spec-card"><strong>المعالج</strong><br>A19 Pro لأداء قوي في الألعاب والتطبيقات الثقيلة.</div>
-            <div class="spec-card"><strong>الكاميرات</strong><br>نظام كاميرات احترافي مع تصوير ليلي وفيديو بدقة عالية جداً.</div>
-            <div class="spec-card"><strong>البطارية</strong><br>بطارية تدوم طوال اليوم مع دعم الشحن السريع واللاسلكي.</div>
-            <div class="spec-card"><strong>الاتصال</strong><br>دعم 5G، Wi-Fi سريع، و eSIM.</div>
-            <div class="spec-card"><strong>مزايا إضافية</strong><br>مقاوم للماء والغبار، Face ID، صوت استيريو.</div>
+                <a href="index.html" class="back-link">🔙 العودة للمتجر</a>
+            </section>
 
         </div>
-
-        <a href="index.html" class="back-link">🔙 العودة للمتجر</a>
-    </section>
-
+    </div>
 </div>
 
-<!-- سكربت تغيير السعر واللون -->
+<!-- ربط نظام عربة التسوق -->
+<script src="cart.js"></script>
+
+<!-- سكربت تغيير السعر واللون + السلة -->
 <script>
 // حالة مبدئية
-let selectedCapacity = '256';   // 256GB
-let selectedColor    = 'silver'; // فضي
+let selectedCapacity = '256';     // 256GB
+let selectedColor    = 'silver';  // فضي
 
-// جدول الأسعار لكل (سعة + لون)
+// جدول الأسعار للنص (عرض على الصفحة)
 const priceTable = {
     '256': {
         silver: '1.700.000 IQD',
@@ -240,6 +256,32 @@ const priceTable = {
     }
 };
 
+// جدول الأسعار الرقمية للحساب داخل السلة (بدون نقاط)
+const priceMap = {
+    '256': {
+        silver: 1700000,
+        blue:   1700000,
+        orange: 1670000
+    },
+    '512': {
+        silver: 2290000,
+        blue:   2290000,
+        orange: 2290000
+    },
+    '1TB': {
+        silver: 2690000,
+        blue:   2690000,
+        orange: 2690000
+    }
+};
+
+// لتنسيق النص الظاهر للسعة داخل السلة
+const capacityLabelMap = {
+    '256': '256GB',
+    '512': '512GB',
+    '1TB': '1TB'
+};
+
 // تغيير الصورة حسب اللون
 const imageMap = {
     silver: 'images/ip17pmsi.png',
@@ -247,7 +289,7 @@ const imageMap = {
     orange: 'images/ip17pmor.png'
 };
 
-// دالة تحديث السعر حسب السعة + اللون الحاليين
+// دالة تحديث السعر حسب السعة + اللون الحاليين (للنص في الصفحة)
 function updatePrice() {
     const priceSpan = document.getElementById('realPrice');
     const price = priceTable[selectedCapacity][selectedColor];
@@ -258,12 +300,9 @@ function updatePrice() {
 function selectCapacity(capacity, btn) {
     selectedCapacity = capacity;
 
-    // إزالة active من جميع أزرار السعة
     document.querySelectorAll('.capacity-chip').forEach(b => b.classList.remove('active'));
-    // إضافة active للزر الحالي
     btn.classList.add('active');
 
-    // تحديث السعر
     updatePrice();
 }
 
@@ -271,26 +310,35 @@ function selectCapacity(capacity, btn) {
 function selectColor(colorKey, btn) {
     selectedColor = colorKey;
 
-    // تغيير الصورة
     const img = document.getElementById('mainImage');
     if (imageMap[colorKey]) {
         img.src = imageMap[colorKey];
     }
 
-    // إزالة active من جميع أزرار الألوان
     document.querySelectorAll('.color-chip').forEach(b => b.classList.remove('active'));
-    // إضافة active للزر الحالي
     btn.classList.add('active');
 
-    // تحديث السعر
     updatePrice();
+}
+
+// زر "أضف إلى السلة"
+function handleAddToCart() {
+    const numericPrice = priceMap[selectedCapacity][selectedColor];
+
+    const product = {
+        id: 'iphone17-promax',
+        name: 'iPhone 17 Pro Max',
+        capacity: capacityLabelMap[selectedCapacity], // 256GB / 512GB / 1TB
+        color: selectedColor,                         // silver / blue / orange
+        price: numericPrice
+    };
+
+    addToCart(product);
 }
 
 // أول تشغيل للصفحة
 updatePrice();
 </script>
-
-
 
 </body>
 </html>
