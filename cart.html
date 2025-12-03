@@ -2,14 +2,15 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>عربة التسوق – مستر أبل</title>
+    <title>سلة المشتريات – مستر أبل</title>
     <style>
         body {
-            margin:0;
+            margin: 0;
             font-family: Arial, sans-serif;
-            background:#050505;
-            color:#fff;
+            background: radial-gradient(circle at top, #222 0, #050505 45%, #000 100%);
+            color: #fff;
         }
+
         .top-bar {
             background:#000;
             padding:10px 20px;
@@ -17,154 +18,361 @@
             align-items:center;
             justify-content:space-between;
         }
-        .top-bar a { color:#aaa; text-decoration:none; }
+
+        .top-bar .logo { font-weight:bold; font-size:18px; }
+        .top-bar a { color:#aaa; text-decoration:none; font-size:14px; }
+
+        /* زر السلة في الهيدر */
+        .cart-link {
+            color:#fff !important;
+            font-size:16px;
+            text-decoration:none;
+            position:relative;
+            display:flex;
+            align-items:center;
+            gap:6px;
+        }
+
+        #cartCount {
+            display:none;
+            background:#ff4444;
+            color:#fff;
+            padding:2px 6px;
+            border-radius:50%;
+            font-size:12px;
+            position:absolute;
+            top:-6px;
+            right:-10px;
+        }
 
         .page-wrap {
-            max-width:900px;
-            margin:30px auto;
-            padding:0 20px;
+            max-width: 1100px;
+            margin: 30px auto 40px;
+            padding: 0 20px;
         }
-        table {
-            width:100%;
-            border-collapse: collapse;
-            margin-top:15px;
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 28px;
         }
-        th, td {
-            border-bottom:1px solid #333;
-            padding:8px;
-            font-size:14px;
-            text-align:center;
-        }
-        th {
+
+        .empty-msg {
+            padding: 20px;
             background:#111;
-        }
-        .empty {
-            margin-top:30px;
+            border-radius:10px;
             text-align:center;
-            color:#aaa;
+            margin-top:20px;
         }
-        .total-box {
-            text-align:left;
-            margin-top:15px;
-            font-size:18px;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom:20px;
+            background:#111;
+            border-radius:12px;
+            overflow:hidden;
         }
-        .btn {
-            display:inline-block;
-            margin-top:15px;
-            padding:10px 16px;
-            border-radius:8px;
+
+        th, td {
+            padding:10px;
+            border-bottom:1px solid #333;
+            text-align:center;
+            font-size:14px;
+        }
+
+        th {
+            background:#000;
+        }
+
+        tr:last-child td {
+            border-bottom:none;
+        }
+
+        .qty-btn {
+            padding:4px 9px;
             border:none;
+            border-radius:6px;
+            cursor:pointer;
+            background:#333;
+            color:#fff;
+            font-size:14px;
+        }
+
+        .qty-value {
+            margin:0 6px;
+            min-width:24px;
+            display:inline-block;
+        }
+
+        .remove-btn {
+            padding:5px 10px;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+            background:#b00020;
+            color:#fff;
+            font-size:13px;
+        }
+
+        .actions {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+            gap:10px;
+            margin-top:15px;
+        }
+
+        .total-box {
+            font-size:18px;
+            font-weight:bold;
+        }
+
+        .btn-clear,
+        .btn-whatsapp {
+            padding:10px 16px;
+            border:none;
+            border-radius:8px;
             cursor:pointer;
             font-size:14px;
         }
+
         .btn-clear {
-            background:#333;
+            background:#444;
             color:#fff;
         }
+
         .btn-whatsapp {
             background:#25d366;
             color:#fff;
+        }
+
+        .btn-clear:hover,
+        .btn-whatsapp:hover {
+            opacity:0.9;
+        }
+
+        .back-link {
+            color:#8ab4ff;
             text-decoration:none;
+            display:inline-block;
+            margin-top:20px;
         }
     </style>
 </head>
 <body>
 
 <header class="top-bar">
-    <a href="index.html">
-        <img src="images/logo.png" alt="logo" style="height:70px;">
+    <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Mr Apple Logo" style="height:80px;">
     </a>
-    <a href="index.html">العودة إلى المتجر</a>
+
+    <div style="display:flex; align-items:center; gap:25px;">
+        <!-- زر السلة في الهيدر -->
+        <a href="cart.html" class="cart-link">
+            🛒 السلة
+            <span id="cartCount">0</span>
+        </a>
+
+        <a href="index.html">العودة إلى المتجر</a>
+    </div>
 </header>
 
 <div class="page-wrap">
-    <h1>عربة التسوق</h1>
+    <h1>سلة المشتريات</h1>
 
-    <div id="cartContainer"></div>
+    <div id="emptyBox" class="empty-msg" style="display:none;">
+        السلة فارغة حالياً 🛒<br>
+        يمكنك إضافة منتجات من الصفحة الرئيسية أو صفحات الأجهزة.
+    </div>
+
+    <table id="cartTable" style="display:none;">
+        <thead>
+            <tr>
+                <th>المنتج</th>
+                <th>السعة</th>
+                <th>المعالج</th>
+                <th>اللون</th>
+                <th>السعر</th>
+                <th>الكمية</th>
+                <th>إزالة</th>
+            </tr>
+        </thead>
+        <tbody id="cartBody">
+            <!-- يتم تعبئتها بواسطة جافاسكربت -->
+        </tbody>
+    </table>
+
+    <div class="actions" id="actionsBox" style="display:none;">
+        <div class="total-box">
+            المجموع الكلي: <span id="cartTotal">0 IQD</span>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn-clear" onclick="clearCart()">🗑 تفريغ السلة</button>
+            <button class="btn-whatsapp" onclick="sendOrderOnWhatsApp()">📲 إرسال الطلب عبر واتساب</button>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-link">🔙 العودة للمتجر</a>
 </div>
 
-<!-- ربط cart.js -->
+<!-- تحميل سكربت السلة العام -->
 <script src="cart.js"></script>
 
 <script>
-function renderCart() {
-    const cart = getCart();
-    const container = document.getElementById('cartContainer');
+const CART_KEY = 'mrAppleCart';
 
-    if (cart.length === 0) {
-        container.innerHTML = '<div class="empty">السلة فارغة حالياً 🛒</div>';
+function loadCart() {
+    try {
+        const data = localStorage.getItem(CART_KEY);
+        return data ? JSON.parse(data) : [];
+    } catch(e) {
+        return [];
+    }
+}
+
+function saveCart(cart) {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    // إذا عندك دالة تحديث في cart.js نستدعيها
+    if (typeof updateCartCount === 'function') {
+        updateCartCount();
+    }
+}
+
+function formatPrice(num) {
+    if (!num || isNaN(num)) return '0 IQD';
+    // 1.390.000 شكل عراقي
+    return num.toLocaleString('de-DE') + ' IQD';
+}
+
+function renderCart() {
+    const cart = loadCart();
+    const cartTable   = document.getElementById('cartTable');
+    const cartBody    = document.getElementById('cartBody');
+    const emptyBox    = document.getElementById('emptyBox');
+    const actionsBox  = document.getElementById('actionsBox');
+    const totalSpan   = document.getElementById('cartTotal');
+
+    cartBody.innerHTML = '';
+
+    if (!cart.length) {
+        cartTable.style.display  = 'none';
+        actionsBox.style.display = 'none';
+        emptyBox.style.display   = 'block';
+        totalSpan.textContent    = '0 IQD';
+        return;
+    }
+
+    cartTable.style.display  = 'table';
+    actionsBox.style.display = 'flex';
+    emptyBox.style.display   = 'none';
+
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        const qty = item.qty || 1;
+        const price = item.price || 0;
+        total += price * qty;
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${item.name || ''}</td>
+            <td>${item.capacity || '-'}</td>
+            <td>${item.chip || '-'}</td>
+            <td>${item.color || '-'}</td>
+            <td>${formatPrice(price)}</td>
+            <td>
+                <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+                <span class="qty-value">${qty}</span>
+                <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+            </td>
+            <td>
+                <button class="remove-btn" onclick="removeItem(${index})">✕</button>
+            </td>
+        `;
+        cartBody.appendChild(tr);
+    });
+
+    totalSpan.textContent = formatPrice(total);
+}
+
+function changeQty(index, delta) {
+    const cart = loadCart();
+    if (!cart[index]) return;
+
+    const current = cart[index].qty || 1;
+    const next = current + delta;
+    if (next <= 0) {
+        // إذا صارت صفر نحذف العنصر
+        cart.splice(index, 1);
+    } else {
+        cart[index].qty = next;
+    }
+
+    saveCart(cart);
+    renderCart();
+}
+
+function removeItem(index) {
+    const cart = loadCart();
+    if (!cart[index]) return;
+
+    cart.splice(index, 1);
+    saveCart(cart);
+    renderCart();
+}
+
+function clearCart() {
+    if (!confirm('هل أنت متأكد من تفريغ السلة بالكامل؟')) return;
+    saveCart([]);
+    renderCart();
+}
+
+function sendOrderOnWhatsApp() {
+    const cart = loadCart();
+    if (!cart.length) {
+        alert('السلة فارغة، أضف منتجات أولاً.');
         return;
     }
 
     let total = 0;
-    cart.forEach(item => {
-        total += item.price * item.qty;
+    const lines = [];
+
+    lines.push('طلب جديد من موقع مستر أبل:');
+    lines.push('---------------------------');
+
+    cart.forEach((item, i) => {
+        const qty   = item.qty || 1;
+        const price = item.price || 0;
+        total += price * qty;
+
+        let line = `${i+1}) ${item.name || ''}`;
+        if (item.capacity) line += ` - ${item.capacity}`;
+        if (item.chip)     line += ` - معالج: ${item.chip}`;
+        if (item.color)    line += ` - لون: ${item.color}`;
+        line += ` - الكمية: ${qty}`;
+        line += ` - السعر الفردي: ${formatPrice(price)}`;
+
+        lines.push(line);
     });
 
-    let rows = cart.map((item, index) => `
-        <tr>
-            <td>${index + 1}</td>
-            <td>${item.name}</td>
-            <td>${item.capacity || '-'}</td>
-            <td>${item.color || '-'}</td>
-            <td>${item.qty}</td>
-            <td>${formatIQD(item.price)}</td>
-            <td>${formatIQD(item.price * item.qty)}</td>
-        </tr>
-    `).join('');
+    lines.push('---------------------------');
+    lines.push(`المجموع الكلي: ${formatPrice(total)}`);
+    lines.push('الرجاء تأكيد الطلب وطرق التوصيل والدفع.');
 
-    const table = `
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>المنتج</th>
-                    <th>السعة</th>
-                    <th>اللون</th>
-                    <th>العدد</th>
-                    <th>السعر للوحدة</th>
-                    <th>الإجمالي</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${rows}
-            </tbody>
-        </table>
-        <div class="total-box">
-            المجموع الكلي: <strong>${formatIQD(total)}</strong>
-        </div>
-        <button class="btn btn-clear" onclick="handleClearCart()">مسح السلة</button>
-        <a class="btn btn-whatsapp" href="${buildWhatsAppLink(cart, total)}" target="_blank">
-            إكمال الطلب عبر واتساب 📱
-        </a>
-    `;
+    const message = lines.join('\n');
 
-    container.innerHTML = table;
-}
-
-function handleClearCart() {
-    if (confirm('هل تريد مسح السلة بالكامل؟')) {
-        clearCart();
-        renderCart();
-    }
-}
-
-function buildWhatsAppLink(cart, total) {
-    let message = 'طلب جديد من موقع Mr Apple:%0A%0A';
-    cart.forEach((item, index) => {
-        message += `${index+1}- ${item.name} | ${item.capacity || ''} | ${item.color || ''} | عدد: ${item.qty} | إجمالي: ${formatIQD(item.price * item.qty)}%0A`;
-    });
-    message += `%0Aالمجموع الكلي: ${formatIQD(total)}%0A%0Aالرجاء تأكيد الطلب.`;
-
-    // ضع رقم الواتساب هنا
+    // رقم الواتساب (تعدله إذا تحب)
     const phone = '9647812349544';
-    return `https://wa.me/${phone}?text=${message}`;
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+    window.open(url, '_blank');
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    renderCart();
-    updateCartCountBadge();
-});
+// أول تشغيل
+renderCart();
 </script>
 
 </body>
