@@ -209,6 +209,32 @@
             المجموع الكلي: <span id="cartTotal">0 IQD</span>
         </div>
 
+            <!-- بيانات الزبون -->
+    <div id="customerBox" style="margin-top:25px; background:#111; padding:15px; border-radius:10px;">
+        <h3 style="margin-top:0; margin-bottom:10px;">بيانات الزبون</h3>
+
+        <div style="display:flex; flex-wrap:wrap; gap:10px;">
+
+            <input id="custName" type="text" placeholder="الاسم الثلاثي"
+                   style="flex:1; min-width:200px; padding:8px; border-radius:8px; border:1px solid #333; background:#000; color:#fff;">
+
+            <input id="custCity" type="text" placeholder="المحافظة / القضاء / المنطقة"
+                   style="flex:1; min-width:220px; padding:8px; border-radius:8px; border:1px solid #333; background:#000; color:#fff;">
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;">
+            <input id="custPhone" type="text" placeholder="رقم الهاتف"
+                   style="flex:1; min-width:200px; padding:8px; border-radius:8px; border:1px solid #333; background:#000; color:#fff;">
+
+            <input id="custDelivery" type="text" placeholder="طريقة التوصيل (مثال: توصيل للبيت / استلام من المحل)"
+                   style="flex:1; min-width:220px; padding:8px; border-radius:8px; border:1px solid #333; background:#000; color:#fff;">
+        </div>
+
+        <textarea id="custNote" placeholder="ملاحظات إضافية (اختياري)"
+                  style="width:100%; margin-top:10px; padding:8px; border-radius:8px; border:1px solid #333; background:#000; color:#fff; min-height:70px;"></textarea>
+    </div>
+
+
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
             <button class="btn-clear" onclick="clearCart()">🗑 تفريغ السلة</button>
             <button class="btn-whatsapp" onclick="sendOrderOnWhatsApp()">📲 إرسال الطلب عبر واتساب</button>
@@ -320,6 +346,13 @@ function sendOrderOnWhatsApp() {
         return;
     }
 
+    // اقرأ بيانات الزبون من الحقول
+    const name     = document.getElementById('custName')?.value || '';
+    const city     = document.getElementById('custCity')?.value || '';
+    const phone    = document.getElementById('custPhone')?.value || '';
+    const delivery = document.getElementById('custDelivery')?.value || '';
+    const note     = document.getElementById('custNote')?.value || '';
+
     let total = 0;
     const lines = [];
 
@@ -343,16 +376,22 @@ function sendOrderOnWhatsApp() {
 
     lines.push('---------------------------');
     lines.push(`المجموع الكلي: ${formatPrice(total)}`);
-    lines.push('الرجاء تأكيد الطلب وطرق التوصيل والدفع.');
+    lines.push('---------------------------');
+    lines.push('بيانات الزبون:');
+    if (name)     lines.push(`الاسم: ${name}`);
+    if (city)     lines.push(`المنطقة: ${city}`);
+    if (phone)    lines.push(`رقم الهاتف: ${phone}`);
+    if (delivery) lines.push(`طريقة التوصيل: ${delivery}`);
+    if (note)     lines.push(`ملاحظة: ${note}`);
 
     const message = lines.join('\n');
 
-    // عدل الرقم حسب ما تحب
-    const phone = '9647812349544';
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    const waPhone = '9647812349544'; // عدلها إذا تريد رقم غير
+    const url = `https://wa.me/${waPhone}?text=${encodeURIComponent(message)}`;
 
     window.open(url, '_blank');
 }
+
 
 // أول تشغيل عند فتح الصفحة
 renderCart();
