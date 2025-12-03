@@ -200,7 +200,7 @@
             </tr>
         </thead>
         <tbody id="cartBody">
-            <!-- يتم تعبئتها بواسطة جافاسكربت -->
+            <!-- يتم تعبئتها بجافاسكربت -->
         </tbody>
     </table>
 
@@ -218,37 +218,17 @@
     <a href="index.html" class="back-link">🔙 العودة للمتجر</a>
 </div>
 
-<!-- تحميل سكربت السلة العام -->
+<!-- أولاً: ملف cart.js -->
 <script src="cart.js"></script>
 
 <script>
-const CART_KEY = 'mrAppleCart';
-
-function loadCart() {
-    try {
-        const data = localStorage.getItem(CART_KEY);
-        return data ? JSON.parse(data) : [];
-    } catch(e) {
-        return [];
-    }
-}
-
-function saveCart(cart) {
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    // إذا عندك دالة تحديث في cart.js نستدعيها
-    if (typeof updateCartCount === 'function') {
-        updateCartCount();
-    }
-}
-
 function formatPrice(num) {
     if (!num || isNaN(num)) return '0 IQD';
-    // 1.390.000 شكل عراقي
     return num.toLocaleString('de-DE') + ' IQD';
 }
 
 function renderCart() {
-    const cart = loadCart();
+    const cart = getCart(); // من cart.js
     const cartTable   = document.getElementById('cartTable');
     const cartBody    = document.getElementById('cartBody');
     const emptyBox    = document.getElementById('emptyBox');
@@ -272,7 +252,7 @@ function renderCart() {
     let total = 0;
 
     cart.forEach((item, index) => {
-        const qty = item.qty || 1;
+        const qty   = item.qty || 1;
         const price = item.price || 0;
         total += price * qty;
 
@@ -298,14 +278,14 @@ function renderCart() {
     totalSpan.textContent = formatPrice(total);
 }
 
+// تغيير الكمية
 function changeQty(index, delta) {
-    const cart = loadCart();
+    const cart = getCart();
     if (!cart[index]) return;
 
     const current = cart[index].qty || 1;
     const next = current + delta;
     if (next <= 0) {
-        // إذا صارت صفر نحذف العنصر
         cart.splice(index, 1);
     } else {
         cart[index].qty = next;
@@ -315,8 +295,9 @@ function changeQty(index, delta) {
     renderCart();
 }
 
+// إزالة منتج
 function removeItem(index) {
-    const cart = loadCart();
+    const cart = getCart();
     if (!cart[index]) return;
 
     cart.splice(index, 1);
@@ -324,14 +305,16 @@ function removeItem(index) {
     renderCart();
 }
 
+// تفريغ السلة
 function clearCart() {
     if (!confirm('هل أنت متأكد من تفريغ السلة بالكامل؟')) return;
     saveCart([]);
     renderCart();
 }
 
+// إرسال الطلب عبر واتساب
 function sendOrderOnWhatsApp() {
-    const cart = loadCart();
+    const cart = getCart();
     if (!cart.length) {
         alert('السلة فارغة، أضف منتجات أولاً.');
         return;
@@ -364,14 +347,14 @@ function sendOrderOnWhatsApp() {
 
     const message = lines.join('\n');
 
-    // رقم الواتساب (تعدله إذا تحب)
+    // عدل الرقم حسب ما تحب
     const phone = '9647812349544';
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
     window.open(url, '_blank');
 }
 
-// أول تشغيل
+// أول تشغيل عند فتح الصفحة
 renderCart();
 </script>
 

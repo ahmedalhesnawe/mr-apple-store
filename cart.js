@@ -1,72 +1,62 @@
-// مفتاح التخزين في LocalStorage
+// مفتاح التخزين في localStorage
 const CART_KEY = 'mrAppleCart';
 
-// قراءة السلة من LocalStorage
+// قراءة السلة من التخزين
 function getCart() {
-    const raw = localStorage.getItem(CART_KEY);
-    return raw ? JSON.parse(raw) : [];
+    try {
+        const raw = localStorage.getItem(CART_KEY);
+        return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+        return [];
+    }
 }
 
-// حفظ السلة
+// حفظ السلة في التخزين
 function saveCart(cart) {
     localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    updateCartCount();
 }
 
-// عدد العناصر
-function getCartCount() {
-    return getCart().reduce((sum, item) => sum + item.qty, 0);
-}
+// تحديث رقم السلة في الهيدر
+function updateCartCount() {
+    const cart = getCart();
+    const totalQty = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
 
-// تحديث عداد السلة في الهيدر
-function updateCartCountBadge() {
     const badge = document.getElementById('cartCount');
-    if (!badge) return;
-    const count = getCartCount();
-    badge.textContent = count;
-    badge.style.display = count > 0 ? 'inline-block' : 'none';
+    if (!badge) return; // لو الصفحة ما بيها الهيدر
+
+    if (totalQty > 0) {
+        badge.style.display = 'inline-block';
+        badge.textContent = totalQty;
+    } else {
+        badge.style.display = 'none';
+    }
 }
 
-// تنسيق السعر
-function formatIQD(amount) {
-    return amount.toLocaleString('de-DE') + ' IQD';
-}
-
-// إضافة للسلة
+// إضافة منتج للسلة
 function addToCart(product) {
+    if (!product || !product.id) return;
+
     const cart = getCart();
 
+    // نبحث عن نفس المنتج بنفس المواصفات
     const index = cart.findIndex(item =>
         item.id === product.id &&
         item.capacity === product.capacity &&
-        item.color === product.color
+        (item.color || '') === (product.color || '') &&
+        (item.chip || '') === (product.chip || '')
     );
 
-    if (index !== -1) {
-        cart[index].qty += 1;
+    if (index > -1) {
+        cart[index].qty = (cart[index].qty || 1) + 1;
     } else {
-        cart.push({
-            ...product,
-            qty: 1
-        });
+        product.qty = product.qty || 1;
+        cart.push(product);
     }
 
     saveCart(cart);
-    updateCartCountBadge();
-    alert('تمت الإضافة إلى السلة! 🛒');
+    alert('تمت إضافة المنتج إلى السلة ✅');
 }
 
-// مسح السلة
-function clearCart() {
-    saveCart([]);
-    updateCartCountBadge();
-}
-
-// جعل الدوال متاحة
-window.getCart = getCart;
-window.saveCart = saveCart;
-window.addToCart = addToCart;
-window.clearCart = clearCart;
-window.updateCartCountBadge = updateCartCountBadge;
-window.formatIQD = formatIQD;
-
-document.addEventListener('DOMContentLoaded', updateCartCountBadge);
+// عند فتح أي صفحة فيها الهيدر، نحدّث عدد السلة
+window.addEventListener('load', updateCartCount);
