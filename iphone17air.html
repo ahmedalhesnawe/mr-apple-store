@@ -4,6 +4,30 @@
     <meta charset="UTF-8">
     <title>iPhone 17 Air – مستر أبل</title>
     <style>
+
+        /* زر السلة في الهيدر */
+.cart-link {
+    color:#fff !important;
+    font-size:16px;
+    text-decoration:none;
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+#cartCount {
+    display:none;
+    background:#ff4444;
+    color:#fff;
+    padding:2px 6px;
+    border-radius:50%;
+    font-size:12px;
+    position:absolute;
+    top:-6px;
+    right:-10px;
+}
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -141,11 +165,23 @@
 <body>
 
 <header class="top-bar">
-<a href="index.html" class="logo">
-    <img src="images/logo.png" alt="Mr Apple Logo" style="height:80px;">
-</a>
-    <a href="index.html">العودة إلى المتجر</a>
+    <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Mr Apple Logo" style="height:80px;">
+    </a>
+
+    <div style="display:flex; align-items:center; gap:25px;">
+
+        <!-- زر السلة -->
+        <a href="cart.html" class="cart-link">
+            🛒 السلة
+            <span id="cartCount">0</span>
+        </a>
+
+        <!-- رجوع للمتجر -->
+        <a href="index.html">العودة إلى المتجر</a>
+    </div>
 </header>
+
 
 <div class="page-wrap">
 
@@ -276,6 +312,7 @@ updatePrice();
 </script>
 
 
+<script src="cart.js"></script>
 
 </body>
 </html>
