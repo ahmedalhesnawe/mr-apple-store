@@ -286,10 +286,11 @@
         </button>
     </div>
 
-   <!-- قسم منتجات Apple -->
-<section id="apple" class="products category" style="display:grid;">
+    <!-- قسم منتجات Apple (يتم تعبئته من Google Sheet) -->
+    <section id="apple" class="products category" style="display:grid;">
+    <!-- سيتم تعبئة الكروت تلقائياً -->
+</section>
 
-    
 
     <!-- قسم منتجات Samsung -->
     <section id="samsung" class="products category" style="display:none;">
@@ -344,36 +345,25 @@
     }
     </script>
 
-    <!-- ربط نظام عربة التسوق -->
+        <!-- ربط نظام عربة التسوق -->
     <script src="cart.js"></script>
-<script>
-const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQy4WWb2dGNoPn7G0mirIaYLF0p80wjsO7X7uEKMiFgubBXvN_QxiPBwl4HrAcotkjBkZ98UDf_GoST/pub?output=csv";
 
-// دالة بسيطة لتحويل CSV إلى مصفوفة كائنات
-function parseCSV(csv) {
-    const lines = csv.trim().split("\n");
-    const headers = lines[0].split(",").map(h => h.trim());
+    <!-- جلب منتجات Apple من Google Sheet (حسب ترتيب الأعمدة في الشيت الحالي) -->
+    <script>
+    // رابط Google Sheet بصيغة CSV
+    const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQy4WWb2dGNoPn7G0mirIaYLF0p80wjsO7X7uEKMiFgubBXvN_QxiPBwl4HrAcotkjBkZ98UDf_GoST/pub?output=csv";
 
-    return lines.slice(1).map(line => {
-        const cols = line.split(",");
-        const obj = {};
-        headers.forEach((h, i) => {
-            obj[h] = (cols[i] || "").trim();
-        });
-        return obj;
-    });
-}
+    async function loadAppleProducts() {
+        try {
+            const res  = await fetch(SHEET_URL);
+            const text = await res.text();
 
-function renderAppleProducts(products) {
-    const container = document.getElementById("apple");
-    container.innerHTML = "";
+            const lines = text.trim().split("\n");
 
-    products
-        .filter(p => p.category === "apple" && p.active === "1")
-        .forEach(p => {
-            const card = document.createElement("div");
-            card.className = "card";
+            // أول سطر = عناوين الأعمدة (ID, CATEGORY, NAME, ...)
+            lines.shift();
 
+<<<<<<< HEAD
             card.innerHTML = `
                 <img src="${p.image}" alt="${p.name}">
                 <h3 style="min-height: 50px;">${p.name}</h3>
@@ -381,22 +371,62 @@ function renderAppleProducts(products) {
                 <a href="${p.htmlFile}" class="detail-btn">
                     عرض التفاصيل
                 </a>
+=======
+            const container = document.getElementById("apple");
+            container.innerHTML = "";
+
+            lines.forEach(line => {
+                if (!line.trim()) return;
+
+                const cols = line.split(",");
+
+                // ترتيب الأعمدة عندك في الشيت:
+                // 0: ID
+                // 1: CATEGORY
+                // 2: NAME
+                // 3: html file
+                // 4: image
+                // 5: price
+                // 6: storage
+                const category = (cols[1] || "").trim().toLowerCase();
+                const name     = (cols[2] || "").trim();
+                const htmlFile = (cols[3] || "").trim();
+                const image    = (cols[4] || "").trim();
+                const price    = (cols[5] || "").trim();
+                const storage  = (cols[6] || "").trim();
+
+                // نعرض فقط المنتجات اللي كاتبين category مالها "apple"
+                if (!name || category !== "apple") return;
+
+                // لو htmlFile مو رابط كامل، نعتبره اسم ملف HTML داخل نفس المشروع
+                const link = htmlFile ? htmlFile : "#";
+
+                const card = document.createElement("div");
+                card.className = "card";
+
+                card.innerHTML = `
+                    <img src="${image || 'images/logo.png'}" alt="${name}">
+                    <h3 style="min-height: 50px;">${name}</h3>
+                    ${storage ? `<p style="text-align:center; margin:4px 0;">السعة: ${storage}</p>` : ""}
+                    <a href="${link}" class="detail-btn">عرض التفاصيل</a>
+                `;
+
+                container.appendChild(card);
+            });
+        } catch (err) {
+            console.error("خطأ في تحميل المنتجات من Google Sheet:", err);
+            const container = document.getElementById("apple");
+            container.innerHTML = `
+                <p style="text-align:center; color:red;">
+                    تعذر تحميل المنتجات من الجدول، تأكد من رابط Google Sheet أو الاتصال بالإنترنت.
+                </p>
+>>>>>>> c36515a93c936fcc5eba14051677f2b7c0b11491
             `;
+        }
+    }
 
-            container.appendChild(card);
-        });
-}
-
-fetch(SHEET_URL)
-    .then(res => res.text())
-    .then(text => {
-        const rows = parseCSV(text);
-        renderAppleProducts(rows);
-    })
-    .catch(err => {
-        console.error("خطأ في تحميل بيانات المنتجات:", err);
-    });
-</script>
-
+    // تشغيل عند فتح الصفحة
+    loadAppleProducts();
+    </script>
 </body>
 </html>
