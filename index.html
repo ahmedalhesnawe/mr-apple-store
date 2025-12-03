@@ -30,7 +30,7 @@
             background: #ffffff; /* الأبيض */
         }
 
-        /* الهيدر الجديد */
+        /* الهيدر مع زر السلة */
         header {
             background:#111;
             color:#fff;
@@ -52,7 +52,6 @@
             height:50px;
         }
 
-        /* زر السلة في الهيدر */
         .cart-link {
             color:#fff;
             font-size:16px;
@@ -100,21 +99,20 @@
             margin-bottom:8px;
         }
 
-        /* عنوان المنتج - في المنتصف + خلفية شفافة + أنيميشن */
         .card h3 {
             margin:10px 0;
             font-size:20px;
-            color:#111; /* نص واضح */
+            color:#111;
             text-align:center;
-            background: rgba(0,0,0,0.03); /* خلفية شفافة خفيفة */
+            background: rgba(0,0,0,0.03);
             padding:8px 10px;
             border-radius:10px;
             transition: 0.3s ease;
         }
 
         .card h3:hover {
-            color:#ff7a00;               /* تغيير اللون عند الـ hover */
-            animation: titleBounce 0.4s ease; /* تأثير بونس ناعم */
+            color:#ff7a00;
+            animation: titleBounce 0.4s ease;
         }
 
         @keyframes titleBounce {
@@ -125,7 +123,7 @@
         }
 
         .card p {
-            color:#333; /* رمادي غامق */
+            color:#333;
             font-size:15px;
         }
 
@@ -144,7 +142,6 @@
             margin-top:20px;
         }
 
-        /* سلايدر (لم يعد مستخدماً مع الفيديو لكن نترك الستايل لو احتجته لاحقاً) */
         .slider {
             width: 100%;
             height: 700px;
@@ -190,7 +187,6 @@
         .prev { left: 15px; }
         .next { right: 15px; }
 
-        /* زر عرض التفاصيل في منتصف الكارد مع حركة خفيفة */
         .detail-btn {
             display: block;
             margin: 15px auto 0;
@@ -222,7 +218,7 @@
 
 <body>
 
-    <!-- الهيدر الجديد مع زر السلة -->
+    <!-- الهيدر مع زر السلة -->
     <header>
         <div class="logo">
             <img src="images/logo.png" alt="Mr Apple Logo">
