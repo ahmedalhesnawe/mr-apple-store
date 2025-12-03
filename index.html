@@ -329,9 +329,7 @@
         </button>
     </div>
 
-    <!-- قسم منتجات Apple (يتم تعبئته من Google Sheet) -->
-    <section id="apple" class="products category" style="display:grid;">
-            <!-- شريط البحث والفلاتر لمنتجات Apple -->
+       <!-- شريط البحث والفلاتر لمنتجات Apple -->
     <div class="filters-bar">
         <label for="searchInput">🔍 بحث:</label>
         <input id="searchInput" type="text" placeholder="ابحث عن منتج..." oninput="applyFilters()">
@@ -339,7 +337,6 @@
         <label for="typeFilter">النوع:</label>
         <select id="typeFilter" onchange="applyFilters()">
             <option value="">كل الأنواع</option>
-            <!-- الباقي يتعبّى من الشيت -->
         </select>
 
         <label for="statusFilter">الحالة:</label>
@@ -350,7 +347,11 @@
         </select>
     </div>
 
-    <!-- سيتم تعبئة الكروت تلقائياً -->
+    <!-- قسم منتجات Apple (الكروت فقط) -->
+    <section id="apple" class="products category" style="display:grid;">
+        <!-- سيتم تعبئة الكروت تلقائياً -->
+    </section>
+
 </section>
 
 
