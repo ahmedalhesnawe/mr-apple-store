@@ -289,71 +289,7 @@
    <!-- قسم منتجات Apple -->
 <section id="apple" class="products category" style="display:grid;">
 
-    <div class="card">
-        <img src="images/iphone17promax.png" alt="iPhone 17 Pro Max">
-        <h3 style="min-height: 50px;">iPhone 17 Pro Max</h3>
-        <a href="iphone17promax.html" class="detail-btn">
-            عرض التفاصيل
-        </a>
-    </div>
-
-    <div class="card">
-        <img src="images/iphone17promax.png" alt="iPhone 17 Pro">
-        <h3 style="min-height: 50px;">iPhone 17 Pro</h3>
-        <a href="iphone17pro.html" class="detail-btn">
-            عرض التفاصيل
-        </a>
-    </div>
-
-    <div class="card">
-        <img src="images/iphone17air.png" alt="iPhone 17 Air">
-        <h3 style="min-height: 50px;">iPhone 17 Air</h3>
-        <a href="iphone17air.html" class="detail-btn">
-            عرض التفاصيل
-        </a>
-    </div>
-
-    <div class="card">
-        <img src="images/iphone17.png" alt="iPhone 17">
-        <h3 style="min-height: 50px;">iPhone 17</h3>
-        <a href="iphone17.html" class="detail-btn">
-            عرض التفاصيل
-        </a>
-    </div>
-
-    <div class="card">
-        <img src="images/iphone13.png" alt="iPhone 13">
-        <h3 style="min-height: 50px;">iPhone 13</h3>
-        <a href="iphone13.html" class="detail-btn">
-            عرض التفاصيل
-        </a>
-    </div>
-
-    <div class="card">
-        <img src="images/ipadpro13m5.png" alt="iPad Pro 13 M5">
-        <h3 style="min-height: 50px;">iPad Pro 13 M5</h3>
-        <a href="ipadpro13m5.html" class="detail-btn">
-            عرض التفاصيل
-        </a>
-    </div>
-
-    <div class="card">
-        <img src="images/ipadpro11m5.png" alt="iPad Pro 11 M5">
-        <h3 style="min-height: 50px;">iPad Pro 11 M5</h3>
-        <a href="ipadpro11m5.html" class="detail-btn">
-            عرض التفاصيل
-        </a>
-    </div>
-
-    <div class="card">
-        <img src="images/ipada16.png.png" alt="iPad 11 A16">
-        <h3 style="min-height: 50px;">iPad 11 A16</h3>
-        <a href="ipada16.html" class="detail-btn">
-            عرض التفاصيل
-        </a>
-    </div>
-
-</section>
+    
 
     <!-- قسم منتجات Samsung -->
     <section id="samsung" class="products category" style="display:none;">
@@ -410,6 +346,58 @@
 
     <!-- ربط نظام عربة التسوق -->
     <script src="cart.js"></script>
+<script>
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQy4WWb2dGNoPn7G0mirIaYLF0p80wjsO7X7uEKMiFgubBXvN_QxiPBwl4HrAcotkjBkZ98UDf_GoST/pub?output=csv";
+
+// دالة بسيطة لتحويل CSV إلى مصفوفة كائنات
+function parseCSV(csv) {
+    const lines = csv.trim().split("\n");
+    const headers = lines[0].split(",").map(h => h.trim());
+
+    return lines.slice(1).map(line => {
+        const cols = line.split(",");
+        const obj = {};
+        headers.forEach((h, i) => {
+            obj[h] = (cols[i] || "").trim();
+        });
+        return obj;
+    });
+}
+
+function renderAppleProducts(products) {
+    const container = document.getElementById("apple");
+    container.innerHTML = "";
+
+    products
+        .filter(p => p.category === "apple" && p.active === "1")
+        .forEach(p => {
+            const card = document.createElement("div");
+            card.className = "card";
+
+            card.innerHTML = `
+                <img src="${p.image}" alt="${p.name}">
+                <h3 style="min-height: 50px;">${p.name}</h3>
+                <div class="price">السعر: ${p.price} IQD</div>
+                <p style="color:#555; font-size:14px;">السعة: ${p.storage || ""}</p>
+                <a href="${p.htmlFile}" class="detail-btn">
+                    عرض التفاصيل
+                </a>
+            `;
+
+            container.appendChild(card);
+        });
+}
+
+fetch(SHEET_URL)
+    .then(res => res.text())
+    .then(text => {
+        const rows = parseCSV(text);
+        renderAppleProducts(rows);
+    })
+    .catch(err => {
+        console.error("خطأ في تحميل بيانات المنتجات:", err);
+    });
+</script>
 
 </body>
 </html>
