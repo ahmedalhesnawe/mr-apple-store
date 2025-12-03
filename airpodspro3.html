@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>AirPods Pro 3 – مستر أبل</title>
+
+    <style>
+
+        /* زر السلة في الهيدر */
+        .cart-link {
+            color:#fff !important;
+            font-size:16px;
+            text-decoration:none;
+            position:relative;
+            display:flex;
+            align-items:center;
+            gap:6px;
+        }
+
+        #cartCount {
+            display:none;
+            background:#ff4444;
+            color:#fff;
+            padding:2px 6px;
+            border-radius:50%;
+            font-size:12px;
+            position:absolute;
+            top:-6px;
+            right:-10px;
+        }
+
+        /* زر أضف إلى السلة */
+        .btn-add-cart {
+            margin-top: 10px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            background: #25d366;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        .btn-add-cart:hover {
+            opacity: 0.9;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle at top, #222 0, #050505 45%, #000 100%);
+            color: #fff;
+        }
+
+        .top-bar {
+            background:#000;
+            padding:10px 20px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .top-bar .logo { font-weight:bold; font-size:18px; }
+
+        .top-bar a { color:#aaa; text-decoration:none; font-size:14px; }
+
+        .page-wrap {
+            max-width: 1100px;
+            margin: 30px auto 40px;
+            padding: 0 20px;
+        }
+
+        .product-layout {
+            display:flex;
+            flex-wrap:wrap;
+            gap:40px;
+        }
+
+        .product-gallery { flex:1 1 320px; text-align:center; }
+
+        .product-gallery img {
+            max-width:100%;
+            border-radius:24px;
+        }
+
+        .product-info { flex:1 1 320px; }
+
+        .product-info h1 { font-size:32px; margin:0 0 10px; }
+
+        .subtitle { color:#bbb; margin-bottom:15px; }
+
+        .price-line { margin:12px 0 20px; font-size:20px; }
+        .price-line span { color:#ffcc33; font-weight:bold; }
+
+        .section-label {
+            font-size:14px;
+            color:#b0b0b0;
+            margin-bottom:6px;
+            margin-top:12px;
+        }
+
+        .option-row { display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+
+        .capacity-chip,
+        .color-chip {
+            border-radius:999px;
+            border:1px solid #555;
+            padding:8px 14px;
+            font-size:14px;
+            cursor:pointer;
+            background:#1a1a1a;
+            color:#fff;
+        }
+
+        .capacity-chip.active,
+        .color-chip.active {
+            border-color:#fff;
+        }
+
+        .specs {
+            margin-top:40px;
+            padding:20px;
+            background:#111;
+            border-radius:16px;
+        }
+
+        .specs-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+            gap:15px;
+        }
+
+        .spec-card {
+            padding:12px;
+            border:1px solid #333;
+            border-radius:12px;
+            font-size:14px;
+        }
+
+        .back-link { color:#8ab4ff; text-decoration:none; margin-top:20px; display:inline-block; }
+
+        @media (max-width:768px) {
+            .product-layout { flex-direction:column; }
+            .product-info h1 { font-size:26px; }
+        }
+    </style>
+
+</head>
+<body>
+
+<header class="top-bar">
+    <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Mr Apple Logo" style="height:80px;">
+    </a>
+
+    <div style="display:flex; align-items:center; gap:25px;">
+
+        <!-- زر السلة -->
+        <a href="cart.html" class="cart-link">
+            🛒 السلة
+            <span id="cartCount">0</span>
+        </a>
+
+        <!-- رجوع للمتجر -->
+        <a href="index.html">العودة إلى المتجر</a>
+    </div>
+</header>
+
+<div class="page-wrap">
+
+    <div class="product-layout">
+
+        <!-- الصورة -->
+        <div class="product-gallery">
+            <img id="mainImage" src="images/airpodspro3.png" alt="AirPods Pro 3">
+        </div>
+
+        <!-- المعلومات -->
+        <div class="product-info">
+
+            <h1>AirPods Pro 3</h1>
+            <div class="subtitle">
+                عزل ضوضاء ذكي، صوت محيطي، وراحة عالية للاستخدام اليومي والألعاب والموسيقى.
+            </div>
+
+            <!-- السعر -->
+            <div class="price-line">
+                السعر: <span id="realPrice">355.000 IQD</span>
+            </div>
+
+            <!-- زر أضف إلى السلة -->
+            <button class="btn-add-cart" onclick="handleAddToCart()">
+                أضف إلى السلة 🛒
+            </button>
+
+            <!-- الموديل -->
+            <div class="section-label">الموديل</div>
+            <div class="option-row">
+                <button class="capacity-chip active">AirPods Pro 3</button>
+            </div>
+
+            <!-- اللون -->
+            <div class="section-label">اللون</div>
+            <div class="option-row">
+                <button class="color-chip active">أبيض</button>
+            </div>
+
+            <!-- المواصفات -->
+            <section class="specs">
+                <h2>أهم المواصفات</h2>
+
+                <div class="specs-grid">
+
+                    <div class="spec-card">
+                        <strong>الصوت</strong><br>
+                        جودة صوت عالية مع Bass واضح وتفاصيل ممتازة للموسيقى والألعاب.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>عزل الضوضاء</strong><br>
+                        تقنية Active Noise Cancellation مع وضع الشفافية للسماع بما حولك عند الحاجة.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>الصوت المحيطي</strong><br>
+                        دعم Spatial Audio لتجربة ثلاثية الأبعاد مع الأفلام والألعاب.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>البطارية</strong><br>
+                        حتى ساعات طويلة من الاستماع مع الكيس، وشحن سريع عبر Lightning / USB-C (حسب الإصدار).
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>التحكم</strong><br>
+                        مستشعر لمس للتحكم بالموسيقى والمكالمات وتفعيل العزل/الشفافية.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>الاقتران</strong><br>
+                        اقتران سريع مع أجهزة Apple، ودعم Find My لتحديد موقع السماعة والكيس.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>مقاومة العرق والماء</strong><br>
+                        مقاومة للعرق والماء للاستخدام أثناء التمرين أو في الظروف اليومية.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>المحتويات</strong><br>
+                        السماعتان + كيس الشحن + مقاسات مختلفة من رؤوس السيليكون + كابل شحن (حسب العلبة).
+                    </div>
+
+                </div>
+
+                <a href="index.html" class="back-link">🔙 العودة للمتجر</a>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function handleAddToCart() {
+    const product = {
+        id: 'airpodspro3',
+        name: 'AirPods Pro 3',
+        capacity: 'AirPods Pro 3', // فقط حتى يظهر شيء في السلة، مو تخزين
+        color: 'أبيض',
+        price: 355000
+    };
+    addToCart(product);
+}
+</script>
+<script src="cart.js"></script>
+
+</body>
+</html>
