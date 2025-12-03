@@ -639,12 +639,18 @@ function renderSamsungProducts() {
         const card = document.createElement("div");
         card.className = "card";
 
-        card.innerHTML = `
-            <img src="${p.image}" alt="${p.name}">
-            <h3 style="min-height: 50px;">${p.name}</h3>
-            <div class="price">${p.price}</div>
-            <a href="${p.htmlFile}" class="detail-btn">عرض التفاصيل</a>
-        `;
+        let badgeHTML = "";
+if (p.status) {
+    const badgeClass = p.status === "متوفر" ? "badge-available" : "badge-out";
+    badgeHTML = `<span class="badge-status ${badgeClass}">${p.status}</span>`;
+}
+
+card.innerHTML = `
+    <img src="${p.image}" alt="${p.name}">
+    <h3 style="min-height: 50px;">${p.name}</h3>
+    ${badgeHTML}
+    <a href="${p.htmlFile}" class="detail-btn">عرض التفاصيل</a>
+`;
 
         container.appendChild(card);
     });
