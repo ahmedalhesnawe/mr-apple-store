@@ -7,27 +7,42 @@
     <style>
 
         /* زر السلة في الهيدر */
-.cart-link {
-    color:#fff !important;
-    font-size:16px;
-    text-decoration:none;
-    position:relative;
-    display:flex;
-    align-items:center;
-    gap:6px;
-}
+        .cart-link {
+            color:#fff !important;
+            font-size:16px;
+            text-decoration:none;
+            position:relative;
+            display:flex;
+            align-items:center;
+            gap:6px;
+        }
 
-#cartCount {
-    display:none;
-    background:#ff4444;
-    color:#fff;
-    padding:2px 6px;
-    border-radius:50%;
-    font-size:12px;
-    position:absolute;
-    top:-6px;
-    right:-10px;
-}
+        #cartCount {
+            display:none;
+            background:#ff4444;
+            color:#fff;
+            padding:2px 6px;
+            border-radius:50%;
+            font-size:12px;
+            position:absolute;
+            top:-6px;
+            right:-10px;
+        }
+
+        /* زر أضف إلى السلة */
+        .btn-add-cart {
+            margin-top: 10px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            background: #25d366;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        .btn-add-cart:hover {
+            opacity: 0.9;
+        }
 
         body {
             margin: 0;
@@ -168,7 +183,6 @@
     </div>
 </header>
 
-
 <div class="page-wrap">
 
     <div class="product-layout">
@@ -195,6 +209,11 @@
             <div class="price-line">
                 السعر: <span id="realPrice">1.775.000 IQD</span>
             </div>
+
+            <!-- زر أضف إلى السلة -->
+            <button class="btn-add-cart" onclick="handleAddToCart()">
+                أضف إلى السلة 🛒
+            </button>
 
             <!-- المعالج -->
             <div class="section-label">المعالج</div>
@@ -277,11 +296,19 @@ let selectedCapacity = '256';      // 256GB
 let selectedColor    = 'silver';   // اللون الافتراضي
 let selectedChip     = 'M5';       // المعالج الافتراضي
 
-// جدول الأسعار (حسب السعة + المعالج) – اللون لا يغير السعر
-const priceTable = {
+// جدول الأسعار النصية
+const displayPriceTable = {
     '256': {
         M4: '1.675.000 IQD',
         M5: '1.775.000 IQD',
+    },
+};
+
+// الأسعار الرقمية الفعلية للسلة
+const numericPriceTable = {
+    '256': {
+        M4: 1675000,
+        M5: 1775000,
     },
 };
 
@@ -293,7 +320,7 @@ const imageMap = {
 
 function updatePrice() {
     const priceSpan = document.getElementById('realPrice');
-    const price = priceTable[selectedCapacity][selectedChip];
+    const price = displayPriceTable[selectedCapacity][selectedChip];
     priceSpan.textContent = price;
 }
 
@@ -321,6 +348,27 @@ function selectChip(chip, btn) {
     document.querySelectorAll('.chip-type').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     updatePrice();
+}
+
+// زر أضف إلى السلة
+function handleAddToCart() {
+    const numericPrice = numericPriceTable[selectedCapacity][selectedChip];
+
+    const colorLabelMap = {
+        silver: 'Silver',
+        black:  'Black'
+    };
+
+    const product = {
+        id: 'ipadpro13-2025',
+        name: 'iPad Pro 13 (2025)',
+        capacity: selectedCapacity + 'GB',
+        chip: selectedChip,
+        color: colorLabelMap[selectedColor] || selectedColor,
+        price: numericPrice
+    };
+
+    addToCart(product);
 }
 
 // أول تشغيل
