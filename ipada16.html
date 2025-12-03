@@ -22,6 +22,26 @@
 
         .top-bar a { color:#aaa; text-decoration:none; font-size:14px; }
 
+        .cart-link {
+            color:#fff;
+            text-decoration:none;
+            font-size:16px;
+            position:relative;
+            margin-left:20px;
+        }
+
+        #cartCount {
+            display:none;
+            background:#ff4444;
+            color:#fff;
+            padding:2px 7px;
+            border-radius:50%;
+            font-size:12px;
+            position:absolute;
+            top:-8px;
+            right:-12px;
+        }
+
         .page-wrap {
             max-width: 1100px;
             margin: 30px auto 40px;
@@ -113,6 +133,18 @@
 
         .back-link { color:#8ab4ff; text-decoration:none; margin-top:20px; display:inline-block; }
 
+        .btn-add-cart {
+            margin-top: 10px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            background: #25d366;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .btn-add-cart:hover { opacity: 0.9; }
+
     </style>
 </head>
 
@@ -122,7 +154,15 @@
     <a href="index.html">
         <img src="images/logo.png" alt="logo" style="height:70px;">
     </a>
-    <a href="index.html">العودة إلى المتجر</a>
+
+    <div style="display:flex; align-items:center;">
+        <a href="cart.html" class="cart-link">
+            🛒 السلة
+            <span id="cartCount">0</span>
+        </a>
+
+        <a href="index.html">العودة إلى المتجر</a>
+    </div>
 </header>
 
 <div class="page-wrap">
@@ -154,6 +194,10 @@
                 السعر: <span id="realPrice">445.000 IQD</span>
             </div>
 
+            <button class="btn-add-cart" onclick="handleAddToCart()">
+                أضف إلى السلة 🛒
+            </button>
+
             <!-- السعة -->
             <div class="section-label">سعة التخزين</div>
             <div class="option-row">
@@ -183,17 +227,17 @@
 
                     <div class="spec-card">
                         <strong>المعالج</strong><br>
-                        شريحة A16 Bionic لتجربة أداء قوية وسريعة في التطبيقات والألعاب.
+                        شريحة A16 Bionic لتجربة أداء قوية وسريعة.
                     </div>
 
                     <div class="spec-card">
                         <strong>الكاميرات</strong><br>
-                        كاميرا خلفية 12MP + كاميرا أمامية Ultra Wide 12MP مع Center Stage.
+                        كاميرا خلفية 12MP + كاميرا أمامية Ultra Wide مع Center Stage.
                     </div>
 
                     <div class="spec-card">
                         <strong>البطارية</strong><br>
-                        بطارية تدوم لساعات طويلة مع دعم الشحن السريع عبر USB-C.
+                        بطارية تدوم لساعات طويلة.
                     </div>
 
                     <div class="spec-card">
@@ -203,12 +247,12 @@
 
                     <div class="spec-card">
                         <strong>الصوت</strong><br>
-                        سماعات ستيريو مزدوجة بجودة عالية.
+                        سماعات ستيريو عالية الجودة.
                     </div>
 
                     <div class="spec-card">
                         <strong>الاتصال</strong><br>
-                        Wi-Fi سريع – Bluetooth حديث – إصدارات تدعم 5G حسب الموديل.
+                        Wi-Fi سريع – Bluetooth – دعم 5G حسب الموديل.
                     </div>
 
                     <div class="spec-card">
@@ -225,14 +269,24 @@
     </div>
 </div>
 
+<!-- ربط نظام عربة التسوق -->
+<script src="cart.js"></script>
+
 <script>
 
 let selectedCapacity = '128';
 let selectedColor = 'blue';
 
+// الأسعار النصية
 const priceTable = {
     '128': '445.000 IQD',
     '256': '590.000 IQD'
+};
+
+// الأسعار الرقمية للحساب
+const priceMap = {
+    '128': 445000,
+    '256': 590000
 };
 
 const imageMap = {
@@ -248,23 +302,34 @@ function updatePrice() {
 
 function selectCapacity(cap, btn) {
     selectedCapacity = cap;
-
     document.querySelectorAll('.capacity-chip').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-
     updatePrice();
 }
 
 function selectColor(color, btn) {
     selectedColor = color;
-
     document.querySelectorAll('.color-chip').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-
     document.getElementById('mainImage').src = imageMap[color];
 }
 
+// دالة زر السلة
+function handleAddToCart() {
+    const product = {
+        id: 'ipad11-a16',
+        name: 'iPad 11 A16',
+        capacity: selectedCapacity + 'GB',
+        color: selectedColor,
+        price: priceMap[selectedCapacity]
+    };
+
+    addToCart(product);
+}
+
 updatePrice();
+updateCartCountBadge();
+
 </script>
 
 </body>
