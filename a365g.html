@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Samsung Galaxy A56 5G – مستر أبل</title>
+    <title>Samsung Galaxy A36 5G – مستر أبل</title>
     <style>
         /* زر السلة في الهيدر */
         .cart-link {
@@ -84,9 +84,9 @@
             width:16px; height:16px; border-radius:50%; border:2px solid #555;
         }
 
-        .green  { background:#0f8b55; }
-        .white  { background:#ffffff; }
-        .black  { background:#000000; }
+        .lightgreen  { background:#9fe6b8; }
+        .white       { background:#ffffff; }
+        .black       { background:#000000; }
 
         .product-info { flex:1 1 320px; }
 
@@ -203,25 +203,25 @@
         <!-- الصورة -->
         <div class="product-gallery">
             <!-- الصورة الأساسية (تتغير حسب اللون) -->
-            <img id="mainImage" src="images/a565g.png" alt="Samsung Galaxy A56 5G">
+            <img id="mainImage" src="images/a36.png" alt="Samsung Galaxy A36 5G">
 
             <!-- نقاط الألوان (استعراض بصري فقط) -->
             <div class="thumbs">
-                <div class="green"></div>
-                <div class="white"></div>
+                <div class="lightgreen"></div>
                 <div class="black"></div>
+                <div class="white"></div>
             </div>
         </div>
 
         <!-- المعلومات -->
         <div class="product-info">
 
-            <h1>Samsung Galaxy A56 5G</h1>
-            <div class="subtitle">شاشة جميلة، أداء ثابت، بطارية قوية مع دعم شبكة 5G.</div>
+            <h1>Samsung Galaxy A36 5G</h1>
+            <div class="subtitle">هاتف أنيق، أداء مستقر، مع دعم شبكة 5G بسعر اقتصادي.</div>
 
             <!-- السعر المتغير -->
             <div id="priceBox" class="price-line">
-                السعر: <span id="realPrice">450.000 IQD</span>
+                السعر: <span id="realPrice">350.000 IQD</span>
             </div>
 
             <!-- زر أضف إلى السلة -->
@@ -240,9 +240,9 @@
             <div class="section-label">اللون</div>
 
             <div class="option-row">
-                <button class="color-chip active" onclick="selectColor('green', this)">أخضر</button>
-                <button class="color-chip" onclick="selectColor('white', this)">أبيض</button>
-                <button class="color-chip" onclick="selectColor('black', this)">أسود</button>
+                <button class="color-chip active" onclick="selectColor('lightgreen', this)">Light Green</button>
+                <button class="color-chip" onclick="selectColor('black', this)">Black</button>
+                <button class="color-chip" onclick="selectColor('white', this)">White</button>
             </div>
 
             <!-- المواصفات -->
@@ -252,27 +252,27 @@
                 <div class="specs-grid">
                     <div class="spec-card">
                         <strong>الشاشة</strong><br>
-                        شاشة كبيرة بدقة عالية ومعدل تحديث سلس لتجربة مشاهدة مريحة.
+                        شاشة كبيرة بدقة ممتازة لعرض المحتوى والفيديوهات بوضوح.
                     </div>
                     <div class="spec-card">
                         <strong>المعالج</strong><br>
-                        معالج قوي لتشغيل التطبيقات والألعاب اليومية بدون تقطيع.
+                        معالج يوفر أداء جيد للاستخدام اليومي والتطبيقات المشهورة.
                     </div>
                     <div class="spec-card">
                         <strong>الذاكرة</strong><br>
-                        256GB تخزين داخلي مع 12GB RAM لتعدد المهام بسهولة.
+                        256GB تخزين داخلي مع 8GB RAM لتعدد المهام بدون بطء مزعج.
                     </div>
                     <div class="spec-card">
                         <strong>الكاميرات</strong><br>
-                        كاميرات خلفية متعددة مع تصوير واضح في الإضاءة المنخفضة.
+                        كاميرا خلفية واضحة لالتقاط صور وفيديوهات بجودة مناسبة.
                     </div>
                     <div class="spec-card">
                         <strong>البطارية</strong><br>
-                        بطارية تدوم طوال اليوم مع دعم الشحن السريع.
+                        بطارية تكفيك ليوم كامل من الاستخدام العادي مع دعم الشحن السريع.
                     </div>
                     <div class="spec-card">
                         <strong>الاتصال</strong><br>
-                        دعم 5G، Wi-Fi، Bluetooth، وكل ما تحتاجه من تقنيات حديثة.
+                        دعم شبكة 5G، Wi-Fi، Bluetooth، وكل احتياجات الاتصال الحديثة.
                     </div>
                 </div>
 
@@ -287,31 +287,31 @@
 <script>
     // حالة مبدئية
     let selectedCapacity = '256';   // 256GB
-    let selectedColor    = 'green'; // أخضر افتراضياً
+    let selectedColor    = 'lightgreen'; // Light Green افتراضياً
 
     // جدول الأسعار النصية لكل (سعة + لون) لعرضها على الصفحة
     const displayPriceTable = {
         '256': {
-            green: '450.000 IQD',
-            white: '450.000 IQD',
-            black: '450.000 IQD'
+            lightgreen: '350.000 IQD',
+            black:      '350.000 IQD',
+            white:      '350.000 IQD'
         }
     };
 
     // الأسعار الرقمية الحقيقية (للسلة)
     const numericPriceTable = {
         '256': {
-            green: 450000,
-            white: 450000,
-            black: 450000
+            lightgreen: 350000,
+            black:      350000,
+            white:      350000
         }
     };
 
     // تغيير الصورة حسب اللون
     const imageMap = {
-        green: 'images/a56green.png',
-        white: 'images/a56white.png',
-        black: 'images/a56black.png'
+        lightgreen: 'images/a36lightgreen.png',
+        black:      'images/a36black.png',
+        white:      'images/a36white.png'
     };
 
     // دالة تحديث السعر حسب السعة + اللون الحاليين
@@ -360,15 +360,15 @@
         const numericPrice = numericPriceTable[selectedCapacity][selectedColor];
 
         const colorLabelMap = {
-            green: 'أخضر',
-            white: 'أبيض',
-            black: 'أسود'
+            lightgreen: 'Light Green',
+            black:      'Black',
+            white:      'White'
         };
 
         const product = {
-            id: 'samsung-a56-5g',
-            name: 'Samsung Galaxy A56 5G',
-            capacity: selectedCapacity + 'GB - 12GB RAM',
+            id: 'samsung-a36-5g',
+            name: 'Samsung Galaxy A36 5G',
+            capacity: selectedCapacity + 'GB - 8GB RAM',
             color: colorLabelMap[selectedColor] || selectedColor,
             price: numericPrice
         };
@@ -379,7 +379,7 @@
 
     // أول تشغيل للصفحة
     updatePrice();
-    selectColor('green');
+    selectColor('lightgreen');
 </script>
 
 <script src="cart.js"></script>
