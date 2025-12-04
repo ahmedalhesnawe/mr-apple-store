@@ -1,663 +1,303 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>مستر أبل لتجارة الهواتف النقالة وإكسسواراتها</title>
-    <style>
-        /* أنيميشن ظهور راقي */
-        @keyframes fadeUp {
-            0% {
-                opacity: 0;
-                transform: translateY(25px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+<meta charset="UTF-8">
+<title>Mr Apple Store</title>
+<style>
 
-        .hero-title {
-            animation: fadeUp 1.2s ease forwards;
-        }
+body {
+    font-family: Arial;
+    background:#fff;
+    margin:0;
+}
 
-        .hero-subtitle {
-            animation: fadeUp 1.6s ease forwards;
-        }
+/* هيدر */
+header {
+    background:#111;
+    color:#fff;
+    padding:12px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #ffffff; /* الأبيض */
-        }
+header .logo img {
+    height:55px;
+}
 
-        /* الهيدر مع زر السلة */
-        header {
-            background:#111;
-            color:#fff;
-            padding:10px 20px;
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-        }
+.cart-link {
+    color:#fff;
+    font-size:16px;
+    text-decoration:none;
+    position:relative;
+}
+#cartCount {
+    display:none;
+    background:#ff4444;
+    color:#fff;
+    padding:2px 6px;
+    border-radius:50%;
+    font-size:12px;
+    position:absolute;
+    top:-6px;
+    right:-10px;
+}
 
-        header .logo {
-            display:flex;
-            align-items:center;
-            gap:10px;
-            font-size:20px;
-            font-weight:bold;
-        }
+/* الأقسام */
+.products {
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px,1fr));
+    gap:20px;
+    padding:20px;
+}
 
-        header .logo img {
-            height:50px;
-        }
+.card {
+    background:#fff;
+    border-radius:12px;
+    padding:12px;
+    box-shadow:0 3px 8px rgba(0,0,0,0.1);
+    text-align:center;
+}
 
-        .cart-link {
-            color:#fff;
-            font-size:16px;
-            text-decoration:none;
-            position:relative;
-            display:flex;
-            align-items:center;
-            gap:6px;
-        }
+.card img {
+    width:100%;
+    border-radius:10px;
+}
 
-        #cartCount {
-            display:none;
-            background:#ff4444;
-            color:#fff;
-            padding:2px 6px;
-            border-radius:50%;
-            font-size:12px;
-            position:absolute;
-            top:-6px;
-            right:-10px;
-        }
+.card h3 {
+    font-size:18px;
+    margin:10px 0;
+}
 
-        .products {
-            display:grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap:20px;
-            padding:20px;
-        }
+.badge-status {
+    display:inline-block;
+    padding:4px 10px;
+    border-radius:999px;
+    font-size:12px;
+    margin-top:6px;
+}
 
-        .card {
-            background:#fff;
-            border-radius:12px;
-            padding:15px;
-            box-shadow:0 3px 8px rgba(0,0,0,0.1);
-            transition:0.3s;
-        }
+.badge-available {
+    background:#e6ffed;
+    color:#137333;
+}
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+.badge-out {
+    background:#ffe6e6;
+    color:#b00020;
+}
 
-        .card img {
-            width:100%;
-            border-radius:10px;
-            margin-bottom:8px;
-        }
+.detail-btn {
+    display:block;
+    margin-top:10px;
+    padding:10px;
+    background:#ff7a00;
+    color:white;
+    border-radius:8px;
+    font-size:15px;
+    text-decoration:none;
+}
 
-        .card h3 {
-            margin:10px 0;
-            font-size:20px;
-            color:#111;
-            text-align:center;
-            background: rgba(0,0,0,0.03);
-            padding:8px 10px;
-            border-radius:10px;
-            transition: 0.3s ease;
-        }
+/* أزرار الأقسام */
+.section-buttons {
+    text-align:center;
+    margin:20px 0;
+}
+.section-buttons button {
+    padding:15px 22px;
+    margin:5px;
+    border:none;
+    border-radius:18px;
+    cursor:pointer;
+    background:#333;
+    color:#fff;
+}
+.section-buttons button.active {
+    background:#ff7a00;
+}
 
-        .card h3:hover {
-            color:#ff7a00;
-            animation: titleBounce 0.4s ease;
-        }
+/* الفلاتر */
+.filters-bar {
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    padding:0 20px 15px;
+}
 
-        @keyframes titleBounce {
-            0%   { transform: scale(1) translateY(0); }
-            30%  { transform: scale(1.06) translateY(-4px); }
-            60%  { transform: scale(1.02) translateY(2px); }
-            100% { transform: scale(1) translateY(0); }
-        }
+.filters-bar input,
+.filters-bar select {
+    padding:10px;
+    font-size:14px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
 
-        .card p {
-            color:#333;
-            font-size:15px;
-        }
-
-        .price {
-            color:#e63946;
-            font-size:18px;
-            margin:5px 0;
-            font-weight:bold;
-        }
-
-        footer {
-            text-align:center;
-            padding:15px;
-            background:#111;
-            color:#fff;
-            margin-top:20px;
-        }
-
-        .slider {
-            width: 100%;
-            height: 700px;
-            overflow: hidden;
-            position: relative;
-            margin-top: 20px;
-        }
-
-        .slide {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            opacity: 0;
-            transform: scale(1.05);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .slide.active {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .slider-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.4);
-            color: #fff;
-            border: none;
-            font-size: 28px;
-            padding: 6px 14px;
-            cursor: pointer;
-            border-radius: 6px;
-            transition: 0.3s;
-            z-index: 5;
-        }
-
-        .slider-btn:hover {
-            background: rgba(0,0,0,0.75);
-        }
-
-        .prev { left: 15px; }
-        .next { right: 15px; }
-
-        .detail-btn {
-            display: block;
-            margin: 15px auto 0;
-            padding: 10px 18px;
-            background: #ff7a00;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 16px;
-            transition: 0.3s ease;
-            animation: floatBtn 1.5s infinite ease-in-out;
-        }
-                /* شريط البحث والفلاتر */
-        .filters-bar {
-            display:flex;
-            flex-wrap:wrap;
-            gap:10px;
-            padding:0 20px 15px;
-            align-items:center;
-            justify-content:flex-start;
-        }
-
-        .filters-bar label {
-            font-size:14px;
-            color:#333;
-        }
-
-        .filters-bar input,
-        .filters-bar select {
-            padding:8px 10px;
-            border-radius:8px;
-            border:1px solid #ccc;
-            font-size:14px;
-            min-width:140px;
-        }
-
-        /* بادج حالة المنتج */
-        .badge-status {
-            display:inline-block;
-            padding:4px 10px;
-            border-radius:999px;
-            font-size:12px;
-            margin-top:6px;
-        }
-
-        .badge-available {
-            background:#e6ffed;
-            color:#137333;
-        }
-
-        .badge-out {
-            background:#ffe6e6;
-            color:#b00020;
-        }
-
-
-        @keyframes floatBtn {
-            0%   { transform: translateY(0); }
-            50%  { transform: translateY(-5px); }
-            100% { transform: translateY(0); }
-        }
-
-        .detail-btn:hover {
-            background: #ff8f22;
-            transform: scale(1.05);
-        }
-    </style>
-    
+</style>
 </head>
-
 <body>
 
-    <!-- الهيدر مع زر السلة -->
-    <header>
-        <div class="logo">
-            <img src="images/logo.png" alt="Mr Apple Logo">
-            <span>مستر أبل</span>
-        </div>
-
-        <a href="cart.html" class="cart-link">
-            🛒 السلة
-            <span id="cartCount">0</span>
-        </a>
-    </header>
-
-    <!-- قسم الغلاف الرئيسي (Hero Section) -->
-    <section style="
-        background:#f5f5f7; 
-        padding:60px 20px; 
-        text-align:center;
-    ">
-
-        <div style="
-            background: rgba(255,255,255,0.7);
-            display:inline-block;
-            padding:20px 40px;
-            border-radius:16px;
-            backdrop-filter: blur(6px);
-            margin-bottom:15px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-        ">
-
-            <h1 style="font-size:40px; margin:0; color:#000;">
-                مرحباً بك في مستر أبل
-            </h1>
-
-            <p style="font-size:20px; margin-top:10px; margin-bottom:0; color:#333;">
-                أفضل متجر لبيع الهواتف النقالة وإكسسواراتها
-            </p>
-
-        </div>
-
-    </section>
-
-    <!-- فيديو بدل السلايدر -->
-    <div style="width:100%; overflow:hidden; height:550px;">
-        <video autoplay muted loop playsinline style="
-            width:100%;
-            height:100%;
-            object-fit:cover;
-        ">
-            <source src="images/banner.mp4.mp4" type="video/mp4">
-        </video>
+<header>
+    <div class="logo">
+        <img src="images/logo.png">
     </div>
 
-    <!-- شريط اختيار الأقسام -->
-    <h2 style="color:#000; text-align:right; padding:0 20px; margin-top:40px;">اختر القسم</h2>
+    <a href="cart.html" class="cart-link">
+        🛒 السلة
+        <span id="cartCount">0</span>
+    </a>
+</header>
 
-    <div style="text-align:center; margin:10px 0 20px;">
-        <button onclick="showCategory('apple')" style="margin:5px; padding:20px 16px; border-radius:20px; border:none; cursor:pointer; background:#ff7a00; color:#fff;">
-            منتجات Apple
-        </button>
-        <button onclick="showCategory('samsung')" style="margin:5px; padding:20px 16px; border-radius:20px; border:none; cursor:pointer; background:#333; color:#fff;">
-            منتجات Samsung
-        </button>
-        <button onclick="showCategory('accessories')" style="margin:5px; padding:20px 16px; border-radius:20px; border:none; cursor:pointer; background:#333; color:#fff;">
-            قسم الإكسسوارات
-        </button>
-    </div>
+<!-- أزرار اختيار القسم -->
+<div class="section-buttons">
+    <button id="btnApple" onclick="switchCategory('apple')" class="active">منتجات Apple</button>
+    <button id="btnSamsung" onclick="switchCategory('samsung')">منتجات Samsung</button>
+    <button id="btnAccessories" onclick="switchCategory('accessories')">الإكسسوارات</button>
+</div>
 
-       <!-- شريط البحث والفلاتر لمنتجات Apple -->
-    <div class="filters-bar">
-        <label for="searchInput">🔍 بحث:</label>
-        <input id="searchInput" type="text" placeholder="ابحث عن منتج..." oninput="applyFilters()">
+<!-- الفلاتر الموحدة -->
+<div class="filters-bar">
 
-        <label for="typeFilter">النوع:</label>
-        <select id="typeFilter" onchange="applyFilters()">
-            <option value="">كل الأنواع</option>
-        </select>
+    <input id="searchInput" type="text" placeholder="بحث..." oninput="applyUnifiedFilter()">
 
-        <label for="statusFilter">الحالة:</label>
-        <select id="statusFilter" onchange="applyFilters()">
-            <option value="">الكل</option>
-            <option value="available">متوفر فقط</option>
-            <option value="out">غير متوفر فقط</option>
-        </select>
-    </div>
+    <select id="typeFilter" onchange="applyUnifiedFilter()">
+        <option value="">كل الأنواع</option>
+    </select>
 
-    <!-- قسم منتجات Apple (الكروت فقط) -->
-    <section id="apple" class="products category" style="display:grid;">
-        <!-- سيتم تعبئة الكروت تلقائياً -->
-    </section>
+    <select id="statusFilter" onchange="applyUnifiedFilter()">
+        <option value="">الحالة: الكل</option>
+        <option value="available">متوفر فقط</option>
+        <option value="out">غير متوفر فقط</option>
+    </select>
 
-    <!-- قسم منتجات Samsung -->
-    <section id="samsung" class="products category" style="display:grid;">
+</div>
 
-    </section>
+<!-- 3 أقسام ثابتة -->
+<section id="apple" class="products"></section>
+<section id="samsung" class="products" style="display:none;"></section>
+<section id="accessories" class="products" style="display:none;"></section>
 
-    <!-- قسم الإكسسوارات -->
-    <section id="accessories" class="products category" style="display:none;">
-
-        <div class="card">
-            <img src="images/airpodspro.jpg" alt="AirPods Pro">
-            <h3>AirPods Pro</h3>
-            <p>عزل ضوضاء – صوت نقي – شحن MagSafe</p>
-            <div class="price">السعر: 220$</div>
-        </div>
-
-    </section>
-
-    <!-- قسم تواصل معنا -->
-    <section style="background:#111; color:#fff; padding:30px 20px; margin-top:40px; text-align:right;">
-        <h2 style="margin-top:0; margin-bottom:15px;">تواصل معنا</h2>
-
-        <p style="margin:5px 0;">📞 الهاتف: 9544 234 0781</p>
-        <p style="margin:5px 0;">📞 الهاتف: 6864 148 0771</p>
-        <p style="margin:5px 0;">📍 العنوان: الديوانية - ام الخيل - مقابل جامع ابراهيم الخليل</p>
-
-        <a href="https://wa.link/x77my7" target="_blank"
-           style="display:inline-block; margin-top:10px; padding:10px 18px; background:#25d366; color:#fff; text-decoration:none; border-radius:8px;">
-            تواصل عبر واتساب
-        </a>
-    </section>
-
-    <footer>© 2025 جميع الحقوق محفوظة – مستر أبل لتجارة الهواتف النقالة وإكسسواراتها</footer>
-
-    <script>
-    // إظهار/إخفاء الأقسام
-    function showCategory(id) {
-        document.querySelectorAll('.category').forEach(sec => {
-            sec.style.display = 'none';
-        });
-        const active = document.getElementById(id);
-        if (active) {
-            active.style.display = 'grid';
-        }
-    }
-    </script>
-
-          <!-- ربط نظام عربة التسوق -->
-    <script src="cart.js"></script>
-
-    <!-- جلب منتجات Apple من Google Sheet + بحث وفلاتر -->
-    <script>
-    // رابط Google Sheet بصيغة CSV
-    const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQy4WWb2dGNoPn7G0mirIaYLF0p80wjsO7X7uEKMiFgubBXvN_QxiPBwl4HrAcotkjBkZ98UDf_GoST/pub?output=csv";
-
-    // مصفوفة نخزن بيها كل منتجات Apple من الشيت
-    let allAppleProducts = [];
-
-    async function loadAppleProducts() {
-        try {
-            const res  = await fetch(SHEET_URL);
-            const text = await res.text();
-
-            const lines = text.trim().split("\n");
-
-            // أول سطر = عناوين الأعمدة
-            lines.shift();
-
-            allAppleProducts = [];
-
-            lines.forEach(line => {
-                if (!line.trim()) return;
-
-                const cols = line.split(",");
-
-                // ترتيب الأعمدة في الشيت:
-                // 0: ID
-                // 1: CATEGORY
-                // 2: NAME
-                // 3: HTML FILE
-                // 4: IMAGE
-                // 5: PRICE (اختياري - مو مستخدم هنا)
-                // 6: STORAGE (اختياري)
-                // 7: STATUS (متوفر / غير متوفر)
-                // 8: TYPE   (iPhone / iPad / ...)
-
-                const category = (cols[1] || "").trim().toLowerCase();
-                const name     = (cols[2] || "").trim();
-                const htmlFile = (cols[3] || "").trim();
-                const image    = (cols[4] || "").trim();
-                const statusRaw= (cols[7] || "").trim(); // نص الحالة من الشيت
-                const type     = (cols[8] || "").trim(); // النوع (مثلاً: iPhone, iPad...)
-
-                if (!name || category !== "apple") return;
-
-                const statusKey =
-                    statusRaw === "متوفر" || statusRaw.toLowerCase() === "available"
-                        ? "available"
-                        : (statusRaw === "غير متوفر" || statusRaw.toLowerCase() === "out"
-                            ? "out"
-                            : "");
-
-                const product = {
-                    name,
-                    htmlFile: htmlFile || "#",
-                    image: image || "images/logo.png",
-                    statusRaw: statusRaw || "", // النص الي راح نعرضه
-                    statusKey,                  // قيمة للتصفية
-                    type: type || ""            // النوع (للفلتر)
-                };
-
-                allAppleProducts.push(product);
-            });
-
-            // تعبئة قائمة الأنواع في الفلتر
-            fillTypeFilterOptions();
-
-            // عرض المنتجات أول مرة
-            applyFilters();
-
-        } catch (err) {
-            console.error("خطأ في تحميل المنتجات من Google Sheet:", err);
-            const container = document.getElementById("apple");
-            container.innerHTML = `
-                <p style="text-align:center; color:red;">
-                    تعذر تحميل المنتجات من الجدول، تأكد من رابط Google Sheet أو الاتصال بالإنترنت.
-                </p>
-            `;
-        }
-    }
-
-    // تعبئة فلتر الأنواع من البيانات الموجودة
-    function fillTypeFilterOptions() {
-        const typeSelect = document.getElementById("typeFilter");
-        const types = new Set();
-
-        allAppleProducts.forEach(p => {
-            if (p.type) types.add(p.type);
-        });
-
-        // مسح القديم (مع الإبقاء على أول خيار)
-        typeSelect.innerHTML = '<option value="">كل الأنواع</option>';
-
-        Array.from(types).forEach(t => {
-            const opt = document.createElement("option");
-            opt.value = t;
-            opt.textContent = t;
-            typeSelect.appendChild(opt);
-        });
-    }
-
-    // تطبيق البحث + الفلاتر ثم عرض المنتجات
-    function applyFilters() {
-        const searchValue = document.getElementById("searchInput").value.trim().toLowerCase();
-        const typeValue   = document.getElementById("typeFilter").value;
-        const statusValue = document.getElementById("statusFilter").value; // "" | "available" | "out"
-
-        const filtered = allAppleProducts.filter(p => {
-            // بحث بالاسم
-            if (searchValue && !p.name.toLowerCase().includes(searchValue)) {
-                return false;
-            }
-
-            // فلتر النوع
-            if (typeValue && p.type !== typeValue) {
-                return false;
-            }
-
-            // فلتر الحالة
-            if (statusValue && p.statusKey !== statusValue) {
-                return false;
-            }
-
-            return true;
-        });
-
-        renderAppleProducts(filtered);
-    }
-
-    // رسم الكروت في الصفحة
-    function renderAppleProducts(list) {
-        const container = document.getElementById("apple");
-        container.innerHTML = "";
-
-        if (!list.length) {
-            container.innerHTML = `
-                <p style="text-align:center; grid-column:1/-1; color:#555;">
-                    لا توجد منتجات مطابقة لخيارات البحث / الفلترة.
-                </p>
-            `;
-            return;
-        }
-
-        list.forEach(p => {
-            const card = document.createElement("div");
-            card.className = "card";
-
-            // اختيار كلاس البادج حسب الحالة
-            let badgeHTML = "";
-            if (p.statusRaw) {
-                const badgeClass = p.statusKey === "available" ? "badge-available" : "badge-out";
-                badgeHTML = `<span class="badge-status ${badgeClass}">${p.statusRaw}</span>`;
-            }
-
-            card.innerHTML = `
-                <img src="${p.image}" alt="${p.name}">
-                <h3 style="min-height: 50px;">${p.name}</h3>
-                ${badgeHTML}
-                <a href="${p.htmlFile}" class="detail-btn">عرض التفاصيل</a>
-            `;
-
-            container.appendChild(card);
-        });
-    }
-
-    // تشغيل عند فتح الصفحة
-    loadAppleProducts();
-    </script>
+<script src="cart.js"></script>
 
 <script>
-// 🔵 تحميل منتجات Samsung من نفس Google Sheet
+// رابط Google Sheet
+const SHEET_URL =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vQy4WWb2dGNoPn7G0mirIaYLF0p80wjsO7X7uEKMiFgubBXvN_QxiPBwl4HrAcotkjBkZ98UDf_GoST/pub?output=csv";
 
-let allSamsungProducts = [];
+let allProducts = [];
+let currentCategory = "apple";
 
-async function loadSamsungProducts() {
-    try {
-        const res  = await fetch(SHEET_URL);
-        const text = await res.text();
+// تحميل كل المنتجات (Apple + Samsung + Accessories)
+async function loadAllProducts() {
+    const res = await fetch(SHEET_URL);
+    const text = await res.text();
+    const lines = text.trim().split("\n");
+    lines.shift(); // إزالة العناوين
 
-        const lines = text.trim().split("\n");
-        lines.shift(); // إزالة عناوين الأعمدة
+    allProducts = [];
 
-        allSamsungProducts = [];
+    lines.forEach(line => {
+        const cols = line.split(",");
 
-        lines.forEach(line => {
-            const cols = line.split(",");
+        const category = (cols[1] || "").trim().toLowerCase();
+        const name     = (cols[2] || "").trim();
+        const html     = (cols[3] || "").trim();
+        const image    = (cols[4] || "").trim();
+        const status   = (cols[7] || "").trim();
+        const type     = (cols[8] || "").trim();
 
-            // ترتيب الأعمدة في الشيت:
-            // 0: ID
-            // 1: CATEGORY
-            // 2: NAME
-            // 3: HTML FILE
-            // 4: IMAGE
-            // 5: PRICE
-            // 7: STATUS
+        if (!name) return;
 
-            const category = (cols[1] || "").trim().toLowerCase();
-            const name     = (cols[2] || "").trim();
-            const htmlFile = (cols[3] || "").trim();
-            const image    = (cols[4] || "").trim();
-            const price    = (cols[5] || "").trim();
-            const status   = (cols[7] || "").trim();
-
-            if (category !== "samsung") return;
-            if (!name) return;
-
-            allSamsungProducts.push({
-                name,
-                htmlFile: htmlFile || "#",
-                image: image || "images/logo.png",
-                price: price || "",
-                status: status || ""
-            });
+        allProducts.push({
+            category,
+            name,
+            html,
+            image,
+            type,
+            statusKey: status === "متوفر" ? "available" : "out",
+            statusRaw: status
         });
+    });
 
-        renderSamsungProducts();
-
-    } catch (err) {
-        console.error("Error loading Samsung products:", err);
-        document.getElementById("samsung").innerHTML =
-            "<p style='color:red; text-align:center;'>خطأ في تحميل أجهزة سامسونغ ❌</p>";
-    }
+    buildTypeList();
+    applyUnifiedFilter();
 }
 
-function renderSamsungProducts() {
-    const container = document.getElementById("samsung");
-    container.innerHTML = "";
+// تجميع الأنواع للفلاتر
+function buildTypeList() {
+    const used = new Set();
+    allProducts.forEach(p => { if (p.type) used.add(p.type); });
 
-    if (!allSamsungProducts.length) {
-        container.innerHTML =
-            "<p style='text-align:center; color:#555;'>لا توجد أجهزة سامسونج حالياً.</p>";
-        return;
-    }
+    const sel = document.getElementById("typeFilter");
+    sel.innerHTML = `<option value="">كل الأنواع</option>`;
 
-    allSamsungProducts.forEach(p => {
-        const card = document.createElement("div");
-        card.className = "card";
-
-        let badgeHTML = "";
-if (p.status) {
-    const badgeClass = p.status === "متوفر" ? "badge-available" : "badge-out";
-    badgeHTML = `<span class="badge-status ${badgeClass}">${p.status}</span>`;
-}
-
-card.innerHTML = `
-    <img src="${p.image}" alt="${p.name}">
-    <h3 style="min-height: 50px;">${p.name}</h3>
-    ${badgeHTML}
-    <a href="${p.htmlFile}" class="detail-btn">عرض التفاصيل</a>
-`;
-
-        container.appendChild(card);
+    used.forEach(t => {
+        sel.innerHTML += `<option value="${t}">${t}</option>`;
     });
 }
 
-// ▶ تحميل منتجات سامسونغ
-loadSamsungProducts();
+// تغيير القسم
+function switchCategory(cat) {
+    currentCategory = cat;
+
+    document.querySelectorAll(".section-buttons button").forEach(b => b.classList.remove("active"));
+
+    if (cat === "apple") document.getElementById("btnApple").classList.add("active");
+    if (cat === "samsung") document.getElementById("btnSamsung").classList.add("active");
+    if (cat === "accessories") document.getElementById("btnAccessories").classList.add("active");
+
+    document.getElementById("apple").style.display = "none";
+    document.getElementById("samsung").style.display = "none";
+    document.getElementById("accessories").style.display = "none";
+
+    document.getElementById(cat).style.display = "grid";
+
+    applyUnifiedFilter();
+}
+
+// فلتر موحد لكل الأقسام
+function applyUnifiedFilter() {
+    const search = document.getElementById("searchInput").value.toLowerCase();
+    const type   = document.getElementById("typeFilter").value;
+    const status = document.getElementById("statusFilter").value;
+
+    const target = document.getElementById(currentCategory);
+    target.innerHTML = "";
+
+    const filtered = allProducts.filter(p => {
+        if (p.category !== currentCategory) return false;
+        if (search && !p.name.toLowerCase().includes(search)) return false;
+        if (type && p.type !== type) return false;
+        if (status && p.statusKey !== status) return false;
+        return true;
+    });
+
+    if (!filtered.length) {
+        target.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:#555;">لا توجد نتائج.</p>`;
+        return;
+    }
+
+    renderProducts(filtered, target);
+}
+
+// رسم الكروت
+function renderProducts(list, container) {
+    container.innerHTML = "";
+
+    list.forEach(p => {
+        let badge = `<span class="badge-status ${p.statusKey === 'available' ? 'badge-available' : 'badge-out'}">${p.statusRaw}</span>`;
+
+        container.innerHTML += `
+        <div class="card">
+            <img src="${p.image}">
+            <h3>${p.name}</h3>
+            ${badge}
+            <a class="detail-btn" href="${p.html}">عرض التفاصيل</a>
+        </div>
+        `;
+    });
+}
+
+loadAllProducts();
 </script>
 
 </body>
