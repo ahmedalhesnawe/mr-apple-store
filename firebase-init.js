@@ -1,9 +1,5 @@
+// firebase-init.js
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAYXbmPGjMqCkOKwrz1yT4cP4i75T7Lgfg",
   authDomain: "mr-apple-store-fc5df.firebaseapp.com",
@@ -14,6 +10,8 @@ const firebaseConfig = {
   measurementId: "G-ZSBRD46JGF"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// تشغيل Firebase باستخدام compat
+firebase.initializeApp(firebaseConfig);
+
+// auth متوفر بكل الصفحات
+const auth = firebase.auth();
