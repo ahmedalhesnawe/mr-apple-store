@@ -43,7 +43,7 @@ header .logo img {
     right:-10px;
 }
 
-/* الأقسام */
+/* الأقسام (كل الكاتيجوريز من الشيت) */
 .products {
     display:grid;
     grid-template-columns: repeat(auto-fill, minmax(230px,1fr));
@@ -101,7 +101,7 @@ header .logo img {
 /* أزرار الأقسام */
 .section-buttons {
     text-align:center;
-    margin:60px 0 20px; /* ⬅ رفعنا المسافة للأعلى */
+    margin:60px 0 20px;
 }
 
 .section-buttons button {
@@ -147,6 +147,7 @@ header .logo img {
         <span id="cartCount">0</span>
     </a>
 </header>
+
 <!-- 🔥 بداية السلايدر -->
 <div class="slider-container">
     <button class="slide-btn prev" onclick="changeSlide(-1)">❮</button>
@@ -163,7 +164,7 @@ header .logo img {
 <style>
 .slider-container {
     width:100%;
-    height:650px; /* قياس مثالي لموقعك */
+    height:650px;
     overflow:hidden;
     position:relative;
     margin-bottom:430px;
@@ -226,6 +227,7 @@ setInterval(() => { changeSlide(1); }, 5000);
 <div class="section-buttons">
     <button id="btnApple" onclick="switchCategory('apple')" class="active">منتجات Apple</button>
     <button id="btnSamsung" onclick="switchCategory('samsung')">منتجات Samsung</button>
+    <button id="btnHonor" onclick="switchCategory('honor')">منتجات Honor</button>
     <button id="btnAccessories" onclick="switchCategory('accessories')">الإكسسوارات</button>
 </div>
 
@@ -246,9 +248,10 @@ setInterval(() => { changeSlide(1); }, 5000);
 
 </div>
 
-<!-- 3 أقسام ثابتة -->
+<!-- 4 أقسام ديناميكية من الشيت -->
 <section id="apple" class="products"></section>
 <section id="samsung" class="products" style="display:none;"></section>
+<section id="honor" class="products" style="display:none;"></section>
 <section id="accessories" class="products" style="display:none;"></section>
 
 <script src="cart.js"></script>
@@ -261,7 +264,7 @@ const SHEET_URL =
 let allProducts = [];
 let currentCategory = "apple";
 
-// تحميل كل المنتجات (Apple + Samsung + Accessories)
+// تحميل كل المنتجات (Apple + Samsung + Honor + Accessories)
 async function loadAllProducts() {
     const res = await fetch(SHEET_URL);
     const text = await res.text();
@@ -273,7 +276,7 @@ async function loadAllProducts() {
     lines.forEach(line => {
         const cols = line.split(",");
 
-        const category = (cols[1] || "").trim().toLowerCase();
+        const category = (cols[1] || "").trim().toLowerCase(); // apple / samsung / honor / accessories
         const name     = (cols[2] || "").trim();
         const html     = (cols[3] || "").trim();
         const image    = (cols[4] || "").trim();
@@ -314,16 +317,21 @@ function buildTypeList() {
 function switchCategory(cat) {
     currentCategory = cat;
 
+    // تحديث الأزرار
     document.querySelectorAll(".section-buttons button").forEach(b => b.classList.remove("active"));
 
     if (cat === "apple") document.getElementById("btnApple").classList.add("active");
     if (cat === "samsung") document.getElementById("btnSamsung").classList.add("active");
+    if (cat === "honor") document.getElementById("btnHonor").classList.add("active");
     if (cat === "accessories") document.getElementById("btnAccessories").classList.add("active");
 
+    // إخفاء كل الأقسام
     document.getElementById("apple").style.display = "none";
     document.getElementById("samsung").style.display = "none";
+    document.getElementById("honor").style.display = "none";
     document.getElementById("accessories").style.display = "none";
 
+    // إظهار القسم المختار
     document.getElementById(cat).style.display = "grid";
 
     applyUnifiedFilter();
