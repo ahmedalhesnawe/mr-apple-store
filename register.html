@@ -111,15 +111,15 @@
     </div>
 </div>
 
-<!-- Firebase SDK -->
+<!-- Firebase SDK (نسخة compat) -->
 <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth-compat.js"></script>
 
-<!-- ملف التهيئة مالك -->
+<!-- ملف التهيئة اللي سويناه -->
 <script src="firebase-init.js"></script>
 
+<!-- سكربت تسجيل المستخدم -->
 <script>
-// إنشاء حساب باستخدام Firebase Auth
 document.getElementById('registerForm').addEventListener('submit', function(e){
     e.preventDefault();
 
@@ -134,13 +134,11 @@ document.getElementById('registerForm').addEventListener('submit', function(e){
 
     auth.createUserWithEmailAndPassword(email, password)
         .then(cred => {
-            // نحدث اسم المستخدم في بروفايل Firebase
             return cred.user.updateProfile({
                 displayName: name
             });
         })
         .then(() => {
-            // بعد الإنشاء نرجع للصفحة الرئيسية
             window.location.href = 'index.html';
         })
         .catch(err => {
@@ -148,6 +146,7 @@ document.getElementById('registerForm').addEventListener('submit', function(e){
         });
 });
 </script>
+
 
 </body>
 </html>
