@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>Huawei Watch GT 6 – مستر أبل</title>
+
+<style>
+body {
+    margin:0;
+    font-family:Arial;
+    background: radial-gradient(circle at top, #1e1e1e 0, #0c0c0c 45%, #000 100%);
+    color:#fff;
+}
+
+.top-bar {
+    background:#000;
+    padding:10px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.top-bar img {
+    height:75px;
+}
+
+.cart-link {
+    color:#fff;
+    text-decoration:none;
+    font-size:16px;
+    position:relative;
+}
+#cartCount {
+    display:none;
+    background:#ff4444;
+    color:#fff;
+    padding:2px 6px;
+    border-radius:50%;
+    position:absolute;
+    top:-6px;
+    right:-10px;
+    font-size:12px;
+}
+
+.page-wrap {
+    max-width:1100px;
+    margin:40px auto;
+    padding:0 20px;
+}
+
+.product-layout {
+    display:flex;
+    flex-wrap:wrap;
+    gap:40px;
+}
+
+.product-gallery {
+    flex:1 1 330px;
+    text-align:center;
+}
+
+.product-gallery img {
+    width:100%;
+    max-width:350px;
+    border-radius:20px;
+    box-shadow:0 0 12px rgba(255,255,255,0.1);
+}
+
+/* أزرار الصور */
+.image-selector {
+    margin-top:12px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+
+.image-thumb {
+    width:55px;
+    height:55px;
+    border-radius:12px;
+    border:2px solid #444;
+    cursor:pointer;
+    object-fit:cover;
+    transition:0.2s;
+}
+
+.image-thumb.active {
+    border-color:#ffd700;
+    transform:scale(1.05);
+}
+
+/* المعلومات */
+.product-info {
+    flex:1 1 320px;
+}
+
+.product-info h1 {
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.subtitle {
+    color:#bbb;
+    margin-bottom:15px;
+}
+
+.price-line {
+    font-size:22px;
+    margin-bottom:20px;
+}
+.price-line span {
+    color:#ffd700;
+    font-weight:bold;
+}
+
+/* النسخ */
+.section-label {
+    color:#ccc;
+    margin:10px 0 6px;
+}
+
+.option-row {
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.chip {
+    padding:8px 14px;
+    border:1px solid #555;
+    border-radius:999px;
+    background:transparent;
+    color:#fff;
+    cursor:pointer;
+}
+.chip.active {
+    border-color:#fff;
+    background:#1a1a1a;
+}
+
+/* زر السلة */
+.btn-add-cart {
+    margin-top:20px;
+    padding:12px 20px;
+    background:#25d366;
+    border:none;
+    color:#fff;
+    border-radius:10px;
+    font-size:16px;
+    cursor:pointer;
+}
+.btn-add-cart:hover { opacity:0.9; }
+
+/* المواصفات */
+.specs {
+    margin-top:40px;
+    padding:20px;
+    background:#111;
+    border-radius:16px;
+}
+
+.specs-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(220px,1fr));
+    gap:15px;
+}
+
+.spec-card {
+    background:#0d0d0d;
+    border-radius:12px;
+    border:1px solid #222;
+    padding:14px;
+    font-size:14px;
+}
+
+.back-link {
+    color:#4da3ff;
+    margin-top:20px;
+    display:inline-block;
+}
+</style>
+</head>
+
+<body>
+
+<header class="top-bar">
+    <a href="index.html"><img src="images/logo.png"></a>
+    <a href="cart.html" class="cart-link">🛒 السلة <span id="cartCount">0</span></a>
+</header>
+
+<div class="page-wrap">
+
+    <div class="product-layout">
+
+        <!-- الصور -->
+        <div class="product-gallery">
+            <img id="mainImage" src="images/gtti.png">
+
+            <!-- مصغرات الصور لكل نسخة -->
+            <div class="image-selector" id="imageSelector">
+                <img src="images/gt6.png" class="image-thumb active" onclick="changeImage(this)">
+                <img src="images/gtti.png" class="image-thumb" onclick="changeImage(this)">
+            </div>
+        </div>
+
+        <!-- المعلومات -->
+        <div class="product-info">
+            <h1>Huawei Watch GT 6</h1>
+
+            <div class="subtitle">ساعة ذكية أنيقة تتميز بالمزايا الصحية والرياضية.</div>
+
+            <div class="price-line">
+                السعر: <span id="realPrice">225.000 IQD</span>
+            </div>
+
+            <div class="section-label">اختر النسخة</div>
+            <div class="option-row">
+                <button class="chip active" onclick="selectVersion('gt6', this)">GT 6</button>
+                <button class="chip" onclick="selectVersion('pro', this)">GT 6 Pro</button>
+            </div>
+
+            <button class="btn-add-cart" onclick="handleAddToCart()">أضف إلى السلة 🛒</button>
+        </div>
+    </div>
+
+    <section class="specs">
+        <h2>أبرز المواصفات</h2>
+
+        <div class="specs-grid">
+            <div class="spec-card"><strong>الشاشة</strong><br>AMOLED بألوان ساطعة.</div>
+            <div class="spec-card"><strong>الصحة</strong><br>قياس نبض، نوم، SpO2.</div>
+            <div class="spec-card"><strong>الرياضة</strong><br>أكثر من 100 وضع رياضي.</div>
+            <div class="spec-card"><strong>البطارية</strong><br>تصل 14 يوم – و 21 يوم للـ Pro.</div>
+            <div class="spec-card"><strong>التصميم</strong><br>مقاومة للماء ومواد ممتازة.</div>
+            <div class="spec-card"><strong>ميزات إضافية</strong><br>GPS – مكالمات بلوتوث – وجوه ساعة.</div>
+        </div>
+
+        <a class="back-link" href="index.html">🔙 العودة للمتجر</a>
+    </section>
+
+</div>
+
+<script src="cart.js"></script>
+
+<script>
+let selectedVersion = "gt6";
+
+const priceTable = {
+    gt6: 225000,
+    pro: 460000
+};
+
+const images = {
+    gt6: [
+        "images/gt6.png"
+    ],
+    pro: [
+        "images/gtti.png"
+    ]
+};
+
+// تغيير النسخة
+function selectVersion(ver, btn) {
+    selectedVersion = ver;
+
+    document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.getElementById("realPrice").textContent =
+        priceTable[ver].toLocaleString("en-US") + " IQD";
+
+    updateImageSelector();
+}
+
+// تحديث المصغرات حسب النسخة
+function updateImageSelector() {
+    const selector = document.getElementById("imageSelector");
+    selector.innerHTML = "";
+
+    images[selectedVersion].forEach(src => {
+        selector.innerHTML += `
+            <img src="${src}" class="image-thumb" onclick="changeImage(this)">
+        `;
+    });
+
+    document.querySelector(".image-thumb").classList.add("active");
+    document.getElementById("mainImage").src = images[selectedVersion][0];
+}
+
+// تغيير الصورة الرئيسية
+function changeImage(el) {
+    document.querySelectorAll(".image-thumb").forEach(t => t.classList.remove("active"));
+    el.classList.add("active");
+    document.getElementById("mainImage").src = el.src;
+}
+
+// السلة
+function handleAddToCart() {
+    const name = selectedVersion === "gt6" ? "Huawei Watch GT 6" : "Huawei Watch GT 6 Pro";
+
+    addToCart({
+        id: "huawei-gt6",
+        name,
+        version: selectedVersion,
+        price: priceTable[selectedVersion]
+    });
+}
+</script>
+
+</body>
+</html>
