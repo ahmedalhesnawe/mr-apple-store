@@ -446,41 +446,45 @@ function renderProducts(list, container) {
 loadAllProducts();
 </script>
 
-<!-- سكربت بسيط لعرض حالة المستخدم (localStorage حالياً) -->
+<!-- ✅ Firebase + عرض حالة المستخدم -->
+<script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth-compat.js"></script>
+<script src="firebase-init.js"></script>
+
 <script>
-const storedUserJson = localStorage.getItem('mrAppleUser');
-let storedName = localStorage.getItem('mrAppleUserName');
+auth.onAuthStateChanged(function(user) {
 
-const loginLink    = document.getElementById('loginLink');
-const registerLink = document.getElementById('registerLink');
-const userWelcome  = document.getElementById('userWelcome');
-const logoutBtn    = document.getElementById('logoutBtn');
+    const loginLink    = document.getElementById('loginLink');
+    const registerLink = document.getElementById('registerLink');
+    const userWelcome  = document.getElementById('userWelcome');
+    const logoutBtn    = document.getElementById('logoutBtn');
 
-if (storedUserJson) {
-    try {
-        const user = JSON.parse(storedUserJson);
-        if (user.name) storedName = user.name;
-    } catch(e) {}
-}
+    if (user) {
+        const name = user.displayName || user.email;
 
-if (storedName) {
-    if (loginLink)    loginLink.style.display = 'none';
-    if (registerLink) registerLink.style.display = 'none';
+        if (loginLink)    loginLink.style.display = "none";
+        if (registerLink) registerLink.style.display = "none";
 
-    if (userWelcome) {
-        userWelcome.textContent = 'مرحبا، ' + storedName;
-        userWelcome.style.display = 'inline-block';
+        if (userWelcome) {
+            userWelcome.textContent = "مرحبا، " + name;
+            userWelcome.style.display = "inline-block";
+        }
+
+        if (logoutBtn) {
+            logoutBtn.style.display = "inline-block";
+            logoutBtn.onclick = function () {
+                auth.signOut().then(() => {
+                    window.location.reload();
+                });
+            };
+        }
+    } else {
+        if (loginLink)    loginLink.style.display = "inline-block";
+        if (registerLink) registerLink.style.display = "inline-block";
+        if (userWelcome)  userWelcome.style.display = "none";
+        if (logoutBtn)    logoutBtn.style.display = "none";
     }
-
-    if (logoutBtn) {
-        logoutBtn.style.display = 'inline-block';
-        logoutBtn.onclick = function () {
-            localStorage.removeItem('mrAppleUser');
-            localStorage.removeItem('mrAppleUserName');
-            window.location.reload();
-        };
-    }
-}
+});
 </script>
 
 </body>
