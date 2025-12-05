@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تسجيل الدخول – Mr Apple</title>
+    <style>
+        body {
+            margin:0;
+            font-family:Arial;
+            background:#111;
+            color:#fff;
+        }
+
+        header {
+            background:#000;
+            padding:12px 18px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+        header .logo img {
+            height:55px;
+        }
+        .cart-link {
+            color:#fff;
+            text-decoration:none;
+        }
+
+        .page-wrap {
+            max-width:400px;
+            margin:60px auto;
+            padding:20px;
+            background:#181818;
+            border-radius:16px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.6);
+        }
+
+        h1 {
+            font-size:22px;
+            margin-bottom:15px;
+            text-align:center;
+        }
+
+        label {
+            font-size:13px;
+            display:block;
+            margin-bottom:4px;
+        }
+
+        input {
+            width:100%;
+            padding:10px;
+            margin-bottom:12px;
+            border-radius:8px;
+            border:1px solid #444;
+            background:#101010;
+            color:#fff;
+        }
+
+        .btn-main {
+            width:100%;
+            padding:10px;
+            border-radius:8px;
+            border:none;
+            background:#ff7a00;
+            color:#fff;
+            font-size:15px;
+            cursor:pointer;
+        }
+        .btn-main:hover { opacity:0.9; }
+
+        .small-link {
+            margin-top:12px;
+            text-align:center;
+            font-size:13px;
+        }
+        .small-link a {
+            color:#4da3ff;
+            text-decoration:none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a href="index.html"><img src="images/logo.png" alt="Mr Apple"></a>
+    </div>
+    <a href="cart.html" class="cart-link">🛒 السلة</a>
+</header>
+
+<div class="page-wrap">
+
+    <h1>تسجيل الدخول</h1>
+
+    <form id="loginForm">
+        <label for="email">البريد الإلكتروني</label>
+        <input type="email" id="email" required>
+
+        <label for="password">كلمة المرور</label>
+        <input type="password" id="password" required>
+
+        <button type="submit" class="btn-main">تسجيل الدخول</button>
+    </form>
+
+    <div class="small-link">
+        ما عندك حساب؟ <a href="register.html">إنشاء حساب جديد</a>
+    </div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth-compat.js"></script>
+
+<!-- ملف التهيئة -->
+<script src="firebase-init.js"></script>
+
+<script>
+// تسجيل الدخول باستخدام Firebase Auth
+document.getElementById('loginForm').addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const email    = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    auth.signInWithEmailAndPassword(email, password)
+        .then(cred => {
+            // تسجيل ناجح → رجوع للصفحة الرئيسية
+            window.location.href = 'index.html';
+        })
+        .catch(err => {
+            alert("خطأ في تسجيل الدخول: " + err.message);
+        });
+});
+</script>
+
+</body>
+</html>

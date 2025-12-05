@@ -25,6 +25,13 @@ header .logo img {
     height:55px;
 }
 
+/* جهة اليمين: السلة + الحساب */
+.header-right {
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
 .cart-link {
     color:#fff;
     font-size:16px;
@@ -41,6 +48,44 @@ header .logo img {
     position:absolute;
     top:-6px;
     right:-10px;
+}
+
+/* صندوق أزرار تسجيل الدخول */
+.auth-box {
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.btn-auth,
+.btn-auth-outline {
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:13px;
+    cursor:pointer;
+    text-decoration:none;
+}
+
+.btn-auth {
+    background:#ff7a00;
+    color:#fff;
+    border:none;
+}
+
+.btn-auth-outline {
+    background:transparent;
+    color:#fff;
+    border:1px solid #666;
+}
+
+.btn-auth:hover,
+.btn-auth-outline:hover {
+    opacity:0.9;
+}
+
+.user-welcome {
+    font-size:13px;
+    color:#ddd;
 }
 
 /* الأقسام (كل الكاتيجوريز من الشيت) */
@@ -142,10 +187,23 @@ header .logo img {
         <img src="images/logo.png">
     </div>
 
-    <a href="cart.html" class="cart-link">
-        🛒 السلة
-        <span id="cartCount">0</span>
-    </a>
+    <div class="header-right">
+
+        <a href="cart.html" class="cart-link">
+            🛒 السلة
+            <span id="cartCount">0</span>
+        </a>
+
+        <div class="auth-box">
+            <!-- قبل تسجيل الدخول -->
+            <a href="login.html" id="loginLink" class="btn-auth">تسجيل دخول</a>
+            <a href="register.html" id="registerLink" class="btn-auth-outline">إنشاء حساب</a>
+
+            <!-- بعد تسجيل الدخول -->
+            <span id="userWelcome" class="user-welcome" style="display:none;"></span>
+            <button id="logoutBtn" class="btn-auth-outline" style="display:none;">تسجيل خروج</button>
+        </div>
+    </div>
 </header>
 
 <!-- 🔥 بداية السلايدر -->
@@ -250,7 +308,7 @@ setInterval(() => { changeSlide(1); }, 5000);
 
 </div>
 
-<!-- 4 أقسام ديناميكية من الشيت -->
+<!-- 5 أقسام ديناميكية من الشيت -->
 <section id="apple" class="products"></section>
 <section id="samsung" class="products" style="display:none;"></section>
 <section id="honor" class="products" style="display:none;"></section>
@@ -267,7 +325,7 @@ const SHEET_URL =
 let allProducts = [];
 let currentCategory = "apple";
 
-// تحميل كل المنتجات (Apple + Samsung + Honor + Accessories)
+// تحميل كل المنتجات
 async function loadAllProducts() {
     const res = await fetch(SHEET_URL);
     const text = await res.text();
@@ -279,7 +337,7 @@ async function loadAllProducts() {
     lines.forEach(line => {
         const cols = line.split(",");
 
-        const category = (cols[1] || "").trim().toLowerCase(); // apple / samsung / honor / accessories
+        const category = (cols[1] || "").trim().toLowerCase();
         const name     = (cols[2] || "").trim();
         const html     = (cols[3] || "").trim();
         const image    = (cols[4] || "").trim();
@@ -342,7 +400,6 @@ function switchCategory(cat) {
     applyUnifiedFilter();
 }
 
-
 // فلتر موحد لكل الأقسام
 function applyUnifiedFilter() {
     const search = document.getElementById("searchInput").value.toLowerCase();
@@ -387,6 +444,43 @@ function renderProducts(list, container) {
 }
 
 loadAllProducts();
+</script>
+
+<!-- سكربت بسيط لعرض حالة المستخدم (localStorage حالياً) -->
+<script>
+const storedUserJson = localStorage.getItem('mrAppleUser');
+let storedName = localStorage.getItem('mrAppleUserName');
+
+const loginLink    = document.getElementById('loginLink');
+const registerLink = document.getElementById('registerLink');
+const userWelcome  = document.getElementById('userWelcome');
+const logoutBtn    = document.getElementById('logoutBtn');
+
+if (storedUserJson) {
+    try {
+        const user = JSON.parse(storedUserJson);
+        if (user.name) storedName = user.name;
+    } catch(e) {}
+}
+
+if (storedName) {
+    if (loginLink)    loginLink.style.display = 'none';
+    if (registerLink) registerLink.style.display = 'none';
+
+    if (userWelcome) {
+        userWelcome.textContent = 'مرحبا، ' + storedName;
+        userWelcome.style.display = 'inline-block';
+    }
+
+    if (logoutBtn) {
+        logoutBtn.style.display = 'inline-block';
+        logoutBtn.onclick = function () {
+            localStorage.removeItem('mrAppleUser');
+            localStorage.removeItem('mrAppleUserName');
+            window.location.reload();
+        };
+    }
+}
 </script>
 
 </body>
