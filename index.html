@@ -228,8 +228,10 @@ setInterval(() => { changeSlide(1); }, 5000);
     <button id="btnApple" onclick="switchCategory('apple')" class="active">منتجات Apple</button>
     <button id="btnSamsung" onclick="switchCategory('samsung')">منتجات Samsung</button>
     <button id="btnHonor" onclick="switchCategory('honor')">منتجات Honor</button>
+    <button id="btnHuawei" onclick="switchCategory('huawei')">ساعات Huawei</button>
     <button id="btnAccessories" onclick="switchCategory('accessories')">الإكسسوارات</button>
 </div>
+
 
 <!-- الفلاتر الموحدة -->
 <div class="filters-bar">
@@ -252,6 +254,7 @@ setInterval(() => { changeSlide(1); }, 5000);
 <section id="apple" class="products"></section>
 <section id="samsung" class="products" style="display:none;"></section>
 <section id="honor" class="products" style="display:none;"></section>
+<section id="huawei" class="products" style="display:none;"></section>
 <section id="accessories" class="products" style="display:none;"></section>
 
 <script src="cart.js"></script>
@@ -320,15 +323,17 @@ function switchCategory(cat) {
     // تحديث الأزرار
     document.querySelectorAll(".section-buttons button").forEach(b => b.classList.remove("active"));
 
-    if (cat === "apple") document.getElementById("btnApple").classList.add("active");
-    if (cat === "samsung") document.getElementById("btnSamsung").classList.add("active");
-    if (cat === "honor") document.getElementById("btnHonor").classList.add("active");
-    if (cat === "accessories") document.getElementById("btnAccessories").classList.add("active");
+    if (cat === "apple")      document.getElementById("btnApple").classList.add("active");
+    if (cat === "samsung")    document.getElementById("btnSamsung").classList.add("active");
+    if (cat === "honor")      document.getElementById("btnHonor").classList.add("active");
+    if (cat === "huawei")     document.getElementById("btnHuawei").classList.add("active");
+    if (cat === "accessories")document.getElementById("btnAccessories").classList.add("active");
 
     // إخفاء كل الأقسام
     document.getElementById("apple").style.display = "none";
     document.getElementById("samsung").style.display = "none";
     document.getElementById("honor").style.display = "none";
+    document.getElementById("huawei").style.display = "none";
     document.getElementById("accessories").style.display = "none";
 
     // إظهار القسم المختار
@@ -336,6 +341,7 @@ function switchCategory(cat) {
 
     applyUnifiedFilter();
 }
+
 
 // فلتر موحد لكل الأقسام
 function applyUnifiedFilter() {
