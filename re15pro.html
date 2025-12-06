@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Realme 15 Pro Game of Thrones – مستر أبل</title>
+    <style>
+        /* زر السلة في الهيدر */
+        .cart-link {
+            color:#fff !important;
+            font-size:16px;
+            text-decoration:none;
+            position:relative;
+            display:flex;
+            align-items:center;
+            gap:6px;
+        }
+
+        #cartCount {
+            display:none;
+            background:#ff4444;
+            color:#fff;
+            padding:2px 6px;
+            border-radius:50%;
+            font-size:12px;
+            position:absolute;
+            top:-6px;
+            right:-10px;
+        }
+
+        /* زر أضف إلى السلة */
+        .btn-add-cart {
+            margin-top: 10px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            background: #25d366;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        .btn-add-cart:hover {
+            opacity: 0.9;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle at top, #1c1c1c 0, #050505 45%, #000 100%);
+            color: #fff;
+        }
+
+        .top-bar {
+            background:#000;
+            padding:10px 20px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .top-bar .logo { font-weight:bold; font-size:18px; }
+
+        .top-bar a { color:#aaa; text-decoration:none; font-size:14px; }
+
+        .page-wrap {
+            max-width: 1100px;
+            margin: 30px auto 40px;
+            padding: 0 20px;
+        }
+
+        .product-layout { display:flex; flex-wrap:wrap; gap:40px; }
+
+        .product-gallery { flex:1 1 320px; text-align:center; }
+
+        .product-gallery img {
+            max-width:100%;
+            border-radius:24px;
+        }
+
+        .thumbs {
+            display:flex; justify-content:center; gap:10px; margin-top:12px;
+        }
+
+        .thumbs div {
+            width:16px; height:16px; border-radius:50%; border:2px solid #555;
+        }
+
+        .dragon-black { background:#151515; }
+        .ice-blue    { background:#8fbfdc; }
+
+        .product-info { flex:1 1 320px; }
+
+        .product-info h1 { font-size:30px; margin:0 0 10px; }
+
+        .subtitle { color:#bbb; margin-bottom:15px; }
+
+        .price-line { margin:12px 0 20px; font-size:20px; }
+        .price-line span { color:#ffcc33; font-weight:bold; }
+
+        .section-label {
+            font-size:14px;
+            color:#b0b0b0;
+            margin-bottom:6px;
+            margin-top:12px;
+        }
+
+        .option-row { display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+
+        /* زر السعة */
+        .capacity-chip {
+            border-radius:999px;
+            border:1px solid #555;
+            padding:8px 14px;
+            font-size:14px;
+            cursor:pointer;
+            background:transparent;
+            color:#fff;
+        }
+
+        .capacity-chip.active {
+            border-color:#fff;
+            background:#1a1a1a;
+        }
+
+        /* زر اللون */
+        .color-chip {
+            border-radius:999px;
+            border:1px solid #555;
+            padding:6px 14px;
+            font-size:13px;
+            cursor:pointer;
+            background:transparent;
+            color:#fff;
+        }
+
+        .color-chip.active {
+            border-color:#fff;
+            background:#1a1a1a;
+        }
+
+        .specs {
+            margin-top:40px;
+            padding:20px;
+            background:#111;
+            border-radius:16px;
+        }
+
+        .specs-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+            gap:15px;
+        }
+
+        .spec-card {
+            padding:12px;
+            border:1px solid #333;
+            border-radius:12px;
+            font-size:14px;
+        }
+
+        .back-link { color:#8ab4ff; text-decoration:none; margin-top:20px; display:inline-block; }
+
+        @media (max-width:768px) {
+            .product-layout { flex-direction:column; }
+            .product-info h1 { font-size:24px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="top-bar">
+    <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Mr Apple Logo" style="height:80px;">
+    </a>
+
+    <div style="display:flex; align-items:center; gap:25px;">
+
+        <!-- زر السلة -->
+        <a href="cart.html" class="cart-link">
+            🛒 السلة
+            <span id="cartCount">0</span>
+        </a>
+
+        <!-- رجوع للمتجر -->
+        <a href="index.html">العودة إلى المتجر</a>
+    </div>
+</header>
+
+<div class="page-wrap">
+
+    <div class="product-layout">
+
+        <!-- الصورة -->
+        <div class="product-gallery">
+            <!-- الصورة الأساسية (تتغير حسب اللون) -->
+            <img id="mainImage" src="images/realme15pro.png" alt="Realme 15 Pro Game of Thrones Edition">
+
+            <!-- نقاط الألوان (استعراض بصري فقط) -->
+            <div class="thumbs">
+                <div class="dragon-black"></div>
+                <div class="ice-blue"></div>
+            </div>
+        </div>
+
+        <!-- المعلومات -->
+        <div class="product-info">
+
+            <h1>Realme 15 Pro – Game of Thrones Edition</h1>
+            <div class="subtitle">
+                إصدار خاص بالتعاون مع Game of Thrones، تصميم أسطوري وأداء موجه لعشاق الألعاب والجرافيك العالي.
+            </div>
+
+            <!-- السعر الثابت -->
+            <div id="priceBox" class="price-line">
+                السعر: <span id="realPrice">790.000 IQD</span>
+            </div>
+
+            <!-- زر أضف إلى السلة -->
+            <button class="btn-add-cart" onclick="handleAddToCart()">
+                أضف إلى السلة 🛒
+            </button>
+
+            <!-- السعة -->
+            <div class="section-label">سعة التخزين</div>
+            <div class="option-row">
+                <button class="capacity-chip active" onclick="selectCapacity('512', this)">512GB</button>
+            </div>
+
+            <!-- الألوان -->
+            <div class="section-label">اللون</div>
+            <div class="option-row">
+                <button class="color-chip active" onclick="selectColor('dragon_black', this)">أسود التنين</button>
+                <button class="color-chip" onclick="selectColor('ice_blue', this)">أزرق الجليد</button>
+            </div>
+
+            <!-- المواصفات -->
+            <section class="specs">
+                <h2>أهم المواصفات</h2>
+
+                <div class="specs-grid">
+                    <div class="spec-card">
+                        <strong>الشاشة</strong><br>
+                        شاشة AMOLED بمعدل تحديث عالٍ لتجربة لعب ومشاهدة سلسة مع ألوان عميقة.
+                    </div>
+                    <div class="spec-card">
+                        <strong>المعالج</strong><br>
+                        معالج قوي مخصص للألعاب وتعدد المهام بدون لاك حتى مع الألعاب الثقيلة.
+                    </div>
+                    <div class="spec-card">
+                        <strong>التخزين</strong><br>
+                        سعة 512GB تعطيك مساحة كبيرة للألعاب، الصور، الفيديوهات والتطبيقات.
+                    </div>
+                    <div class="spec-card">
+                        <strong>التصميم</strong><br>
+                        ظهر بتفاصيل مستوحاة من Game of Thrones مع لمسات فخمة ولمعان مميز.
+                    </div>
+                    <div class="spec-card">
+                        <strong>الكاميرات</strong><br>
+                        كاميرات متعددة بدقة عالية مع وضع ليلي وتصوير فيديو ثابت ومناسب للسوشال ميديا.
+                    </div>
+                    <div class="spec-card">
+                        <strong>البطارية</strong><br>
+                        بطارية كبيرة مع شحن سريع، تكمل يومك حتى مع اللعب المستمر.
+                    </div>
+                </div>
+
+                <a href="index.html" class="back-link">🔙 العودة للمتجر</a>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+<!-- سكربت التغيير والاضافة للسلة -->
+<script>
+    // حالة مبدئية
+    let selectedCapacity = '512';             // 512GB
+    let selectedColor    = 'dragon_black';    // اللون الافتراضي
+
+    // السعر الرقمي الحقيقي (للسلة)
+    const numericPrice = 790000; // 790.000 IQD
+
+    // تغيير الصورة حسب اللون
+    const imageMap = {
+        dragon_black: 'images/realme15-dragon.png',
+    };
+
+    function selectCapacity(capacity, btn) {
+        selectedCapacity = capacity;
+
+        document.querySelectorAll('.capacity-chip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    function selectColor(colorKey, btn) {
+        selectedColor = colorKey;
+
+        const img = document.getElementById('mainImage');
+        if (imageMap[colorKey]) {
+            img.src = imageMap[colorKey];
+        }
+
+        document.querySelectorAll('.color-chip').forEach(b => b.classList.remove('active'));
+        if (btn) {
+            btn.classList.add('active');
+        }
+    }
+
+    // زر "أضف إلى السلة"
+    function handleAddToCart() {
+        const colorLabelMap = {
+            dragon_black: 'أسود التنين',
+            ice_blue:     'أزرق الجليد'
+        };
+
+        const product = {
+            id: 'realme-15-pro-got',
+            name: 'Realme 15 Pro – Game of Thrones Edition',
+            capacity: selectedCapacity + 'GB',
+            color: colorLabelMap[selectedColor] || selectedColor,
+            price: numericPrice
+        };
+
+        // دالة addToCart موجودة في cart.js
+        addToCart(product);
+    }
+
+    // تهيئة أولية
+    selectColor('dragon_black');
+</script>
+
+<script src="cart.js"></script>
+
+</body>
+</html>
