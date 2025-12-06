@@ -5,6 +5,49 @@
 <title>Mr Apple Store</title>
 <style>
 
+/* ===== Mini Banners ===== */
+.mini-banners {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    margin: 10px 0 25px;
+}
+
+.banner-item {
+    flex: 1;
+    background: #fff;
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.banner-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+.banner-item img {
+    width: 48px;
+    height: 48px;
+}
+
+.banner-text {
+    font-size: 15px;
+    color: #222;
+    font-weight: bold;
+}
+
+@media (max-width:768px) {
+    .mini-banners {
+        flex-direction: column;
+    }
+}
+
 body {
     font-family: Arial;
     background:#f5f5f5;
@@ -240,6 +283,26 @@ header .logo img {
 
         <button class="slide-btn next" onclick="changeSlide(1)">❯</button>
     </div>
+
+<!-- 🔥 Mini Banners -->
+<div class="mini-banners">
+
+    <div class="banner-item">
+        <img src="images/m1b.png" alt="Delivery">
+        <div class="banner-text">توصيل سريع خلال 1–3 ساعات</div>
+    </div>
+
+    <div class="banner-item">
+        <img src="images/m2b.png" alt="Original">
+        <div class="banner-text">منتجات أصلية 100% مع ضمان</div>
+    </div>
+
+    <div class="banner-item">
+        <img src="images/banner-sale.png" alt="Sale">
+        <div class="banner-text">عروض وخصومات يومية 🔥</div>
+    </div>
+
+</div>
 
     <style>
     .slider-container {
