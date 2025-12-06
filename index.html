@@ -5,6 +5,7 @@
 <title>Mr Apple Store</title>
 <style>
 
+/* 🔥 خلفية متحركة للموقع كله */
 body {
     margin: 0;
     font-family: Arial;
@@ -18,8 +19,6 @@ body {
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
-
-
 
 /* ===== Mini Banners ===== */
 .mini-banners {
@@ -62,12 +61,6 @@ body {
     .mini-banners {
         flex-direction: column;
     }
-}
-
-body {
-    font-family: Arial;
-    background:#f5f5f5;
-    margin:0;
 }
 
 /* هيدر */
@@ -300,25 +293,25 @@ header .logo img {
         <button class="slide-btn next" onclick="changeSlide(1)">❯</button>
     </div>
 
-<!-- 🔥 Mini Banners -->
-<div class="mini-banners">
+    <!-- 🔥 Mini Banners -->
+    <div class="mini-banners">
 
-    <div class="banner-item">
-        <img src="images/m1b.png" alt="Delivery">
-        <div class="banner-text">  اقوى العروض متوفرة الان  </div>
+        <div class="banner-item">
+            <img src="images/m1b.png" alt="Delivery">
+            <div class="banner-text">اقوى العروض متوفرة الان</div>
+        </div>
+
+        <div class="banner-item">
+            <img src="images/m2b.png" alt="Original">
+            <div class="banner-text">اقوى عروض الاستبدال</div>
+        </div>
+
+        <div class="banner-item">
+            <img src="images/m3b.png" alt="Sale">
+            <div class="banner-text">التوصيل اسرع من السريع 🔥</div>
+        </div>
+
     </div>
-
-    <div class="banner-item">
-        <img src="images/m2b.png" alt="Original">
-        <div class="banner-text">اقوى عروض الاستبدال</div>
-    </div>
-
-    <div class="banner-item">
-        <img src="images/m3b.png" alt="Sale">
-        <div class="banner-text">  التوصيل اسرع من السريع 🔥</div>
-    </div>
-
-</div>
 
     <style>
     .slider-container {
@@ -496,7 +489,6 @@ async function loadAllProducts() {
 
     // ✅ هنا نصحح اسم iPhone 17 Pro لو طالع غلط من الشيت
     allProducts.forEach(p => {
-        // غيّر "iphone17pro.html" إذا اسم صفحة 17 برو مختلف
         if (p.html.toLowerCase() === "iphone17pro.html") {
             p.name = "iPhone 17 Pro";
         }
@@ -597,7 +589,6 @@ function renderProducts(list, container) {
 
 loadAllProducts();
 </script>
-
 
 <!-- ✅ Firebase + عرض حالة المستخدم -->
 <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
