@@ -415,6 +415,14 @@ async function loadAllProducts() {
         });
     });
 
+    // ✅ هنا نصحح اسم iPhone 17 Pro لو طالع غلط من الشيت
+    allProducts.forEach(p => {
+        // غيّر "iphone17pro.html" إذا اسم صفحة 17 برو مختلف
+        if (p.html.toLowerCase() === "iphone17pro.html") {
+            p.name = "iPhone 17 Pro";
+        }
+    });
+
     buildTypeList();
     applyUnifiedFilter();
 }
@@ -510,6 +518,7 @@ function renderProducts(list, container) {
 
 loadAllProducts();
 </script>
+
 
 <!-- ✅ Firebase + عرض حالة المستخدم -->
 <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
