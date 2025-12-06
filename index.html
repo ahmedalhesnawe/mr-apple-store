@@ -285,8 +285,9 @@ setInterval(() => { changeSlide(1); }, 5000);
 <div class="section-buttons">
     <button id="btnApple" onclick="switchCategory('apple')" class="active">منتجات Apple</button>
     <button id="btnSamsung" onclick="switchCategory('samsung')">منتجات Samsung</button>
-    <!-- ✅ زر ريلمي الجديد -->
     <button id="btnRealme" onclick="switchCategory('realme')">منتجات Realme</button>
+    <!-- ✅ زر شاومي الجديد -->
+    <button id="btnXiaomi" onclick="switchCategory('xiaomi')">منتجات Xiaomi</button>
     <button id="btnHonor" onclick="switchCategory('honor')">منتجات Honor</button>
     <button id="btnHuawei" onclick="switchCategory('huawei')">ساعات Huawei</button>
     <button id="btnAccessories" onclick="switchCategory('accessories')">الإكسسوارات</button>
@@ -310,10 +311,11 @@ setInterval(() => { changeSlide(1); }, 5000);
 
 </div>
 
-<!-- 6 أقسام ديناميكية من الشيت (أضفنا realme) -->
+<!-- 7 أقسام ديناميكية من الشيت (أضفنا xiaomi) -->
 <section id="apple" class="products"></section>
 <section id="samsung" class="products" style="display:none;"></section>
 <section id="realme" class="products" style="display:none;"></section>
+<section id="xiaomi" class="products" style="display:none;"></section>
 <section id="honor" class="products" style="display:none;"></section>
 <section id="huawei" class="products" style="display:none;"></section>
 <section id="accessories" class="products" style="display:none;"></section>
@@ -387,6 +389,7 @@ function switchCategory(cat) {
     if (cat === "apple")      document.getElementById("btnApple").classList.add("active");
     if (cat === "samsung")    document.getElementById("btnSamsung").classList.add("active");
     if (cat === "realme")     document.getElementById("btnRealme").classList.add("active");
+    if (cat === "xiaomi")     document.getElementById("btnXiaomi").classList.add("active");
     if (cat === "honor")      document.getElementById("btnHonor").classList.add("active");
     if (cat === "huawei")     document.getElementById("btnHuawei").classList.add("active");
     if (cat === "accessories")document.getElementById("btnAccessories").classList.add("active");
@@ -395,6 +398,7 @@ function switchCategory(cat) {
     document.getElementById("apple").style.display = "none";
     document.getElementById("samsung").style.display = "none";
     document.getElementById("realme").style.display = "none";
+    document.getElementById("xiaomi").style.display = "none";
     document.getElementById("honor").style.display = "none";
     document.getElementById("huawei").style.display = "none";
     document.getElementById("accessories").style.display = "none";
