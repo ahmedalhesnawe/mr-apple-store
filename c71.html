@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>POCO C71 – مستر أبل</title>
+
+    <style>
+        /* زر السلة */
+        .cart-link {
+            color:#fff !important;
+            font-size:16px;
+            text-decoration:none;
+            position:relative;
+            display:flex;
+            align-items:center;
+            gap:6px;
+        }
+        #cartCount {
+            display:none;
+            background:#ff4444;
+            color:#fff;
+            padding:2px 6px;
+            border-radius:50%;
+            font-size:12px;
+            position:absolute;
+            top:-6px;
+            right:-10px;
+        }
+
+        /* زر أضف للسلة */
+        .btn-add-cart {
+            margin-top: 10px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            background: #25d366;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        .btn-add-cart:hover { opacity:0.9; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle at top, #202020 0, #050505 40%, #000 100%);
+            color: #fff;
+        }
+
+        /* الهيدر */
+        .top-bar {
+            background:#000;
+            padding:10px 20px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+        .top-bar a { color:#aaa; text-decoration:none; font-size:14px; }
+
+        .page-wrap {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .product-layout { display:flex; flex-wrap:wrap; gap:40px; }
+
+        .product-gallery { flex:1 1 340px; text-align:center; }
+        .product-gallery img {
+            max-width:100%;
+            border-radius:20px;
+        }
+
+        .product-info { flex:1 1 320px; }
+        .product-info h1 { font-size:30px; margin:0; }
+        .subtitle { color:#bbb; margin:10px 0 15px; }
+
+        .price-line { margin:12px 0 20px; font-size:20px; }
+        .price-line span { color:#ffcc33; font-weight:bold; }
+
+        /* المواصفات */
+        .specs {
+            margin-top:40px;
+            padding:20px;
+            background:#111;
+            border-radius:16px;
+        }
+
+        .specs-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+            gap:15px;
+        }
+
+        .spec-card {
+            padding:12px;
+            border:1px solid #333;
+            border-radius:12px;
+            font-size:14px;
+        }
+
+        .back-link {
+            color:#8ab4ff;
+            text-decoration:none;
+            margin-top:20px;
+            display:inline-block;
+        }
+
+        @media (max-width:768px) {
+            .product-layout { flex-direction:column; }
+            .product-info h1 { font-size:24px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="top-bar">
+    <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Mr Apple" style="height:80px;">
+    </a>
+
+    <div style="display:flex; align-items:center; gap:25px;">
+        <a href="cart.html" class="cart-link">
+            🛒 السلة
+            <span id="cartCount">0</span>
+        </a>
+        <a href="index.html">العودة إلى المتجر</a>
+    </div>
+</header>
+
+<div class="page-wrap">
+
+    <div class="product-layout">
+
+        <div class="product-gallery">
+            <img src="images/c71.png" alt="POCO C71">
+        </div>
+
+        <div class="product-info">
+
+            <h1>POCO C71</h1>
+
+            <div class="subtitle">
+                أداء ممتاز للجهاز بسعر اقتصادي جدًا، مناسب للتصفح والاستخدام اليومي بدون مشاكل.
+            </div>
+
+            <div class="price-line">
+                السعر: <span id="realPrice">105.000 IQD</span>
+            </div>
+
+            <p style="margin:6px 0 18px; font-size:15px; color:#ccc;">
+                السعة: 128GB
+            </p>
+
+            <button class="btn-add-cart" onclick="handleAddToCart()">
+                أضف إلى السلة 🛒
+            </button>
+
+            <section class="specs">
+                <h2>أهم المواصفات</h2>
+
+                <div class="specs-grid">
+
+                    <div class="spec-card">
+                        <strong>الشاشة</strong><br>
+                        شاشة واضحة ومناسبة للاستخدام اليومي ومشاهدة الفيديوهات.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>المعالج</strong><br>
+                        أداء مناسب لتطبيقات التواصل الاجتماعي والتصفح.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>التخزين</strong><br>
+                        128GB تخزين مناسب للصور والفيديو والتطبيقات.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>الكاميرات</strong><br>
+                        كاميرا تقدم صور مقبولة في الإضاءة المناسبة.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>البطارية</strong><br>
+                        بطارية كبيرة تدوم لفترة طويلة من الاستخدام.
+                    </div>
+
+                    <div class="spec-card">
+                        <strong>النظام</strong><br>
+                        واجهة POCO UI سهلة وسريعة.
+                    </div>
+
+                </div>
+
+                <a href="index.html" class="back-link">🔙 العودة للمتجر</a>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    const priceNumber = 105000;
+
+    function handleAddToCart() {
+        const product = {
+            id: 'poco-c71',
+            name: 'POCO C71',
+            capacity: '128GB',
+            price: priceNumber
+        };
+
+        addToCart(product); // موجودة في cart.js
+    }
+</script>
+
+<script src="cart.js"></script>
+
+</body>
+</html>
