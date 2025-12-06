@@ -28,153 +28,158 @@
     right:-10px;
 }
 
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #222 0, #050505 45%, #000 100%);
+    color: #fff;
+}
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: radial-gradient(circle at top, #222 0, #050505 45%, #000 100%);
-            color: #fff;
-        }
+.top-bar {
+    background:#000;
+    padding:10px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
 
-        .top-bar {
-            background:#000;
-            padding:10px 20px;
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-        }
+.top-bar .logo { font-weight:bold; font-size:18px; }
 
-        .top-bar .logo { font-weight:bold; font-size:18px; }
+.top-bar a { color:#aaa; text-decoration:none; font-size:14px; }
 
-        .top-bar a { color:#aaa; text-decoration:none; font-size:14px; }
+.page-wrap {
+    max-width: 1100px;
+    margin: 30px auto 40px;
+    padding: 0 20px;
+}
 
-        .page-wrap {
-            max-width: 1100px;
-            margin: 30px auto 40px;
-            padding: 0 20px;
-        }
+.product-layout { display:flex; flex-wrap:wrap; gap:40px; }
 
-        .product-layout { display:flex; flex-wrap:wrap; gap:40px; }
+.product-gallery { flex:1 1 320px; text-align:center; }
 
-        .product-gallery { flex:1 1 320px; text-align:center; }
+.product-gallery img {
+    max-width:100%;
+    border-radius:24px;
+}
 
-        .product-gallery img {
-            max-width:100%;
-            border-radius:24px;
-        }
+.thumbs {
+    display:flex; justify-content:center; gap:10px; margin-top:12px;
+}
 
-        .thumbs {
-            display:flex; justify-content:center; gap:10px; margin-top:12px;
-        }
+.thumbs div {
+    width:16px; height:16px; border-radius:50%; border:2px solid #555;
+}
 
-        .thumbs div {
-            width:16px; height:16px; border-radius:50%; border:2px solid #555;
-        }
+.silver { background:#d9d9d9; }
+.blue   { background:#1c2f4f; }
+.orange { background:#ff7a1a; }
 
-        .silver { background:#d9d9d9; }
-        .blue   { background:#1c2f4f; }
-        .orange { background:#ff7a1a; }
+.product-info { flex:1 1 320px; }
 
-        .product-info { flex:1 1 320px; }
+.product-info h1 { font-size:32px; margin:0 0 10px; }
 
-        .product-info h1 { font-size:32px; margin:0 0 10px; }
+.subtitle { color:#bbb; margin-bottom:15px; }
 
-        .subtitle { color:#bbb; margin-bottom:15px; }
+.price-line { margin:12px 0 20px; font-size:20px; }
+.price-line span { color:#ffcc33; font-weight:bold; }
 
-        .price-line { margin:12px 0 20px; font-size:20px; }
-        .price-line span { color:#ffcc33; font-weight:bold; }
+.section-label {
+    font-size:14px;
+    color:#b0b0b0;
+    margin-bottom:6px;
+    margin-top:12px;
+}
 
-        .section-label {
-            font-size:14px;
-            color:#b0b0b0;
-            margin-bottom:6px;
-            margin-top:12px;
-        }
+.option-row { display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
 
-        .option-row { display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+/* زر السعة */
+.capacity-chip {
+    border-radius:999px;
+    border:1px solid #555;
+    padding:8px 14px;
+    font-size:14px;
+    cursor:pointer;
+    background:transparent;
+    color:#fff;
+}
 
-        /* زر السعة */
-        .capacity-chip {
-            border-radius:999px;
-            border:1px solid #555;
-            padding:8px 14px;
-            font-size:14px;
-            cursor:pointer;
-            background:transparent;
-            color:#fff;
-        }
+.capacity-chip.active {
+    border-color:#fff;
+    background:#1a1a1a;
+}
 
-        .capacity-chip.active {
-            border-color:#fff;
-            background:#1a1a1a;
-        }
+/* زر النسخة */
+.version-chip {
+    border-radius:999px;
+    border:1px solid #777;
+    padding:8px 14px;
+    font-size:13px;
+    cursor:pointer;
+    background:transparent;
+    color:#fff;
+}
 
-        /* زر اللون */
-        .color-chip {
-            border-radius:999px;
-            border:1px solid #555;
-            padding:6px 14px;
-            font-size:13px;
-            cursor:pointer;
-            background:transparent;
-            color:#fff;
-        }
+.version-chip.active {
+    border-color:#fff;
+    background:#222;
+}
 
-        .color-chip.active {
-            border-color:#fff;
-            background:#1a1a1a;
-        }
+/* زر اللون */
+.color-chip {
+    border-radius:999px;
+    border:1px solid #555;
+    padding:6px 14px;
+    font-size:13px;
+    cursor:pointer;
+    background:transparent;
+    color:#fff;
+}
 
-        .btn-whatsapp {
-            display:inline-block;
-            margin-top:15px;
-            padding:10px 18px;
-            background:#25d366;
-            color:#fff;
-            border-radius:8px;
-            text-decoration:none;
-        }
+.color-chip.active {
+    border-color:#fff;
+    background:#1a1a1a;
+}
 
-        /* زر أضف إلى السلة */
-        .btn-add-cart {
-            display:inline-block;
-            margin-top:15px;
-            padding:10px 18px;
-            background:#25d366;
-            color:#fff;
-            border-radius:8px;
-            border:none;
-            cursor:pointer;
-            font-size:14px;
-        }
-        .btn-add-cart:hover { opacity:0.9; }
+/* زر أضف إلى السلة */
+.btn-add-cart {
+    display:inline-block;
+    margin-top:15px;
+    padding:10px 18px;
+    background:#25d366;
+    color:#fff;
+    border-radius:8px;
+    border:none;
+    cursor:pointer;
+    font-size:14px;
+}
+.btn-add-cart:hover { opacity:0.9; }
 
-        .specs {
-            margin-top:40px;
-            padding:20px;
-            background:#111;
-            border-radius:16px;
-        }
+.specs {
+    margin-top:40px;
+    padding:20px;
+    background:#111;
+    border-radius:16px;
+}
 
-        .specs-grid {
-            display:grid;
-            grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
-            gap:15px;
-        }
+.specs-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+    gap:15px;
+}
 
-        .spec-card {
-            padding:12px;
-            border:1px solid #333;
-            border-radius:12px;
-            font-size:14px;
-        }
+.spec-card {
+    padding:12px;
+    border:1px solid #333;
+    border-radius:12px;
+    font-size:14px;
+}
 
-        .back-link { color:#8ab4ff; text-decoration:none; margin-top:20px; display:inline-block; }
+.back-link { color:#8ab4ff; text-decoration:none; margin-top:20px; display:inline-block; }
 
-        @media (max-width:768px) {
-            .product-layout { flex-direction:column; }
-            .product-info h1 { font-size:26px; }
-        }
+@media (max-width:768px) {
+    .product-layout { flex-direction:column; }
+    .product-info h1 { font-size:26px; }
+}
     </style>
 </head>
 <body>
@@ -219,13 +224,20 @@
 
             <!-- السعر المتغير -->
             <div id="priceBox" class="price-line">
-                السعر: <span id="realPrice">1.670.000 IQD</span>
+                السعر: <span id="realPrice">1.975.000 IQD</span>
             </div>
 
             <!-- زر السلة -->
             <button class="btn-add-cart" onclick="handleAddToCart()">
                 أضف إلى السلة 🛒
             </button>
+
+            <!-- النسخة -->
+            <div class="section-label">النسخة</div>
+            <div class="option-row">
+                <button class="version-chip active" onclick="selectVersion('hk', this)">هونغ كونغ</button>
+                <button class="version-chip" onclick="selectVersion('jp', this)">اليابان</button>
+            </div>
 
             <!-- السعات -->
             <div class="section-label">سعة التخزين</div>
@@ -239,7 +251,7 @@
             <div class="section-label">اللون</div>
             <div class="option-row">
                 <button class="color-chip active" onclick="selectColor('silver', this)">فضي</button>
-                <button class="color-chip" onclick="selectColor('blue', this)">أزرق</button>
+                <button class="color-chip" onclick="selectColor('blue', this)">أزرق نيلي</button>
                 <button class="color-chip" onclick="selectColor('orange', this)">برتقالي</button>
             </div>
 
@@ -269,44 +281,84 @@
 <!-- سكربت تغيير السعر واللون + السلة -->
 <script>
 // حالة مبدئية
+let selectedVersion  = 'hk';      // هونغ كونغ افتراضياً
 let selectedCapacity = '256';     // 256GB
 let selectedColor    = 'silver';  // فضي
 
 // جدول الأسعار للنص (عرض على الصفحة)
-const priceTable = {
-    '256': {
-        silver: '1.700.000 IQD',
-        blue:   '1.700.000 IQD',
-        orange: '1.670.000 IQD'
+const displayPriceTable = {
+    hk: { // نسخة هونغ كونغ
+        '256': {
+            silver: '1.975.000 IQD',
+            blue:   '1.975.000 IQD',
+            orange: '1.975.000 IQD'
+        },
+        '512': {
+            silver: '2.350.000 IQD',
+            blue:   '2.350.000 IQD',
+            orange: '2.350.000 IQD'
+        },
+        '1TB': {
+            silver: '2.690.000 IQD',
+            blue:   '2.690.000 IQD',
+            orange: '2.690.000 IQD'
+        }
     },
-    '512': {
-        silver: '2.290.000 IQD',
-        blue:   '2.290.000 IQD',
-        orange: '2.290.000 IQD'
-    },
-    '1TB': {
-        silver: '2.690.000 IQD',
-        blue:   '2.690.000 IQD',
-        orange: '2.690.000 IQD'
+    jp: { // نسخة اليابان
+        '256': {
+            // حسب طلبك لكل لون سعر
+            orange: '1.725.000 IQD',
+            silver: '1.775.000 IQD',
+            blue:   '1.700.000 IQD'
+        },
+        '512': {
+            silver: '2.090.000 IQD',
+            blue:   '2.090.000 IQD',
+            orange: '2.090.000 IQD'
+        },
+        '1TB': {
+            silver: '2.400.000 IQD',
+            blue:   '2.400.000 IQD',
+            orange: '2.400.000 IQD'
+        }
     }
 };
 
 // جدول الأسعار الرقمية للحساب داخل السلة (بدون نقاط)
 const priceMap = {
-    '256': {
-        silver: 1700000,
-        blue:   1700000,
-        orange: 1670000
+    hk: {
+        '256': {
+            silver: 1975000,
+            blue:   1975000,
+            orange: 1975000
+        },
+        '512': {
+            silver: 2350000,
+            blue:   2350000,
+            orange: 2350000
+        },
+        '1TB': {
+            silver: 2690000,
+            blue:   2690000,
+            orange: 2690000
+        }
     },
-    '512': {
-        silver: 2290000,
-        blue:   2290000,
-        orange: 2290000
-    },
-    '1TB': {
-        silver: 2690000,
-        blue:   2690000,
-        orange: 2690000
+    jp: {
+        '256': {
+            orange: 1725000,
+            silver: 1775000,
+            blue:   1700000
+        },
+        '512': {
+            silver: 2090000,
+            blue:   2090000,
+            orange: 2090000
+        },
+        '1TB': {
+            silver: 2400000,
+            blue:   2400000,
+            orange: 2400000
+        }
     }
 };
 
@@ -317,6 +369,12 @@ const capacityLabelMap = {
     '1TB': '1TB'
 };
 
+// تسمية النسخة داخل السلة
+const versionLabelMap = {
+    hk: 'نسخة هونغ كونغ',
+    jp: 'نسخة اليابان'
+};
+
 // تغيير الصورة حسب اللون
 const imageMap = {
     silver: 'images/ip17pmsi.png',
@@ -324,11 +382,21 @@ const imageMap = {
     orange: 'images/ip17pmor.png'
 };
 
-// دالة تحديث السعر حسب السعة + اللون الحاليين (للنص في الصفحة)
+// دالة تحديث السعر حسب النسخة + السعة + اللون الحاليين
 function updatePrice() {
     const priceSpan = document.getElementById('realPrice');
-    const price = priceTable[selectedCapacity][selectedColor];
+    const price = displayPriceTable[selectedVersion][selectedCapacity][selectedColor];
     priceSpan.textContent = price;
+}
+
+// عند اختيار النسخة
+function selectVersion(versionKey, btn) {
+    selectedVersion = versionKey;
+
+    document.querySelectorAll('.version-chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    updatePrice();
 }
 
 // عند اختيار سعة
@@ -358,13 +426,14 @@ function selectColor(colorKey, btn) {
 
 // زر "أضف إلى السلة"
 function handleAddToCart() {
-    const numericPrice = priceMap[selectedCapacity][selectedColor];
+    const numericPrice = priceMap[selectedVersion][selectedCapacity][selectedColor];
 
     const product = {
         id: 'iphone17-promax',
         name: 'iPhone 17 Pro Max',
         capacity: capacityLabelMap[selectedCapacity], // 256GB / 512GB / 1TB
         color: selectedColor,                         // silver / blue / orange
+        version: versionLabelMap[selectedVersion],    // نسخة هونغ كونغ / نسخة اليابان
         price: numericPrice
     };
 
@@ -374,7 +443,6 @@ function handleAddToCart() {
 // أول تشغيل للصفحة
 updatePrice();
 </script>
-<script src="cart.js"></script>
 
 </body>
 </html>
