@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Realme C75x – مستر أبل</title>
+    <style>
+        /* زر السلة في الهيدر */
+        .cart-link {
+            color:#fff !important;
+            font-size:16px;
+            text-decoration:none;
+            position:relative;
+            display:flex;
+            align-items:center;
+            gap:6px;
+        }
+
+        #cartCount {
+            display:none;
+            background:#ff4444;
+            color:#fff;
+            padding:2px 6px;
+            border-radius:50%;
+            font-size:12px;
+            position:absolute;
+            top:-6px;
+            right:-10px;
+        }
+
+        /* زر أضف إلى السلة */
+        .btn-add-cart {
+            margin-top: 10px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            background: #25d366;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        .btn-add-cart:hover {
+            opacity: 0.9;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle at top, #1c1c1c 0, #050505 45%, #000 100%);
+            color: #fff;
+        }
+
+        .top-bar {
+            background:#000;
+            padding:10px 20px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .top-bar .logo { font-weight:bold; font-size:18px; }
+
+        .top-bar a { color:#aaa; text-decoration:none; font-size:14px; }
+
+        .page-wrap {
+            max-width: 1100px;
+            margin: 30px auto 40px;
+            padding: 0 20px;
+        }
+
+        .product-layout { display:flex; flex-wrap:wrap; gap:40px; }
+
+        .product-gallery { flex:1 1 320px; text-align:center; }
+
+        .product-gallery img {
+            max-width:100%;
+            border-radius:24px;
+        }
+
+        .product-info { flex:1 1 320px; }
+
+        .product-info h1 { font-size:30px; margin:0 0 10px; }
+
+        .subtitle { color:#bbb; margin-bottom:15px; }
+
+        .price-line { margin:12px 0 20px; font-size:20px; }
+        .price-line span { color:#ffcc33; font-weight:bold; }
+
+        .specs {
+            margin-top:40px;
+            padding:20px;
+            background:#111;
+            border-radius:16px;
+        }
+
+        .specs-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+            gap:15px;
+        }
+
+        .spec-card {
+            padding:12px;
+            border:1px solid #333;
+            border-radius:12px;
+            font-size:14px;
+        }
+
+        .back-link { color:#8ab4ff; text-decoration:none; margin-top:20px; display:inline-block; }
+
+        @media (max-width:768px) {
+            .product-layout { flex-direction:column; }
+            .product-info h1 { font-size:24px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="top-bar">
+    <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Mr Apple" style="height:80px;">
+    </a>
+
+    <div style="display:flex; align-items:center; gap:25px;">
+
+        <!-- زر السلة -->
+        <a href="cart.html" class="cart-link">
+            🛒 السلة
+            <span id="cartCount">0</span>
+        </a>
+
+        <!-- رجوع للمتجر -->
+        <a href="index.html">العودة إلى المتجر</a>
+    </div>
+</header>
+
+<div class="page-wrap">
+
+    <div class="product-layout">
+
+        <!-- الصورة -->
+        <div class="product-gallery">
+            <img id="mainImage" src="images/rec75x.png" alt="Realme C75x">
+        </div>
+
+        <!-- المعلومات -->
+        <div class="product-info">
+
+            <h1>Realme C75x</h1>
+
+            <div class="subtitle">
+                هاتف اقتصادي قوي ببطارية جبارة وكاميرا ممتازة مقابل السعر، مثالي للاستخدام اليومي.
+            </div>
+
+            <!-- السعر -->
+            <div id="priceBox" class="price-line">
+                السعر: <span id="realPrice">205.000 IQD</span>
+            </div>
+
+            <!-- زر أضف إلى السلة -->
+            <button class="btn-add-cart" onclick="handleAddToCart()">
+                أضف إلى السلة 🛒
+            </button>
+
+            <!-- المواصفات -->
+            <section class="specs">
+                <h2>أهم المواصفات</h2>
+
+                <div class="specs-grid">
+                    <div class="spec-card">
+                        <strong>الشاشة</strong><br>
+                        شاشة كبيرة بدقة ممتازة ومناسبة للمشاهدة وللألعاب الخفيفة.
+                    </div>
+                    <div class="spec-card">
+                        <strong>الأداء</strong><br>
+                        معالج سريع في الاستخدام اليومي وتصفح التطبيقات.
+                    </div>
+                    <div class="spec-card">
+                        <strong>التخزين</strong><br>
+                        سعة 256GB تكفي لجميع التطبيقات والصور والفيديوهات.
+                    </div>
+                    <div class="spec-card">
+                        <strong>الكاميرا</strong><br>
+                        كاميرا خلفية جيدة تعطي نتائج ممتازة في الإضاءة القوية والمتوسطة.
+                    </div>
+                    <div class="spec-card">
+                        <strong>البطارية</strong><br>
+                        بطارية ضخمة تدوم يوم كامل من الاستخدام.
+                    </div>
+                    <div class="spec-card">
+                        <strong>النظام</strong><br>
+                        واجهة Realme UI بخيارات بسيطة وسهلة الاستخدام.
+                    </div>
+                </div>
+
+                <a href="index.html" class="back-link">🔙 العودة للمتجر</a>
+            </section>
+        </div>
+    </div>
+</div>
+
+<!-- إضافة للسلة -->
+<script>
+    const numericPrice = 205000; // السعر الرقمي
+
+    function handleAddToCart() {
+        const product = {
+            id: 'realme-c75x',
+            name: 'Realme C75x',
+            capacity: '256GB',
+            price: numericPrice
+        };
+
+        addToCart(product); // موجودة في cart.js
+    }
+</script>
+
+<script src="cart.js"></script>
+
+</body>
+</html>
