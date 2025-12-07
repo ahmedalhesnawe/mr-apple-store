@@ -307,6 +307,35 @@ header .logo img {
     color:#fff;
 }
 
+/* أقسام فرعية داخل قسم الإكسسوارات */
+.sub-section-buttons {
+    display: none;            /* مخفية افتراضياً */
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 5px 0 15px;
+}
+
+.sub-section-buttons button {
+    padding:6px 12px;
+    border-radius:16px;
+    border:none;
+    background:#151515;
+    color:#e0e0e0;
+    font-size:12px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.sub-section-buttons button:hover {
+    background:#222;
+}
+
+.sub-section-buttons button.active {
+    background:#ff7a00;
+    color:#fff;
+}
+
 /* ===== السلايدر ===== */
 .slider-container {
     width:100%;
@@ -378,7 +407,7 @@ header .logo img {
 
     <div class="header-right">
 
-        <!-- أيقونات التواصل (SVG تودّي إلى صفحة المتجر) -->
+        <!-- أيقونات التواصل (SVG) -->
         <div class="social-icons">
 
             <!-- Facebook -->
@@ -485,6 +514,9 @@ header .logo img {
         </select>
     </div>
 
+    <!-- أقسام فرعية خاصة بقسم الإكسسوارات -->
+    <div id="accessoriesSub" class="sub-section-buttons"></div>
+
     <!-- الأقسام الديناميكية من الشيت -->
     <section id="apple" class="products"></section>
     <section id="samsung" class="products" style="display:none;"></section>
@@ -574,9 +606,10 @@ async function loadAllProducts() {
 
     buildTypeList();
     applyUnifiedFilter();
+    buildAccessoriesSubCategories(); // بناء الأقسام الفرعية للإكسسوارات
 }
 
-// تجميع الأنواع للفلاتر
+// تجميع الأنواع للفلاتر العامة
 function buildTypeList() {
     const used = new Set();
     allProducts.forEach(p => { if (p.type) used.add(p.type); });
@@ -586,6 +619,55 @@ function buildTypeList() {
 
     used.forEach(t => {
         sel.innerHTML += `<option value="${t}">${t}</option>`;
+    });
+}
+
+// بناء الأقسام الفرعية للإكسسوارات فقط
+function buildAccessoriesSubCategories() {
+    const subWrap = document.getElementById('accessoriesSub');
+    if (!subWrap) return;
+
+    const types = new Set();
+    allProducts.forEach(p => {
+        if (p.category === 'accessories' && p.type) {
+            types.add(p.type);
+        }
+    });
+
+    subWrap.innerHTML = "";
+
+    if (!types.size) {
+        subWrap.style.display = "none";
+        return;
+    }
+
+    // افتراضياً مخفية، تظهر فقط عند فتح قسم الإكسسوارات
+    subWrap.style.display = "none";
+
+    // زر "الكل"
+    subWrap.innerHTML += `<button data-type="" class="active">الكل</button>`;
+
+    // باقي الأنواع
+    types.forEach(t => {
+        subWrap.innerHTML += `<button data-type="${t}">${t}</button>`;
+    });
+
+    const typeSelect = document.getElementById("typeFilter");
+
+    subWrap.querySelectorAll("button").forEach(btn => {
+        btn.addEventListener("click", () => {
+            // تغيير الشكل النشط
+            subWrap.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            // ضبط قيمة الفلتر typeFilter
+            const val = btn.getAttribute("data-type") || "";
+            if (typeSelect) {
+                typeSelect.value = val;
+            }
+
+            applyUnifiedFilter();
+        });
     });
 }
 
@@ -618,6 +700,16 @@ function switchCategory(cat) {
 
     // إظهار القسم المختار
     document.getElementById(cat).style.display = "grid";
+
+    // إظهار / إخفاء الأقسام الفرعية للإكسسوارات
+    const accessoriesSub = document.getElementById('accessoriesSub');
+    if (accessoriesSub) {
+        if (cat === 'accessories' && accessoriesSub.children.length > 0) {
+            accessoriesSub.style.display = 'flex';
+        } else {
+            accessoriesSub.style.display = 'none';
+        }
+    }
 
     applyUnifiedFilter();
 }
