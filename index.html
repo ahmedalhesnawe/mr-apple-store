@@ -746,16 +746,39 @@ function renderProducts(list, container) {
     list.forEach(p => {
         let badge = `<span class="badge-status ${p.statusKey === 'available' ? 'badge-available' : 'badge-out'}">${p.statusRaw}</span>`;
 
+        let detailBtnHtml = "";
+
+        // إذا كان إكسسوار وما عنده صفحة HTML → خلي الزر يروح واتساب
+        if (p.category === "accessories" && (!p.html || p.html === "#")) {
+
+            const waLink = "https://wa.me/9647812349544?text="
+                + encodeURIComponent("أريد تفاصيل عن: " + p.name);
+
+            detailBtnHtml = `
+                <a class="detail-btn" href="${waLink}" target="_blank">
+                    اطلب عبر واتساب
+                </a>
+            `;
+        } else {
+            // باقي المنتجات أو الإكسسوارات اللي إلها صفحة HTML
+            detailBtnHtml = `
+                <a class="detail-btn" href="${p.html}">
+                    عرض التفاصيل
+                </a>
+            `;
+        }
+
         container.innerHTML += `
         <div class="card">
             <img src="${p.image}" alt="${p.name}">
             <h3>${p.name}</h3>
             ${badge}
-            <a class="detail-btn" href="${p.html}">عرض التفاصيل</a>
+            ${detailBtnHtml}
         </div>
         `;
     });
 }
+
 
 loadAllProducts();
 </script>
