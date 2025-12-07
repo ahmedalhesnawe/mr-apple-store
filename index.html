@@ -23,7 +23,7 @@
     justify-content: center;
     align-items: center;
     transition: 0.25s ease;
-    color: #fff; /* مهم حتى يلون الـ SVG لأنه يستخدم currentColor */
+    color: #fff;
     text-decoration: none;
     cursor: pointer;
 }
@@ -307,40 +307,51 @@ header .logo img {
     color:#fff;
 }
 
-/* ===== كروت أنواع الإكسسوارات ===== */
+/* ===== كروت أنواع الإكسسوارات (مثل الصورة) ===== */
 .accessories-types {
-    display: none; /* نخفيها افتراضياً، نعرضها فقط لما يختار قسم الإكسسوارات */
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 16px;
-    margin: 8px 0 20px;
+    display: none; /* تظهر فقط عند اختيار قسم الإكسسوارات */
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 18px;
+    margin: 10px 0 22px;
 }
 
-.type-card {
-    background: rgba(0,0,0,0.65);
-    border-radius: 14px;
-    padding: 16px 10px;
+.acc-type-card {
+    background: #f9fafb;
+    border-radius: 20px;
+    padding: 18px 14px 14px;
     text-align: center;
     cursor: pointer;
-    border: 1px solid rgba(255,255,255,0.18);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.35);
-    transition: 0.25s;
+    box-shadow: 0 8px 18px rgba(15,23,42,0.08);
+    transition: 0.25s ease;
 }
 
-.type-card:hover {
+.acc-type-card:hover {
     transform: translateY(-4px);
-    background: rgba(20,20,20,0.9);
-    box-shadow: 0 10px 22px rgba(0,0,0,0.45);
+    box-shadow: 0 12px 28px rgba(15,23,42,0.14);
 }
 
-.type-card .type-icon {
-    font-size: 26px;
-    margin-bottom: 6px;
+.acc-type-card img {
+    width: 120px;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 10px;
+    display:block;
 }
 
-.type-card span {
+.acc-type-card span {
+    display:block;
     font-size: 14px;
-    color: #f5f5f5;
-    font-weight: bold;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* رسالة فارغة */
+.accessories-empty-msg {
+    display:none;
+    text-align:center;
+    color:#bbb;
+    margin-top:10px;
+    font-size:14px;
 }
 
 /* ===== السلايدر ===== */
@@ -416,28 +427,23 @@ header .logo img {
 
         <!-- أيقونات التواصل (SVG) -->
         <div class="social-icons">
-
-            <!-- Facebook -->
             <a href="https://www.facebook.com/mr.apple.diw" class="icon fb">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M22 12.07C22 6.48 17.52 2 11.93 2S2 6.48 2 12.07C2 17.1 5.66 21.22 10.44 22v-6.99H7.9v-2.94h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.94h-2.34V22c4.78-.78 8.44-4.9 8.44-9.93z"/>
                 </svg>
             </a>
 
-            <!-- Instagram -->
             <a href="https://www.instagram.com/mr.apple.diwa/" class="icon ig">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3.5A5.5 5.5 0 1 0 17.5 13 5.5 5.5 0 0 0 12 7.5zm0 9A3.5 3.5 0 1 1 15.5 13 3.5 3.5 0 0 1 12 16.5zm4.8-10.9a1.2 1.2 0 1 0 1.2 1.2 1.2 1.2 0 0 0-1.2-1.2z"/>
                 </svg>
             </a>
 
-            <!-- WhatsApp -->
             <a href="https://wa.link/8921a7" class="icon wa">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M12.04 2C6.55 2 2.09 6.46 2.09 11.95c0 2.1.55 4.01 1.52 5.68L2 22l4.51-1.56a10.02 10.02 0 0 0 5.53 1.63h.01c5.49 0 9.95-4.46 9.95-9.95C22 6.46 17.54 2 12.04 2Zm0 17.87c-1.77 0-3.44-.52-4.88-1.51l-.35-.23-2.67.92.91-2.6-.23-.4a8.28 8.28 0 1 1 7.22 4.82Zm4.59-6.21c-.25-.12-1.47-.72-1.7-.8-.23-.08-.4-.12-.57.12-.17.25-.66.8-.81.97-.15.17-.3.18-.55.06-.25-.12-1.06-.39-2.02-1.24-.75-.67-1.26-1.49-1.41-1.74-.15-.25-.02-.38.1-.5.1-.1.25-.27.37-.4.12-.13.15-.23.23-.38.08-.15.04-.28-.02-.4-.06-.12-.57-1.37-.78-1.87-.21-.5-.42-.43-.57-.44h-.5c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.72 4.37 3.81 2.6 1.09 2.6.73 3.07.69.47-.04 1.47-.6 1.68-1.17.21-.57.21-1.06.15-1.17-.06-.1-.23-.17-.48-.29Z"/>
                 </svg>
             </a>
-
         </div>
 
         <!-- السلة -->
@@ -448,11 +454,9 @@ header .logo img {
 
         <!-- تسجيل الدخول / الحساب -->
         <div class="auth-box">
-            <!-- قبل تسجيل الدخول -->
             <a href="login.html" id="loginLink" class="btn-auth">تسجيل دخول</a>
             <a href="register.html" id="registerLink" class="btn-auth-outline">إنشاء حساب</a>
 
-            <!-- بعد تسجيل الدخول -->
             <span id="userWelcome" class="user-welcome" style="display:none;"></span>
             <button id="logoutBtn" class="btn-auth-outline" style="display:none;">تسجيل خروج</button>
         </div>
@@ -523,6 +527,7 @@ header .logo img {
 
     <!-- كروت أنواع الإكسسوارات -->
     <div id="accessoriesTypes" class="accessories-types"></div>
+    <div id="accessoriesEmpty" class="accessories-empty-msg">اختر فئة من الإكسسوارات من الأعلى.</div>
 
     <!-- الأقسام الديناميكية من الشيت -->
     <section id="apple" class="products"></section>
@@ -629,18 +634,29 @@ function buildTypeList() {
     });
 }
 
-// اختيار ايموجي بسيط لكل نوع (اختياري)
-function getTypeIcon(type) {
-    const t = (type || "").toLowerCase();
-    if (t.includes("شاحن")) return "🔌";
-    if (t.includes("كيبل") || t.includes("كابل")) return "📶";
-    if (t.includes("سماعة") || t.includes("سماعات")) return "🎧";
-    if (t.includes("استاند") || t.includes("حامل")) return "📱";
-    if (t.includes("حماية") || t.includes("سكرين")) return "🛡️";
-    return "✨";
+/* ماب لربط نوع الإكسسوار بصورة (غيّر المسارات حسب ملفاتك) */
+const accessoriesTypeImagesMap = {
+    "سماعات و سبيكرات": "images/acc_speakers.png",
+    "سماعات": "images/acc_speakers.png",
+    "كيبلات و محولات مختلفة": "images/acc_cables.png",
+    "كيبلات": "images/acc_cables.png",
+    "الساعات الذكية و ملحقاتها": "images/acc_watches.png",
+    "كفرات حماية": "images/acc_cases.png",
+    "شواحن محمولة متنوعة": "images/acc_powerbanks.png",
+    "منتجات اخرى متنوعة": "images/acc_other.png",
+    "منتجات للمنزل": "images/acc_home.png",
+    "حقائب متنوعة": "images/acc_bags.png"
+};
+
+/* اختيار صورة مناسبة حسب النوع */
+function getAccessoryTypeImage(type) {
+    if (accessoriesTypeImagesMap[type]) return accessoriesTypeImagesMap[type];
+
+    // لو ماكو صورة مخصصة، استخدم صورة افتراضية
+    return "images/acc_default.png";
 }
 
-// بناء كروت أنواع الإكسسوارات
+// بناء كروت أنواع الإكسسوارات مثل الصورة
 function buildAccessoriesTypesGrid() {
     const container = document.getElementById('accessoriesTypes');
     if (!container) return;
@@ -660,10 +676,10 @@ function buildAccessoriesTypesGrid() {
     }
 
     types.forEach(t => {
-        const icon = getTypeIcon(t);
+        const imgSrc = getAccessoryTypeImage(t);
         container.innerHTML += `
-            <div class="type-card" data-type="${t}">
-                <div class="type-icon">${icon}</div>
+            <div class="acc-type-card" data-type="${t}">
+                <img src="${imgSrc}" alt="${t}">
                 <span>${t}</span>
             </div>
         `;
@@ -671,28 +687,32 @@ function buildAccessoriesTypesGrid() {
 
     const typeSelect = document.getElementById("typeFilter");
     const accessoriesSection = document.getElementById("accessories");
+    const emptyMsg = document.getElementById("accessoriesEmpty");
 
-    container.querySelectorAll(".type-card").forEach(card => {
+    container.querySelectorAll(".acc-type-card").forEach(card => {
         card.addEventListener("click", () => {
             const typeVal = card.getAttribute("data-type") || "";
 
+            // تحديد الفلتر على النوع
             if (typeSelect) {
-                typeSelect.value = typeVal; // نضبط فلتر النوع
+                typeSelect.value = typeVal;
             }
 
-            // إظهار منتجات الإكسسوارات
-            if (accessoriesSection) {
-                accessoriesSection.style.display = "grid";
-            }
-
+            // ضبط القسم الحالي على الإكسسوارات
             currentCategory = "accessories";
             document.querySelectorAll(".section-buttons button").forEach(b => b.classList.remove("active"));
             document.getElementById("btnAccessories").classList.add("active");
             categoryTitleEl.textContent = categoryTitles["accessories"];
 
+            // إظهار شبكة المنتجات + إخفاء الرسالة
+            if (accessoriesSection) {
+                accessoriesSection.style.display = "grid";
+            }
+            if (emptyMsg) emptyMsg.style.display = "none";
+
             applyUnifiedFilter();
 
-            // سكرول للكروت
+            // سكرول للمنتجات
             accessoriesSection.scrollIntoView({
                 behavior: "smooth",
                 block: "start"
@@ -729,16 +749,19 @@ function switchCategory(cat) {
     document.getElementById("accessories").style.display = "none";
 
     const accessoriesTypes = document.getElementById("accessoriesTypes");
+    const emptyMsg = document.getElementById("accessoriesEmpty");
 
     if (cat === "accessories") {
-        // عرض كروت أنواع الإكسسوارات
+        // عرض كروت أنواع الإكسسوارات فقط (بدون هواتف/منتجات) إلى أن يختار نوع
         if (accessoriesTypes && accessoriesTypes.children.length > 0) {
             accessoriesTypes.style.display = "grid";
         }
-        // عرض منتجات الإكسسوارات كلها كبداية
-        document.getElementById("accessories").style.display = "grid";
+        if (emptyMsg) {
+            emptyMsg.style.display = "block";
+        }
     } else {
         if (accessoriesTypes) accessoriesTypes.style.display = "none";
+        if (emptyMsg) emptyMsg.style.display = "none";
         document.getElementById(cat).style.display = "grid";
     }
 
@@ -752,6 +775,13 @@ function applyUnifiedFilter() {
     const status = document.getElementById("statusFilter").value;
 
     const target = document.getElementById(currentCategory);
+
+    // في حالة الإكسسوارات ومعروض فقط الكروت، نخلي المنتجات فارغة بدون رسالة
+    if (currentCategory === "accessories" && target.style.display === "none") {
+        target.innerHTML = "";
+        return;
+    }
+
     target.innerHTML = "";
 
     const filtered = allProducts.filter(p => {
@@ -779,9 +809,8 @@ function renderProducts(list, container) {
 
         let detailBtnHtml = "";
 
-        // إذا كان إكسسوار وما عنده صفحة HTML → خلي الزر يروح واتساب
+        // إذا كان إكسسوار وما عنده صفحة HTML → زر واتساب
         if (p.category === "accessories" && (!p.html || p.html === "#")) {
-
             const waLink = "https://wa.me/9647812349544?text="
                 + encodeURIComponent("أريد تفاصيل عن: " + p.name);
 
@@ -791,7 +820,7 @@ function renderProducts(list, container) {
                 </a>
             `;
         } else {
-            // باقي المنتجات أو الإكسسوارات اللي إلها صفحة HTML
+            // باقي المنتجات
             detailBtnHtml = `
                 <a class="detail-btn" href="${p.html}">
                     عرض التفاصيل
