@@ -307,33 +307,40 @@ header .logo img {
     color:#fff;
 }
 
-/* أقسام فرعية داخل قسم الإكسسوارات */
-.sub-section-buttons {
-    display: none;            /* مخفية افتراضياً */
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 5px 0 15px;
+/* ===== كروت أنواع الإكسسوارات ===== */
+.accessories-types {
+    display: none; /* نخفيها افتراضياً، نعرضها فقط لما يختار قسم الإكسسوارات */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+    margin: 8px 0 20px;
 }
 
-.sub-section-buttons button {
-    padding:6px 12px;
-    border-radius:16px;
-    border:none;
-    background:#151515;
-    color:#e0e0e0;
-    font-size:12px;
-    cursor:pointer;
-    transition:0.2s;
+.type-card {
+    background: rgba(0,0,0,0.65);
+    border-radius: 14px;
+    padding: 16px 10px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.18);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+    transition: 0.25s;
 }
 
-.sub-section-buttons button:hover {
-    background:#222;
+.type-card:hover {
+    transform: translateY(-4px);
+    background: rgba(20,20,20,0.9);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.45);
 }
 
-.sub-section-buttons button.active {
-    background:#ff7a00;
-    color:#fff;
+.type-card .type-icon {
+    font-size: 26px;
+    margin-bottom: 6px;
+}
+
+.type-card span {
+    font-size: 14px;
+    color: #f5f5f5;
+    font-weight: bold;
 }
 
 /* ===== السلايدر ===== */
@@ -514,8 +521,8 @@ header .logo img {
         </select>
     </div>
 
-    <!-- أقسام فرعية خاصة بقسم الإكسسوارات -->
-    <div id="accessoriesSub" class="sub-section-buttons"></div>
+    <!-- كروت أنواع الإكسسوارات -->
+    <div id="accessoriesTypes" class="accessories-types"></div>
 
     <!-- الأقسام الديناميكية من الشيت -->
     <section id="apple" class="products"></section>
@@ -606,7 +613,7 @@ async function loadAllProducts() {
 
     buildTypeList();
     applyUnifiedFilter();
-    buildAccessoriesSubCategories(); // بناء الأقسام الفرعية للإكسسوارات
+    buildAccessoriesTypesGrid(); // بناء كروت أنواع الإكسسوارات
 }
 
 // تجميع الأنواع للفلاتر العامة
@@ -622,10 +629,21 @@ function buildTypeList() {
     });
 }
 
-// بناء الأقسام الفرعية للإكسسوارات فقط
-function buildAccessoriesSubCategories() {
-    const subWrap = document.getElementById('accessoriesSub');
-    if (!subWrap) return;
+// اختيار ايموجي بسيط لكل نوع (اختياري)
+function getTypeIcon(type) {
+    const t = (type || "").toLowerCase();
+    if (t.includes("شاحن")) return "🔌";
+    if (t.includes("كيبل") || t.includes("كابل")) return "📶";
+    if (t.includes("سماعة") || t.includes("سماعات")) return "🎧";
+    if (t.includes("استاند") || t.includes("حامل")) return "📱";
+    if (t.includes("حماية") || t.includes("سكرين")) return "🛡️";
+    return "✨";
+}
+
+// بناء كروت أنواع الإكسسوارات
+function buildAccessoriesTypesGrid() {
+    const container = document.getElementById('accessoriesTypes');
+    if (!container) return;
 
     const types = new Set();
     allProducts.forEach(p => {
@@ -634,39 +652,51 @@ function buildAccessoriesSubCategories() {
         }
     });
 
-    subWrap.innerHTML = "";
+    container.innerHTML = "";
 
     if (!types.size) {
-        subWrap.style.display = "none";
+        container.style.display = "none";
         return;
     }
 
-    // افتراضياً مخفية، تظهر فقط عند فتح قسم الإكسسوارات
-    subWrap.style.display = "none";
-
-    // زر "الكل"
-    subWrap.innerHTML += `<button data-type="" class="active">الكل</button>`;
-
-    // باقي الأنواع
     types.forEach(t => {
-        subWrap.innerHTML += `<button data-type="${t}">${t}</button>`;
+        const icon = getTypeIcon(t);
+        container.innerHTML += `
+            <div class="type-card" data-type="${t}">
+                <div class="type-icon">${icon}</div>
+                <span>${t}</span>
+            </div>
+        `;
     });
 
     const typeSelect = document.getElementById("typeFilter");
+    const accessoriesSection = document.getElementById("accessories");
 
-    subWrap.querySelectorAll("button").forEach(btn => {
-        btn.addEventListener("click", () => {
-            // تغيير الشكل النشط
-            subWrap.querySelectorAll("button").forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
+    container.querySelectorAll(".type-card").forEach(card => {
+        card.addEventListener("click", () => {
+            const typeVal = card.getAttribute("data-type") || "";
 
-            // ضبط قيمة الفلتر typeFilter
-            const val = btn.getAttribute("data-type") || "";
             if (typeSelect) {
-                typeSelect.value = val;
+                typeSelect.value = typeVal; // نضبط فلتر النوع
             }
 
+            // إظهار منتجات الإكسسوارات
+            if (accessoriesSection) {
+                accessoriesSection.style.display = "grid";
+            }
+
+            currentCategory = "accessories";
+            document.querySelectorAll(".section-buttons button").forEach(b => b.classList.remove("active"));
+            document.getElementById("btnAccessories").classList.add("active");
+            categoryTitleEl.textContent = categoryTitles["accessories"];
+
             applyUnifiedFilter();
+
+            // سكرول للكروت
+            accessoriesSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
         });
     });
 }
@@ -698,17 +728,18 @@ function switchCategory(cat) {
     document.getElementById("huawei").style.display = "none";
     document.getElementById("accessories").style.display = "none";
 
-    // إظهار القسم المختار
-    document.getElementById(cat).style.display = "grid";
+    const accessoriesTypes = document.getElementById("accessoriesTypes");
 
-    // إظهار / إخفاء الأقسام الفرعية للإكسسوارات
-    const accessoriesSub = document.getElementById('accessoriesSub');
-    if (accessoriesSub) {
-        if (cat === 'accessories' && accessoriesSub.children.length > 0) {
-            accessoriesSub.style.display = 'flex';
-        } else {
-            accessoriesSub.style.display = 'none';
+    if (cat === "accessories") {
+        // عرض كروت أنواع الإكسسوارات
+        if (accessoriesTypes && accessoriesTypes.children.length > 0) {
+            accessoriesTypes.style.display = "grid";
         }
+        // عرض منتجات الإكسسوارات كلها كبداية
+        document.getElementById("accessories").style.display = "grid";
+    } else {
+        if (accessoriesTypes) accessoriesTypes.style.display = "none";
+        document.getElementById(cat).style.display = "grid";
     }
 
     applyUnifiedFilter();
@@ -778,7 +809,6 @@ function renderProducts(list, container) {
         `;
     });
 }
-
 
 loadAllProducts();
 </script>
